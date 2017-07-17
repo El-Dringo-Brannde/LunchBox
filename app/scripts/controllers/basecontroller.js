@@ -8,8 +8,15 @@
  * Controller of the lunchBoxApp
  */
 angular.module('lunchBoxApp')
-   .controller('baseController', function($scope, commService) {
+   .controller('baseController', function($scope, $rootScope) {
+      $scope.foo = "asdhfjhk"
       $scope.userLogin = false
-      $scope.foo = "kjhasdf"
-      console.log(commService.get())
+      $rootScope.$on("showNav", function() {
+         $scope.userLogin = true;
+      });
+      $rootScope.$on("hideNav", function() {
+         $scope.userLogin = false;
+      });
+
+
    });

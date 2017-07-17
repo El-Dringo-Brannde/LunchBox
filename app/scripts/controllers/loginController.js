@@ -8,10 +8,11 @@
  * Controller of the lunchBoxApp
  */
 angular.module('lunchBoxApp')
-   .controller('loginController', function($scope, $http, $cookies, $window, commService) {
+   .controller('loginController', function($scope, $http, $cookies, $window, commService, $rootScope) {
       $scope.loginName = "";
       $scope.currentUser = "";
       $scope.userLogin = false;
+      $rootScope.$broadcast("hideNav")
       // create a message to display in our view 
       $scope.message = 'Everyone come and see how good I look!';
       $scope.signIn = function() {
@@ -25,9 +26,9 @@ angular.module('lunchBoxApp')
             }).then(function success(response) {
                if ($scope.currentUser = response.data.user.length == 0) {
                   alert('invalid username');
-               } else if(response.data.user.length > 1){
-                  for(var i=0; i<response.data.user.length; i++){
-                     if(response.data.user[i].sAMAccountName == $scope.loginName){
+               } else if (response.data.user.length > 1) {
+                  for (var i = 0; i < response.data.user.length; i++) {
+                     if (response.data.user[i].sAMAccountName == $scope.loginName) {
                         $scope.currentUser = response.data.user[i].cn
                         $cookies.put("user", $scope.currentUser)
                         commService.set({
@@ -50,5 +51,5 @@ angular.module('lunchBoxApp')
             })
          }
       }
-      
+
    });
