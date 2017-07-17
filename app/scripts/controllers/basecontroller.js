@@ -9,7 +9,6 @@
  */
 angular.module('lunchBoxApp')
    .controller('baseController', function($scope, $rootScope) {
-      $scope.foo = "asdhfjhk"
       $scope.userLogin = false
       $rootScope.$on("showNav", function() {
          $scope.userLogin = true;
