@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/El-Dringo-Brannde/LunchBox#readme",
   "dependencies": {
+    "angular": "^1.6.5",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.3",

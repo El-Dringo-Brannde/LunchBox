@@ -12,7 +12,12 @@ app.get("/", function(req, res) {
    res.sendFile(path.join(__dirname + '/ClientSide/html/home.html'))
 });
 
-app.get("/", function(req, res) {
+app.get("/angularjs", function (req, res){
+   console.log("sdafasdf")
+   res.sendFile(path.join(__dirname + '/node_modules/angular/angular.js'))
+});
+
+app.get("/login", function(req, res) {
    res.sendFile(path.join(__dirname + '/ClientSide/html/login.html'))
 });
 
