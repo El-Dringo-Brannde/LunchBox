@@ -18,6 +18,8 @@
   "homepage": "https://github.com/El-Dringo-Brannde/LunchBox#readme",
   "dependencies": {
     "express": "^4.15.3",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "mongoose": "^4.11.3",
+    "path": "^0.12.7"
   }
 }
