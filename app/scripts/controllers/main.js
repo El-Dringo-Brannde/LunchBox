@@ -14,6 +14,8 @@ angular.module('lunchBoxApp')
          alert("You have been logged out!")
          $window.location.href = '/#/login';
       }
+      $scope.userLogin = commService.get().showNav
+      console.log($scope.userLogin)
       $scope.user = commService.get().name.split(",").pop()
-
+      console.log($scope.user)
    });
