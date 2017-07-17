@@ -18,6 +18,10 @@
   "homepage": "https://github.com/El-Dringo-Brannde/LunchBox#readme",
   "dependencies": {
     "express": "^4.15.3",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-dest": "^0.2.3",
+    "gulp-scss": "^1.4.0",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.30",
     "mongoose": "^4.11.3",

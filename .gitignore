@@ -1,2 +1,6 @@
 node_modules/**
+.gulp-scss-cache
+.sass-cache
+.vscode
+.DS_Store
 
