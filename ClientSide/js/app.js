@@ -1,16 +1,14 @@
-angular
-   .module('lunchBoxApp', [
-      'ngRoute'
-   ])
-   .config(function($routeProvider) {
-      console.log("ksdjfkl")
-      $routeProvider
-         .when('/home', {
-            templateUrl: '/html/home.html',
-            controller: 'MainController'
-         })
-         .when('/login', {
-            templateUrl: '/html/login.html',
-            controller: 'loginController'
-         })
-   })
+'use strict';
+
+var app = angular.module('lunchBoxApp', ['ngRoute']);
+
+app.config(['$routeProvider',
+   function($routeProvider) {
+      console.log("foo")
+      $routeProvider.
+      when('/login', {
+         templateUrl: 'login.html',
+         controller: 'loginController'
+      })
+   }
+]);

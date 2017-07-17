@@ -1,7 +1,6 @@
-'use strict'
-angular
-   .module('lunchBoxApp')
+angular.module('lunchBoxApp')
    .controller('loginController', function($scope) {
-      console.log("adsfasd")
-      $scope.loginPassword = "poopHeadPassword";
-   })
+      console.log("balls")
+      // create a message to display in our view
+      $scope.message = 'Everyone come and see how good I look!';
+   });
