@@ -14,14 +14,9 @@
    <form>
       <p>
          <label>Username: </label>
-         <input type="text" id="user" />
+         <input type="text" id="user" ng-model="loginName" />
       </p>
-      {{foo}}
-      <p>
-         <label>Password: </label>
-         <input type="password" id="pass">
-      </p>
-      <button type="button">Enter</button>
+      <button type="button" ng-click="signIn()">Enter</button>
    </form>
 </body>
 </html>
