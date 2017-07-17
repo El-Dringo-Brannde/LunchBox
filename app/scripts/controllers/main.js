@@ -13,7 +13,7 @@ angular.module('lunchBoxApp')
       if ($cookies.get("user") == undefined) {
          alert("You have been logged out!")
          $window.location.href = '/#/login';
-
+         $scope.userOnline = false;
       }
-
+      $scope.userOnline = true;
    });

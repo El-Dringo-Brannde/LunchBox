@@ -22,12 +22,14 @@ angular.module('lunchBoxApp')
                method: 'GET',
                url: 'http://ffg.cdk.com:4000/find/user/' + $scope.loginName
             }).then(function success(response) {
-               console.log(response)
                if ($scope.currentUser = response.data.user.length == 0) {
-                  console.log("ERROR BRUH")
                } else if(response.data.user.length > 1){
                   for(var i=0; i<response.data.user.length; i++){
-                     console.log(response.data.user[i].sAMAccountName)
+                     if(response.data.user[i].sAMAccountName == $scope.loginName){
+                        $scope.currentUser = response.data.user[i].cn
+                        $cookies.put("user", $scope.currentUser)
+                        $window.location.href = '/#/';
+                     }
                   }
                } else {
                   $scope.currentUser = response.data.user[0].cn
