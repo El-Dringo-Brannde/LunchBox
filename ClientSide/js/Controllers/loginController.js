@@ -1,9 +1,8 @@
 'use strict'
-
 angular
    .module('lunchBoxApp')
-   .controller('loginController', function($scope){ 
+   .controller('loginController', function($scope) {
       console.log("adsfasd")
-      $scope.loginName = "poopHead";
+      $scope.fuck = "poopHead";
       $scope.loginPassword = "poopHeadPassword";
-})
+   })
