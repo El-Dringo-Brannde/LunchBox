@@ -8,7 +8,7 @@
  * Controller of the lunchBoxApp
  */
 angular.module('lunchBoxApp')
-   .controller('loginController', function($scope, $http, $cookies, $window) {
+   .controller('loginController', function($scope, $http, $cookies, $window, commService) {
       $scope.loginName = "";
       $scope.currentUser = "";
       // create a message to display in our view 
@@ -34,6 +34,10 @@ angular.module('lunchBoxApp')
                } else {
                   $scope.currentUser = response.data.user[0].cn
                   $cookies.put("user", $scope.currentUser)
+                  commService.set({
+                     name: $scope.currentUser
+                  });
+
                   $window.location.href = '/#/';
                }
             })
