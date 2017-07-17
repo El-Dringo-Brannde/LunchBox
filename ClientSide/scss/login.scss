@@ -1,18 +1,33 @@
-@import "variables/colors"
+@import "variables/colors";
 
 body {
+   background-color: $cdk-body-background;
    margin: 0;
    padding: 0;
 }
 
 h1 {
-   color: $cdk-green;
+   color: $cdk-green-dark;
    text-align: center;
 }
 
 form {
+   background-color: white;
    text-align: center;
    width: 500px;
+   height: 150px;
    margin: 0 auto;
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0), 0 1px 10px 0 rgba(0, 0, 0, 0.15);
+   display: flex;
+   flex-wrap: wrap;
+   p {
+      width: 100%;
+   }
+   button {
+      margin: auto;
+      color: $cdk-green-dark;
+   }
+   align-items: center;
 }
+
+
