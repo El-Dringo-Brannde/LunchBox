@@ -25,6 +25,10 @@ angular.module('lunchBoxApp')
                console.log(response)
                if ($scope.currentUser = response.data.user.length == 0) {
                   console.log("ERROR BRUH")
+               } else if(response.data.user.length > 1){
+                  for(var i=0; i<response.data.user.length; i++){
+                     console.log(response.data.user[i].sAMAccountName)
+                  }
                } else {
                   $scope.currentUser = response.data.user[0].cn
                   $cookies.put("user", $scope.currentUser)
