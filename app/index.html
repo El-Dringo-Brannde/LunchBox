@@ -22,13 +22,14 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header" ng-show="userLogin == true">
+    <div class="header"  ng-controller="baseController" ng-hide="userLogin == true">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
 
             <a class="navbar-brand" href="#/">lunchBox</a>
           </div>
+         {{foo}}
 
           <div class="collapse">
 
@@ -69,6 +70,7 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/loginController.js"></script>
+        <script src="scripts/controllers/baseController.js"></script>
         <script src="scripts/services/commservice.js"></script>
         <!-- endbuild -->
 </body>
