@@ -15,7 +15,7 @@ app.get("/app.js", function(req, res) {
    res.sendFile(path.join(__dirname + '/ClientSide/js/app.js'))
 });
 app.get("/", function(req, res) {
-   res.sendFile(path.join(__dirname + '/ClientSide/html/home.html'))
+   res.sendFile(path.join(__dirname + '/ClientSide/index.html'))
 });
 
 app.get("/angularjs", function(req, res) {

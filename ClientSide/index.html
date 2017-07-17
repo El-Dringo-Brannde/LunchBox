@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
    <head>
       <title></title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-
-      <script src="app.js"></script>
-      <script src="/Controllers/loginController.js"></script>
    </head>
-   <body ng-app="lunchBoxApp">
-      something
-      {{poop}}
-      {{loginName}}
-      <input type="text" placeholder="{{loginController.loginName}}" ng-model="loginName"/>
-      <input type="pasword" placeholder="loginPassword" ng-model="loginPassword" />
+   <body>
+      <h1>base</h1>
+      <a href="/home">poo 1</a>
+      <a href="/login">poo 2</a>
+
+      <div ng-view></div>
    </body>
 </html>
