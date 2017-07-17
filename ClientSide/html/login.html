@@ -6,15 +6,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
       <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script> -->
 
    </head>
    <body ng-controller="loginController">
       something
       {{message}}
-      <input type="text" placeholder="{{loginController.loginName}}" ng-model="loginName"/>
-      <input type="pasword" placeholder="loginPassword" ng-model="loginPassword" />
-      <button> Submit!</button>
+      <input type="text" placeholder="CDK Username" ng-model="loginName" required/>
+      <button ng-click="signIn()">Login</button>
 
 
       <script src="app.js"></script>

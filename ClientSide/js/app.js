@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('lunchBoxApp', ['ngRoute']);
+var app = angular.module('lunchBoxApp', ['ngRoute', 'ngCookies']);
 
-app.config(['$routeProvider',
+app.config(['$routeProvider', 
    function($routeProvider) {
       console.log("foo")
       $routeProvider.
