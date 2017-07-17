@@ -12,13 +12,17 @@ var dest = require('gulp-dest');
 //include the autoprefixer (that auto creates support for old browsers)
 var autoprefixer = require('gulp-autoprefixer');
 
-var runSequence = require('run-sequence'); // runs tasks in a sequnce
+// runs tasks in a sequnce
+var runSequence = require('run-sequence');
 
 //browser sync and runs a static server
 var browserSync = require('browser-sync').create();
-
 var reload = browserSync.reload;
 
+
+var inject = require('gulp-inject');
+
+var clean = require('gulp-clean');
 
 //set the autoprefixer to work on
 //  - the last two versions of all major browsers
@@ -40,8 +44,11 @@ var paths = {
    scssWatch: '**/*.scss',
    htmlWatch: '**/*.html',
 
+   base: 'ClientSide/html/base.html',
+
    scssComplile: 'ClientSide/scss/*.scss',
-   htmlCompile: 'ClientSide/html/*.html'
+   htmlCompile: 'ClientSide/html/*.html',
+   jsCompile: 'ClientSide/js/**/*.js'
 }
 
 
@@ -66,7 +73,14 @@ gulp.task('html', function () {
 
 
 gulp.task('js', function () {
-   return;
+   var target = gulp.src(paths.base);
+
+   var sources = gulp.src(paths.jsCompile, {
+      read: false
+   });
+
+   return target.pipe(inject(sources))
+      .pipe(gulp.dest('./product/'));
 })
 
 var config = {
@@ -95,8 +109,15 @@ gulp.task('browser-sync', function () {
 gulp.task('build', function () {
    runSequence(
       'scss',
-      'html'
+      'html',
+      'js'
    );
+});
+
+
+gulp.task("clean", function() {
+    return gulp.src(["./product"], {read: false})
+        .pipe(clean());
 });
 
 
@@ -104,4 +125,5 @@ gulp.task('build', function () {
 gulp.task('default', function () {
    gulp.watch(paths.scssWatch, ['scss']);
    gulp.watch(paths.htmlWatch, ['html']);
+   gulp.watch(paths.jsWatch,   ['js']);
 });
