@@ -19,9 +19,20 @@
   "dependencies": {
     "angular": "^1.6.5",
     "angular-cookies": "^1.6.5",
+    "browser-sync": "^2.18.12",
     "express": "^4.15.3",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-dest": "^0.2.3",
+    "gulp-inject": "^4.2.0",
+    "gulp-scss": "^1.4.0",
     "lodash": "^4.17.4",
+    "mongodb": "^2.2.30",
     "mongoose": "^4.11.3",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "run-sequence": "^2.0.0"
   }
 }

@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html ng-app="lunchBoxApp">
-   <head>
-      <title></title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
-      <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script> -->
+<html lang="en">
 
-   </head>
-   <body ng-controller="loginController">
-      something
-      {{message}}
-      <input type="text" placeholder="CDK Username" ng-model="loginName" required/>
-      <button ng-click="signIn()">Login</button>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+   <title>LunchBox</title>
+   <link href="https://fonts.googleapis.com/css?family=Lato:100,400,400i,700" rel="stylesheet">
+   <link rel="stylesheet" href="login.css">
+</head>
 
+<body>
+   <h1>LunchBox</h1>
+   <form>
+      <p>
+         <label>Username: </label>
+         <input type="text" id="user" />
+      </p>
+      <p>
+         <label>Password: </label>
+         <input type="password" id="pass">
+      </p>
+      <button type="button">Enter</button>
+   </form>
+</body>
 
-      <script src="app.js"></script>
-      <script src="/Controllers/loginController.js"></script>  
-   </body>
 </html>
