@@ -1,0 +1,23 @@
+{
+  "name": "lunchbox",
+  "version": "1.0.0",
+  "description": "CDK Global 2017 Hackathon project by team 'Get Off my LAN'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/El-Dringo-Brannde/LunchBox.git"
+  },
+  "author": "Brandon Dring",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/El-Dringo-Brannde/LunchBox/issues"
+  },
+  "homepage": "https://github.com/El-Dringo-Brannde/LunchBox#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "lodash": "^4.17.4"
+  }
+}
