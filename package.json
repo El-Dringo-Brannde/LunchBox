@@ -23,6 +23,7 @@
     "gulp-dest": "^0.2.3",
     "gulp-scss": "^1.4.0",
     "lodash": "^4.17.4",
+    "mongodb": "^2.2.30",
     "mongoose": "^4.11.3",
     "path": "^0.12.7"
   }
