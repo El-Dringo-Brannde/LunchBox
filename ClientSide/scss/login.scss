@@ -1,4 +1,18 @@
 @import "variables/colors";
+@import "variables/fonts";
+
+* {
+   font-family: $lato;
+   font-size: 12pt;
+   font-weight: 100;
+}
+
+html {
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
 
 body {
    background-color: $cdk-body-background;
@@ -9,23 +23,45 @@ body {
 h1 {
    color: $cdk-green-dark;
    text-align: center;
+   font-size: 1.8em;
+   font-weight: 400;
 }
 
 form {
+   padding: 30px 0;
    background-color: white;
    text-align: center;
    width: 500px;
-   height: 150px;
    margin: 0 auto;
    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0), 0 1px 10px 0 rgba(0, 0, 0, 0.15);
    display: flex;
    flex-wrap: wrap;
+   input {
+      border: none;
+      border-bottom: 1px solid $bootstrap-green;
+      width: 90%;
+      margin: auto;
+   }
    p {
       width: 100%;
    }
+   input, p {
+      display: block;
+   }
    button {
-      margin: auto;
-      color: $cdk-green-dark;
+      margin: 20px auto 0 auto;
+      background: $bootstrap-green;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      font-style: italic;
+      border-radius: 5px;
+      box-shadow: 2px 2px 4px 1px $shadow;
+      transition: box-shadow .3s;
+      cursor: pointer;
+      &:hover {
+         box-shadow: none;
+      }
    }
    align-items: center;
 }
