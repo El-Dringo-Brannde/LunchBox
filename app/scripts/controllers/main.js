@@ -12,19 +12,19 @@
  */
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
-  .controller('MainCtrl', function ($scope, $cookies, $http, $window, commService, $rootScope) {
+  .controller('MainCtrl', function ($scope, $cookies, $http, $window, $rootScope, commService, lunchservice) {
     if ($cookies.get("user") == undefined) {
       alert("You have been logged out!")
       $window.location.href = '/#/login';
-      $rootScope.$broadcast("hideNav") 
+      $rootScope.$broadcast("hideNav")
     }
-   $rootScope.$broadcast("showNav") 
+    $rootScope.$broadcast("showNav")
     var userName;
     commService.get().name == undefined ? userName = $cookies.get("user") :
       userName = commService.get().name
     $scope.user = userName.split(",").pop()
     $scope.name = 'Base Camp Brewing'
-    $scope.getFood =
+    $scope.getFood = 
       $http({
         method: 'GET',
         headers: {
@@ -35,39 +35,52 @@ angular.module('lunchBoxApp')
         for (var i = 0; i < response.data.restaurants.length; i++) {
           if (response.data.restaurants[i].restaurant.name == $scope.name) {
             console.log(response.data.restaurants[i].restaurant)
-             $scope.restaurant = response.data.restaurants[i].restaurant
-             $scope.groupLunch.location.name = $scope.restaurant.name
-             $scope.groupLunch.location.addr = $scope.restaurant.location.address
-             $scope.groupLunch.location.menu = $scope.restaurant.menu_url
+            $scope.restaurant = response.data.restaurants[i].restaurant
+            $scope.tmpData[0].location.name = $scope.restaurant.name
+            $scope.tmpData[0].location.addr = $scope.restaurant.location.address
+            $scope.tmpData[0].location.menu = $scope.restaurant.menu_url
 
-             $scope.groupLunch.extra.rating = $scope.restaurant.user_rating.aggregate_rating
-             $scope.groupLunch.extra.cuisine = $scope.restaurant.cuisines
-             break
+            $scope.tmpData[0].extra.rating = $scope.restaurant.user_rating.aggregate_rating
+            $scope.tmpData[0].extra.cuisine = $scope.restaurant.cuisines
+            break
           }
         }
       }, function error(respone) {
         alert('Restaurant not found')
       });
-      
-      console.log($scope.getRestaurantInfo)
-      $scope.groupLunch = {
-         userName: 'Devin',
-         peopleGoing: '10',
-         travelMethod: 'fa fa-car',
-         time: '12:30',
-         location: {
-           name: "",
-           menu: "",
-           addr: ""
-         },
-         extra: {
-          rating: "",
-          cuisine: ""
-         }
+    
+    $scope.tmpData = [{
+      userName: 'Devin',
+      peopleGoing: '10',
+      travelMethod: 'fa fa-car',
+      time: '12:30',
+      location: {
+        name: "",
+        menu: "",
+        addr: ""
+      },
+      extra: {
+        rating: "",
+        cuisine: ""
       }
-      $scope.showInfo = false;
-      $scope.loadDetails = function(lunchDetails){
-        console.log("poopoo")
-        $scope.showInfo = true;
+    }, {
+      userName: 'Poop',
+      peopleGoing: '420',
+      travelMethod: 'fa fa-car',
+      time: '1:30',
+      location: {
+        name: "SUPER POOP",
+        menu: "no",
+        addr: "420 NoSko0pz Ln"
+      },
+      extra: {
+        rating: "1",
+        cuisine: "Blaze it"
       }
+    }]
+    $scope.showInfo = false;
+    $scope.loadGroup = function(group){
+      $scope.showInfo = true;
+      $scope.group = lunchservice.loadDetails(group)
+    } 
   });

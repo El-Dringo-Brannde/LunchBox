@@ -1,38 +1,39 @@
 <div class="content">
    <div id="peopleList">
       <h3>People going to lunch</h3>
-      <div class="event" ng-model="groupLunch" ng-click="loadDetails(groupLunch)">
+      <div class="event" ng-repeat="groups in tmpData" ng-click="loadGroup(groups)">
          <div class="person">
-            <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="no image">
-            <h4>{{groupLunch.userName}}</h4>
+            <img src="https://bathknight.files.wordpress.com/2011/10/age-uk-the-internet-changed-my-life1.jpg" alt="no image">
+            <h4>{{groups.userName}}</h4>
          </div>
          <div class="location">
             <i class="fa fa-map-marker"></i>
             <div>
-               <p>{{groupLunch.location.name}}</p>
-               <p>{{groupLunch.location.addr}}</p>
+               <p ng-bind="name">{{groups.location.name}}</p>
+               <p>{{groups.location.addr}}</p>
             </div>
          </div>
          <div class="other">
             <div>
                <i class="fa fa-clock-o"></i>
-               <p>{{groupLunch.time}}</p>
+               <p>{{groups.time}}</p>
             </div>
             <div>
                <i class="fa fa-users"></i>
-               <p>{{groupLunch.peopleGoing}}</p>
+               <p>{{groups.peopleGoing}}</p>
             </div>
             <div>
-               <i class="{{groupLunch.travelMethod}}"></i>
+               <i class="{{groups.travelMethod}}"></i>
             </div>
          </div>
       </div>
    </div>
    <div id="moreInfo">
-      <div style="color: white;"ng-show="showInfo == true">
-         <h1 style="color: white;" >More Details PPOOOOOoooooooo0000000ooPPP</h1>
-         <p>{{groupLunch.extra.rating}}</p>
-         <p>{{groupLunch.extra.cuisine}}</p>
+      <div ng-show="showInfo" style="color: white; text-align: center;" >
+         <h1 style="color: white;">{{group.location.name}}</h1>
+         <h3>{{group.location.addr}}</h3>
+         <p>{{group.userName}}</p> <p>{{group.peopleGoing}}</p><p>{{group.time}}</p>
+         <p>Rating: {{group.extra.rating}} </p><p> Cuisine: {{group.extra.cuisine}}</p>
       </div>
    </div>
    <div id="map">
