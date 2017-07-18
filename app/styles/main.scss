@@ -1,86 +1,118 @@
-// bower:scss
-// endbower
-
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
-
+@import "variables/colors";
+@import "variables/fonts";
+@import "modules/toggleSelector";
+html,
 body {
-  padding: 0;
+   font-family: $lato;
+   margin: 0;
+   padding: 0;
+   overflow-x: hidden;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+nav {
+   background: $secondary-dark;
+   height: 50px;
+   width: 100vw;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
-
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
-}
-
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-
-  p + h4 {
-    margin-top: 28px;
-  }
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+#home {
+   .content {
+      display: grid;
+      grid-template-columns: 500px auto;
+      grid-gap: 10px;
+      padding: 25px;
+      grid-row: span 2;
+      background: $cdk-body-background;
+   }
+   #peopleList {
+      background: $secondary;
+      grid-row: span 2;
+      box-shadow: 2px 2px 4px $shadow;
+      overflow-y: scroll;
+      h3 {
+         color: $secondary-text;
+         padding: 5px;
+         background: $secondary-light;
+      }
+      .event {
+         margin: 15px 10px;
+         display: grid;
+         background: #f2f2f2;
+         grid-template-columns: 2fr 1fr;
+         padding: 10px;
+         box-shadow: 2px 2px 8px black;
+         cursor: pointer;
+         p,
+         i,
+         h4 {
+            color: #363636;
+         }
+         .person {
+            display: flex;
+            align-items: center;
+            img {
+               padding-right: 10px;
+            }
+         }
+         img {
+            border-radius: 50%;
+            width: 70px;
+         }
+         div:not(.person) {
+            display: flex;
+            align-items: center;
+         }
+         .location {
+            grid-column: span 2;
+            div {
+               display: block;
+            }
+         }
+         .other {
+            div {
+               width: 33%;
+            }
+         }
+         i {
+            padding: 10px;
+         }
+         .fa-users {
+            transition: 0.2s color;
+            &:hover {
+               transition: 0.2s color;
+               color: gold;
+            }
+         }
+      }
+   }
+   #moreInfo {
+      height: 40vh;
+      background: $secondary;
+      form {
+         margin: 15px;
+         display: flex;
+         display: inline-block;
+         &>div {
+            display: flex;
+         }
+         input {
+            max-width: 60%;
+         }
+      }
+      h3 {
+         widows: 100%;
+         text-align: center;
+         color: $secondary-text;
+         padding: 5px;
+         background: $secondary-light;
+      }
+      h4 {
+         font-weight: 400;
+      }
+   }
+   #map {
+      overflow: hidden;
+      min-height: 300px;
+      background: $secondary-dark;
+   }
 }

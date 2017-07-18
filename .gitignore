@@ -7,3 +7,4 @@ node_modules/**
 *.map
 product/
 package-lock.json
+.tmp
