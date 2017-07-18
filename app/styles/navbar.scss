@@ -15,16 +15,16 @@ nav {
    a {
       float: left;
       display: block;
-      color: $cdk-green-highlight;
+      color: $cdk-green;
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
       font-size: 17px;
       font-weight: 500;
-      transition: 0.5s color;
+      transition: 0.3s color;
       &:hover {
-         color: #b0d3bd;
-         transition: 0.5s color;
+         color: white;
+         transition: 0.3s color;
       }
    }
 }
