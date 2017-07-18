@@ -1,0 +1,7 @@
+@import "../variables/colors";
+input {
+   border-width: 0 0 1px 0;
+   border-color: $cdk-green;
+   background: none;
+   outline: none;
+}
