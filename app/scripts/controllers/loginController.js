@@ -17,9 +17,8 @@ angular.module('lunchBoxApp')
       $scope.message = 'Everyone come and see how good I look!';
       $scope.signIn = function() {
          if ($scope.loginName.length == 0) {
-            console.log("Invalid Username")
+            alert("Invalid Username")
          } else {
-            console.log("success, submitting request")
             $scope.request = $http({
                method: 'GET',
                url: 'http://ffg.cdk.com:4000/find/user/' + $scope.loginName
@@ -35,6 +34,7 @@ angular.module('lunchBoxApp')
                            name: $scope.currentUser,
                            showNav: true
                         })
+                        $rootScope.$broadcast("showNav") 
                         $window.location.href = '/#/';
                      }
                   }
@@ -45,6 +45,7 @@ angular.module('lunchBoxApp')
                      name: $scope.currentUser,
                      showNav: true
                   });
+                  $rootScope.$broadcast("showNav") 
                   $window.location.href = '/#/';
                }
             })
