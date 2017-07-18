@@ -12,7 +12,7 @@
  */
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
-   .controller('MainCtrl', function($scope, $cookies, $window, commService, $rootScope) {
+   .controller('MainCtrl', function($scope, $cookies, $window, commService, $rootScope, $http) {
       if ($cookies.get("user") == undefined) {
          alert("You have been logged out!")
          $window.location.href = '/#/login';
