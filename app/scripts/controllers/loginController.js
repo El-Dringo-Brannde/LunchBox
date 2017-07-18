@@ -31,7 +31,6 @@ angular.module('lunchBoxApp')
                   commService.set({
                      name: $scope.currentUser
                   });
-
                   $window.location.href = '/#/';
                }
             })
