@@ -24,7 +24,6 @@ angular.module('lunchBoxApp')
       userName = commService.get().name
     $scope.user = userName.split(",").pop()
     $scope.activeUsers = []
-    $scope.usersGoing = []
 
     $scope.getActiveUsersHTTP =
       $http({
@@ -38,11 +37,8 @@ angular.module('lunchBoxApp')
             $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing.length
           }
         }
-      }, function error(respone) {
-        alert('active users not found')
       });
-    console.log($scope.activeUserRestaurants)
-    console.log($scope.usersGoing)
+
     $scope.httpResults = []
     $scope.makeHttpCall = function (restaurantName) {
       $http({
@@ -50,19 +46,16 @@ angular.module('lunchBoxApp')
         headers: {
           'user-key': zomatoKey,
         },
-        url: "https://developers.zomato.com/api/v2.1/search?q='" + restaurantName + "entity_type=city&lat=45.5008823&lon=-122.6777504&radius=10000&sort=rating",
+        url: "https://developers.zomato.com/api/v2.1/search?q='" + restaurantName + "'entity_type=city&lat=45.5008823&lon=-122.6777504&radius=10000&sort=rating",
       }).then(function success(response) {
         console.log(response)
         for (var i = 0; i < response.data.restaurants.length; i++) {
           if (response.data.restaurants[i].restaurant.name == restaurantName) {
-            console.log(response.data.restaurants[i].restaurant.name)
             $scope.httpResults = response.data.restaurants[i].restaurant
             console.log($scope.httpResults)
             break
           }
         }
-      }, function error(respone) {
-        alert('Restaurant not found')
       });
     }
 
@@ -71,6 +64,7 @@ angular.module('lunchBoxApp')
       $scope.showInfo = true
     }) 
     $scope.loadGroup = function (group) {
+      console.log(group.where)
       $scope.makeHttpCall(group.where);
       console.log($scope.httpResults)
       $scope.group = lunchservice.loadDetails(group, $scope.httpResults)

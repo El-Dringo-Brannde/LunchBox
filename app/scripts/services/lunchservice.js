@@ -17,7 +17,7 @@ angular.module('lunchBoxApp')
         travelMethod: group.travelMethod,
         time: group.time,
         location: {
-          name: httpResults.name,
+          name: group.where,
           menu: httpResults.menu_url,
           addr: httpResults.location.address,
         },
