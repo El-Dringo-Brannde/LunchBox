@@ -1,37 +1,58 @@
-<div class="content">
-   <div id="peopleList">
-      <h3>People going to lunch</h3>
-      <div class="event">
-         <div class="person">
-            <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="no image">
-            <h4>Connor Christensen</h4>
-         </div>
-         <div class="location">
-            <i class="fa fa-map-marker"></i>
-            <div>
-               <p>Chipotle</p>
-               <p>1948 SW Broadway, Portland, OR 97201</p>
+<div id="home">
+   <div class="content">
+      <div id="peopleList">
+         <h3>People going to lunch</h3>
+         <div class="event">
+            <div class="person">
+               <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="no image">
+               <h4>Connor Christensen</h4>
             </div>
-         </div>
-         <div class="other">
-            <div>
-               <i class="fa fa-clock-o"></i>
-               <p>12:30</p>
+            <div class="location">
+               <i class="fa fa-map-marker"></i>
+               <div>
+                  <p>Chipotle</p>
+                  <p>1948 SW Broadway, Portland, OR 97201</p>
+               </div>
             </div>
-            <div>
-               <i class="fa fa-users"></i>
-               <p>10</p>
-            </div>
-            <div>
-               <i class="fa fa-car"></i>
+            <div class="other">
+               <div>
+                  <i class="fa fa-clock-o"></i>
+                  <p>12:30</p>
+               </div>
+               <div>
+                  <i class="fa fa-users"></i>
+                  <p>10</p>
+               </div>
+               <div>
+                  <i class="fa fa-car"></i>
+               </div>
             </div>
          </div>
       </div>
-   </div>
-   <div id="moreInfo">
-
-   </div>
-   <div id="map">
-      <img src="map.png" alt="">
+      <div id="moreInfo">
+         <h3>I'm going to lunch</h3>
+         <form action="">
+            <div>
+               <h4>I'm going to: </h4>
+               <input type="text">
+            </div>
+            <div>
+               <h4>I'm getting there by: </h4>
+               <div class="switch switch-blue">
+                  <input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked>
+                  <label for="week2" class="switch-label switch-label-off"><i class="fa fa-car"></i></label>
+                  <input type="radio" class="switch-input" name="view2" value="month2" id="month2">
+                  <label for="month2" class="switch-label switch-label-on">W</label>
+                  <span class="switch-selection"></span>
+               </div>
+            </div>
+            <div>
+               <h4>I'm leaving at: </h4>
+               <input type="text">
+            </div>
+         </form>
+      </div>
+      <div id="map">
+      </div>
    </div>
 </div>
