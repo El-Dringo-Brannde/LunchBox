@@ -23,32 +23,49 @@ angular.module('lunchBoxApp')
     commService.get().name == undefined ? userName = $cookies.get("user") :
       userName = commService.get().name
     $scope.user = userName.split(",").pop()
-    $scope.name = 'Base Camp Brewing'
-    $scope.getFood = 
+    $scope.activeUsers = []
+    $scope.usersGoing = []
+
+    $scope.getActiveUsersHTTP =
+      $http({
+        method: 'GET',
+        url: 'http://localhost:3005/getActiveUsers'
+      }).then(function success(response) {
+        console.log(response.data)
+        for (var i = 0; i < response.data.length; i++) {
+          if (response.data[i].where !== "") {
+            $scope.activeUsers.push(response.data[i])
+            $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing.length
+          }
+        }
+      }, function error(respone) {
+        alert('active users not found')
+      });
+    console.log($scope.activeUserRestaurants)
+    console.log($scope.usersGoing)
+    $scope.httpResults = []
+    $scope.makeHttpCall = function (restaurantName) {
       $http({
         method: 'GET',
         headers: {
-          'user-key': zomatoKey
+          'user-key': zomatoKey,
         },
-        url: "https://developers.zomato.com/api/v2.1/search?q='" + $scope.name + "entity_type=city&lat=45.5008823&lon=-122.6777504&radius=10000&sort=rating",
+        url: "https://developers.zomato.com/api/v2.1/search?q='" + restaurantName + "entity_type=city&lat=45.5008823&lon=-122.6777504&radius=10000&sort=rating",
       }).then(function success(response) {
+        console.log(response)
         for (var i = 0; i < response.data.restaurants.length; i++) {
-          if (response.data.restaurants[i].restaurant.name == $scope.name) {
-            console.log(response.data.restaurants[i].restaurant)
-            $scope.restaurant = response.data.restaurants[i].restaurant
-            $scope.tmpData[0].location.name = $scope.restaurant.name
-            $scope.tmpData[0].location.addr = $scope.restaurant.location.address
-            $scope.tmpData[0].location.menu = $scope.restaurant.menu_url
-
-            $scope.tmpData[0].extra.rating = $scope.restaurant.user_rating.aggregate_rating
-            $scope.tmpData[0].extra.cuisine = $scope.restaurant.cuisines
+          if (response.data.restaurants[i].restaurant.name == restaurantName) {
+            console.log(response.data.restaurants[i].restaurant.name)
+            $scope.httpResults = response.data.restaurants[i].restaurant
+            console.log($scope.httpResults)
             break
           }
         }
       }, function error(respone) {
         alert('Restaurant not found')
       });
-    
+    }
+
     $scope.tmpData = [{
       userName: 'Devin',
       peopleGoing: '10',
@@ -74,13 +91,18 @@ angular.module('lunchBoxApp')
         addr: "420 NoSko0pz Ln"
       },
       extra: {
-        rating: "1",
+        rating: "1hundit",
         cuisine: "Blaze it"
       }
     }]
     $scope.showInfo = false;
-    $scope.loadGroup = function(group){
-      $scope.showInfo = true;
-      $scope.group = lunchservice.loadDetails(group)
-    } 
+    $rootScope.$on("dataPopulated", function(){
+      $scope.showInfo = true
+    }) 
+    $scope.loadGroup = function (group) {
+      $scope.makeHttpCall(group.where);
+      console.log($scope.httpResults)
+      $scope.group = lunchservice.loadDetails(group, $scope.httpResults)
+    }
+    $scope.makeHttpCall('Base Camp Brewing');
   });

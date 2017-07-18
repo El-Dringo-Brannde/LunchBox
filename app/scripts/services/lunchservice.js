@@ -8,24 +8,25 @@
  * Service in the lunchBoxApp.
  */
 angular.module('lunchBoxApp')
-  .service('lunchservice', function () {
+  .service('lunchservice', function ($rootScope) {
     var self = this;
-    self.loadDetails = function (group) {
+    self.loadDetails = function (group, httpResults) {
       var bonusInfo = {
-        userName: group.userName,
+        userName: group.username,
         peopleGoing: group.peopleGoing,
         travelMethod: group.travelMethod,
         time: group.time,
         location: {
-          name: group.location.name,
-          menu: group.location.menu,
-          addr: group.location.addr,
+          name: httpResults.name,
+          menu: httpResults.menu_url,
+          addr: httpResults.location.address,
         },
         extra: {
-          rating: group.extra.rating,
-          cuisine: group.extra.cuisine,
+          rating: httpResults.user_rating.aggregate_rating,
+          cuisine: httpResults.cuisines,
         }
       }
+      $rootScope.$broadcast("dataPopulated")
       return bonusInfo
     }
     return self
