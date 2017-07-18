@@ -1,3 +1,6 @@
+//global variables go here to suppress warnings
+/*global alert*/
+
 'use strict';
 
 /**
