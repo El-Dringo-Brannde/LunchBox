@@ -2,9 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Lunchbox</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -12,6 +14,8 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/navbar.css">
     <!-- endbuild -->
   </head>
   <body ng-app="lunchBoxApp">
@@ -20,31 +24,18 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-
-            <a class="navbar-brand" href="#/">lunchBox</a>
-          </div>
-
-          <div class="collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-              <li><a ng-href="#/login">Login</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    <nav ng-controller="baseController" ng-show="userLogin == true">
+      <a href="#/">Home</a>
+      <a ng-href="#/about">About</a>
+      <a ng-href="#/">Contact</a>
+      <a ng-href="#/login">Login</a>
+    </nav>
 
     <div class="container">
-    <div ng-view=""></div>
+     <div ng-view="">
+        
+     </div>
     </div>
-
 
   <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
@@ -67,7 +58,9 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/loginController.js"></script>
+        <script src="scripts/controllers/baseController.js"></script>
         <script src="scripts/services/commservice.js"></script>
+        <script src="scripts/services/lunchservice.js"></script>
         <!-- endbuild -->
 </body>
 </html>

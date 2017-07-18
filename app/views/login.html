@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="loginContainer">
+   <div class="loginSubcont">
+      <h1>LunchBox</h1>
+      <form>
+         <p>
+            <label>Username: </label>
+            <input type="text" id="user" ng-model="loginName" />
+         </p>
+         <button type="button" ng-click="signIn()">Enter</button>
+      </form>
+   </div>
+</div>
 
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-   <title>LunchBox</title>
-   <link href="https://fonts.googleapis.com/css?family=Lato:100,400,400i,700" rel="stylesheet">
-   <link rel="stylesheet" href="styles/login.css">
-</head>
-
-<body>
-   <h1>LunchBox</h1>
-   <form>
-      <p>
-         <label>Username: </label>
-         <input type="text" id="user" ng-model="loginName" />
-      </p>
-      <button type="submit" ng-click="signIn()">Enter</button>
-   </form>
-</body>
-</html>

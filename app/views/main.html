@@ -1,7 +1,42 @@
-<div class="jumbotron">
-  <h1>Welcome {{user}}!</h1>
-</div>
-
-<div class="row marketing">
-  {{restName}} {{restAddress}}
+<div class="content">
+   <div id="peopleList">
+      <h3>People going to lunch</h3>
+      <div class="event" ng-repeat="groups in tmpData" ng-click="loadGroup(groups)">
+         <div class="person">
+            <img src="https://bathknight.files.wordpress.com/2011/10/age-uk-the-internet-changed-my-life1.jpg" alt="no image">
+            <h4>{{groups.userName}}</h4>
+         </div>
+         <div class="location">
+            <i class="fa fa-map-marker"></i>
+            <div>
+               <p ng-bind="name">{{groups.location.name}}</p>
+               <p>{{groups.location.addr}}</p>
+            </div>
+         </div>
+         <div class="other">
+            <div>
+               <i class="fa fa-clock-o"></i>
+               <p>{{groups.time}}</p>
+            </div>
+            <div>
+               <i class="fa fa-users"></i>
+               <p>{{groups.peopleGoing}}</p>
+            </div>
+            <div>
+               <i class="{{groups.travelMethod}}"></i>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div id="moreInfo">
+      <div ng-show="showInfo" style="color: white; text-align: center;" >
+         <h1 style="color: white;">{{group.location.name}}</h1>
+         <h3>{{group.location.addr}}</h3>
+         <p>{{group.userName}}</p> <p>{{group.peopleGoing}}</p><p>{{group.time}}</p>
+         <p>Rating: {{group.extra.rating}} </p><p> Cuisine: {{group.extra.cuisine}}</p>
+      </div>
+   </div>
+   <div id="map">
+      <img src="map.png" alt="">
+   </div>
 </div>

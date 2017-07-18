@@ -6,18 +6,17 @@
    font-size: 12pt;
    font-weight: 100;
 }
-
-html {
-   height: 100vh;
+body{
+   background-color: $cdk-body-background;
+}
+.loginContainer{
    display: flex;
    justify-content: center;
    align-items: center;
 }
 
-body {
-   background-color: $cdk-body-background;
-   margin: 0;
-   padding: 0;
+.loginSubcont {
+   max-width: 50%;
 }
 
 h1 {
