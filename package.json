@@ -32,6 +32,6 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "debug": "^2.6.8"
+    "generator-angular": "^0.16.0"
   }
 }
