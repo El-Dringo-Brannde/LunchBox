@@ -1,7 +1,7 @@
 node_modules/**
-.gulp-scss-cache
-.sass-cache
-.vscode
+.gulp-scss-cache/
+.sass-cache/
+.vscode/
 .DS_Store
 *.css
 *.map
