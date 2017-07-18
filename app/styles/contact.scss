@@ -2,11 +2,9 @@
 @import "variables/fonts";
 
 #contact {
-   body {
-      background-color: $cdk-body-background;
-      font-family: $lato;
-      font-size: 12pt;
-      font-weight: 400;
+   font-family: $lato;
+   h1, h2 {
+      padding: 10px;
    }
    h1 {
       color: $cdk-green-dark;
@@ -18,9 +16,10 @@
       color: #516053;
       text-align: center;
       font-size: 1.1em;
-      font-weight: 350;
+      padding: 20px;
    }
    p {
+      padding: 5px;
       text-align: center;
    }
    a {

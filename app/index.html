@@ -13,6 +13,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/login.css">
     <link rel="stylesheet" href="styles/contact.css">
@@ -28,9 +29,9 @@
     <!-- Add your site or application content here -->
     <nav ng-controller="baseController" ng-show="userLogin == true">
       <a href="#/">Home</a>
-      <a ng-href="#/contact">Contact</a>
-      <a ng-href="#/login">Login</a>
       <a ng-href="#/profile">Profile</a>
+      <a ng-href="#/contact">Contact</a>
+      <a ng-href="#/login">Log Out</a>
     </nav>
 
     <div class="container">

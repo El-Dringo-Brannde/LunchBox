@@ -1,21 +1,14 @@
 @import "variables/colors";
 @import "variables/fonts";
 @import "modules/toggleSelector";
+@import "modules/input";
 html,
 body {
-   font-family: $lato;
-   margin: 0;
-   padding: 0;
    overflow-x: hidden;
 }
 
-nav {
-   background: $secondary-dark;
-   height: 50px;
-   width: 100vw;
-}
-
 #home {
+   font-family: $lato;
    .content {
       display: grid;
       grid-template-columns: 500px auto;
@@ -88,15 +81,18 @@ nav {
    #moreInfo {
       height: 40vh;
       background: $secondary;
+      color: $secondary-text;
       form {
          margin: 15px;
-         display: flex;
          display: inline-block;
          &>div {
             display: flex;
+            align-items: center;
+            padding: 10px 0;
          }
          input {
             max-width: 60%;
+            margin: 0 10px;
          }
       }
       h3 {

@@ -1,15 +1,11 @@
 @import "variables/colors";
 @import "variables/fonts";
 
-body {
-   margin: 0;
-   padding: 0;
-}
-
 nav {
+   font-family: $lato;
    display: flex;
    justify-content: space-around;
-   background-color: black;
+   background-color: $secondary-dark;
    overflow: hidden;
 
    a {
