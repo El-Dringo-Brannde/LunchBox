@@ -1,3 +1,6 @@
+//global variables go here to suppress warnings
+/*global alert*/
+
 'use strict';
 
 /**
@@ -8,12 +11,10 @@
  * Controller of the lunchBoxApp
  */
 angular.module('lunchBoxApp')
-   .controller('MainCtrl', function($cookies, $window) {
-      console.log($cookies.get("user"))
-      if ($cookies.get("user") == undefined) {
-         alert("You have been logged out!")
+   .controller('MainCtrl', function ($cookies, $window) {
+      console.log($cookies.get("user"));
+      if ($cookies.get("user") === undefined) {
+         alert("You have been logged out!");
          $window.location.href = '/#/login';
-
       }
-
    });
