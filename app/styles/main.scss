@@ -108,7 +108,8 @@ body {
    }
    #map {
       overflow: hidden;
-      min-height: 300px;
+      min-height: 50vmax;
       background: $secondary-dark;
+      
    }
 }
