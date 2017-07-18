@@ -1,6 +1,7 @@
 @import "variables/colors";
 @import "variables/fonts";
 #profile {
+   font-family: $lato;
    display: grid;
    grid-template-columns: 1fr 1fr;
    grid-gap: 1vw;
@@ -12,37 +13,36 @@
    }
    #aboutYou {
       grid-column: span 2;
-      background: white;
+      background: #ededed;
       display: flex;
       align-items: center;
       h1 {
          color: black;
       }
       img {
-         border: 1px solid black;
-         width: 180px;
+         width: 140px;
          margin: 10px;
       }
    }
    .search {
       padding: 5px;
       text-align: center;
-      background: #e2e2e2;
+      background: $primary-dark;
       padding: 10px;
-      label {
-         margin: 0;
-         padding: 0;
-      }
       input {
          width: 300px;
          border: none;
          background: none;
          border-bottom: 1px solid $cdk-green;
+         font-size: 1em;
       }
    }
    
    #friends, #restaurants {
-      background: white;
+      background: $primary;
+      h4 {
+         text-align: left;
+      }
    }
    
    #friends {
