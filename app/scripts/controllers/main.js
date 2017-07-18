@@ -66,35 +66,6 @@ angular.module('lunchBoxApp')
       });
     }
 
-    $scope.tmpData = [{
-      userName: 'Devin',
-      peopleGoing: '10',
-      travelMethod: 'fa fa-car',
-      time: '12:30',
-      location: {
-        name: "",
-        menu: "",
-        addr: ""
-      },
-      extra: {
-        rating: "",
-        cuisine: ""
-      }
-    }, {
-      userName: 'Poop',
-      peopleGoing: '420',
-      travelMethod: 'fa fa-car',
-      time: '1:30',
-      location: {
-        name: "SUPER POOP",
-        menu: "no",
-        addr: "420 NoSko0pz Ln"
-      },
-      extra: {
-        rating: "1hundit",
-        cuisine: "Blaze it"
-      }
-    }]
     $scope.showInfo = false;
     $rootScope.$on("dataPopulated", function(){
       $scope.showInfo = true
@@ -104,5 +75,4 @@ angular.module('lunchBoxApp')
       console.log($scope.httpResults)
       $scope.group = lunchservice.loadDetails(group, $scope.httpResults)
     }
-    $scope.makeHttpCall('Base Camp Brewing');
   });
