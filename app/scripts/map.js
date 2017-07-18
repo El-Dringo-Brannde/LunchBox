@@ -10,7 +10,7 @@ function initMap() {
 
    map = new google.maps.Map(document.getElementById('map'), {
       center: portland,
-      zoom: 17
+      zoom: 14
    });
 
    infowindow = new google.maps.InfoWindow();
