@@ -36,7 +36,7 @@ angular
          })
          .when("/profile", {
             templateUrl: 'views/profile.html',
-            controller: 'profileController',
+            controller: 'ProfileCtrl',
             controllerAs: 'profile'
          })
          .otherwise({
