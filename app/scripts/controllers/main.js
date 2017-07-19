@@ -12,13 +12,11 @@
  */
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
-   .controller('MainCtrl', function($scope, $cookies, $http, $window, $rootScope, commService, lunchservice) {
-      if ($cookies.get("user") == undefined) {
-         alert("You have been logged out!")
-         $window.location.href = '/#/login';
-         $rootScope.$broadcast("hideNav")
-      }
-      $rootScope.$broadcast("showNav")
+   .controller('MainCtrl', function($scope, $cookies, $http, $window,
+      $rootScope, commService, lunchservice, navbar) {
+      var baseUrl = "http://localhost:3005/";
+
+      navbar()
       var userName;
       commService.get().name == undefined ? userName = $cookies.get("user") : userName = commService.get().name
       $scope.user = userName.split(",").pop()
@@ -53,7 +51,6 @@ angular.module('lunchBoxApp')
                if (response.data.restaurants[i].restaurant.name == restaurantName) {
                   $scope.httpResults = response.data.restaurants[i].restaurant
                   console.log($scope.httpResults)
-                  break
                }
             }
          });
@@ -87,8 +84,6 @@ angular.module('lunchBoxApp')
                return true;
             };
          }
-
-
          $scope.showInfo = false;
          $rootScope.$on("dataPopulated", function() {
             $scope.showInfo = true
@@ -100,4 +95,66 @@ angular.module('lunchBoxApp')
             $scope.group = lunchservice.loadDetails(group, $scope.httpResults)
          }
       }
+
+
+
+
+
+
+
+
+
+      $scope.createEvent = function() {
+         console.log('fo')
+         //assign to temp variables for easy readibility
+         var name = $scope.restaurant.name,
+            address = $scope.restaurant.address,
+            time = $scope.time,
+            transport = $scope.transport;
+
+         if (name === "" || address === "" || time === "" || transport === "") {
+            $scope.submissionError = "Error, all fields are required for creating an event";
+         } else {
+            //reset the submission error message if all fields are there
+            $scope.submissionError = "";
+
+            //TODO: some validation before the object is created
+
+            var submissionObject = {
+               //get the username from whatever thing is keeping the user logged in
+               username: $cookies.getObject("user").userName,
+               restaurant: {
+                  name: name,
+                  address: address
+               },
+               time: time,
+               travelMethod: transport
+            };
+            $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
+               .then(function success(response) {
+                     console.log(response)
+                     //clear all the input fields after the data has been put in the database
+                     $scope.restaurant.name = "";
+                     $scope.restaurant.address = "";
+                     $scope.time = "";
+                     $scope.tranport = "";
+                  },
+                  function failiure(response) {
+                     console.log("there was an error posting the data");
+                     $scope.submissionError = "there was an error posting the data";
+                  });
+         }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
    });
