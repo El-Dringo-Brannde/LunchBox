@@ -1,17 +1,3 @@
-<!-- <<<<<<< HEAD
-<div class="content">
-   <div id="peopleList">
-      <h3>People going to lunch</h3>
-      <div class="event" ng-repeat="groups in activeUsers">
-         <div class="person">
-            <img src="https://bathknight.files.wordpress.com/2011/10/age-uk-the-internet-changed-my-life1.jpg" alt="no image">
-            <h4>{{groups.username}}</h4>
-         </div>
-         <div class="location">
-            <i class="fa fa-map-marker"></i>
-            <div>
-               <p>{{groups.where}}</p>
-======= -->
 <div id="home">
   <div class="content">
     <div id="peopleList">
@@ -24,7 +10,7 @@
         <div class="location">
           <i class="fa fa-map-marker"></i>
           <div>
-            <p>{{groups.where}}</p>
+            <p>{{groups.restaurant.name}}</p>
             <!-- <p>1948 SW Broadway, Portland, OR 97201</p> -->
           </div>
         </div>
@@ -41,35 +27,51 @@
             <i class="fa fa-car">{{groups.travelMethod}}</i>
           </div>
         </div>
+        <div>
+          <button type="button" ng-click="plusOne(groups)">Join Group</button>
+          <button type="button" ng-click="moreInfo(groups)">More Info</button>
+        </div>
       </div>
     </div>
     <div id="moreInfo">
-      <h3>I'm going to lunch</h3>
-      <div class="form">
-        <div>
-          <h4>I'm going to: </h4>
-          <input type="text" ng-model="restaurant.name"> {{restaurant.name}}
-        </div>
-        <div>
-          <h4>The address is: </h4>
-          <input type="text" ng-model="restaurant.address"> {{restaurant.address}}
-        </div>
-        <div>
-          <h4>I'm getting there by: </h4>
-          <div class="switch switch-blue">
-            <input type="radio" class="switch-input" name="view2" value="driving" id="week2" checked ng-model="transport">
-            <label for="week2" class="switch-label switch-label-off"><i class="fa fa-car"></i></label>
-            <input type="radio" class="switch-input" name="view2" value="walking" id="month2" ng-model="transport">
-            <label for="month2" class="switch-label switch-label-on">W</label>
-            <span class="switch-selection"></span>
+      <div ng-show="showForm">
+        <h3>I'm going to lunch</h3>
+        <div class="form">
+          <div>
+            <h4>I'm going to: </h4>
+            <input type="text" ng-model="restaurant.name"> {{restaurant.name}}
           </div>
-          {{transport}}
+          <div>
+            <h4>The address is: </h4>
+            <input type="text" ng-model="restaurant.address"> {{restaurant.address}}
+          </div>
+          <div>
+            <h4>I'm getting there by: </h4>
+            <div class="switch switch-blue">
+              <input type="radio" class="switch-input" name="view2" value="driving" id="week2" checked ng-model="transport">
+              <label for="week2" class="switch-label switch-label-off"><i class="fa fa-car"></i></label>
+              <input type="radio" class="switch-input" name="view2" value="walking" id="month2" ng-model="transport">
+              <label for="month2" class="switch-label switch-label-on">W</label>
+              <span class="switch-selection"></span>
+            </div>
+            {{transport}}
+          </div>
+          <div>
+            <h4>I'm leaving at: </h4>
+            <input type="text" ng-model="time"> {{time}}
+          </div>
+          <input type="submit" ng-click="createEvent()" value="submit">
         </div>
+      </div>
+      <div ng-show="!showForm">
         <div>
-          <h4>I'm leaving at: </h4>
-          <input type="text" ng-model="time"> {{time}}
+          <h3> <button type="button" ng-click="showForm=true">Return to Form</button> Join us for lunch!</h3>
+          <h1>{{groupDetails.where}}</h1>
+          <h5>Host: {{groupDetails.user}}</h5>
+          <p>Employees Attending: {{groupDetails.peopleGoingCount}}, {{groupDetails.peopleGoing}}</p>
+          <p>{{groupDetails.time}}</p>
+          <p>{{groupDetails.travelMethod}}
         </div>
-        <input type="submit" ng-click="createEvent()" value="submit">
       </div>
     </div>
     <!--      AIzaSyClTi6U6JZbg66Mr99V28H43mPb3GgXe64-->
@@ -77,18 +79,4 @@
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClTi6U6JZbg66Mr99V28H43mPb3GgXe64&libraries=places&callback=initMap"
         async defer></script>
     </div>
-    
-    <!-- <<<<<<< HEAD
-   </div>
-   <div id="moreInfo">
-      <div ng-show="showInfo" style="color: white; text-align: center;" >
-         <h1 style="color: white;">{{group.location.name}}</h1>
-         <h3>{{group.location.addr}}</h3>
-         <p>{{group.userName}}</p> <p>{{group.peopleGoing}}</p><p>{{group.time}}</p>
-         <p>Rating: {{group.extra.rating}} </p><p> Cuisine: {{group.extra.cuisine}}</p>
-      </div>
-   </div>
-=======
->>>>>>> develop -->
-
   </div>
