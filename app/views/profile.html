@@ -2,12 +2,13 @@
 
    <div id="aboutYou">
       <img src="https://avatars0.githubusercontent.com/u/9158517?v=4" alt="">
-      <h3>Connor Christensen</h3>
+      <h3>{{user}}</h3>
    </div>
 
    <div id="friends">
       <div class="search">
-         <input type="text" placeholder="Search for a friend">
+         <input type="text" id="friendSearch" ng-model="friend" placeholder="Search for a friend on Lunchbox">
+         <button ng-click="addFriend()">Add Friend</button> 
       </div>
 
       <div id="friendsContainer">

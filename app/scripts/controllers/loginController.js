@@ -25,8 +25,12 @@ angular.module('lunchBoxApp')
       }
 
       function createOrLoginUser(idx, cur) {
+         console.log(cur.user[idx])
          $scope.currentUser = cur.user[idx].cn;
-         $cookies.put("user", $scope.currentUser);
+         $cookies.putObject("user", {
+            full: $scope.currentUser,
+            userName: cur.user[idx].sAMAccountName
+         });
          setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
          $http.post("http://localhost:3005/addUser", {
                username: cur.user[idx].sAMAccountName,
@@ -38,6 +42,7 @@ angular.module('lunchBoxApp')
                alert(err);
             });
       }
+
       $scope.signIn = function() {
          if ($scope.loginName.length == 0)
             alert("Invalid Username")
