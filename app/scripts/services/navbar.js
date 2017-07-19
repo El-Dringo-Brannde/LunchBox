@@ -11,7 +11,6 @@ angular.module('lunchBoxApp')
    .service('navbar', function($rootScope, $cookies, $window, commService) {
       // AngularJS will instantiate a singleton by calling "new" on this function
       var navBarInit = function() {
-         console.log($cookies.getObject("user"))
          if ($cookies.get("user") == undefined) {
             alert("You have been logged out!")
             $window.location.href = '/#/login';
