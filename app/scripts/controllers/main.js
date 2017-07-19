@@ -18,7 +18,7 @@ angular.module('lunchBoxApp')
 
       navbar()
       var userName;
-      commService.get().name == undefined ? userName = $cookies.get("user") : userName = commService.get().name
+      commService.get().name == undefined ? userName = $cookies.getObject("user").username : userName = commService.get().name
       $scope.user = userName.split(",").pop()
       $scope.activeUsers = []
 
@@ -58,6 +58,8 @@ angular.module('lunchBoxApp')
       $scope.canJoin = true;
       $scope.plusOne = function(group) {
          for (var i = 0; i < group.peopleGoing.length; i++) {
+           console.log(group.peopleGoing[i])
+           console.log($cookies.getObject("user"))
             if (group.peopleGoing[i] == $cookies.getObject("user").username) {
                $scope.canJoin = false
                $scope.isActive = function() {

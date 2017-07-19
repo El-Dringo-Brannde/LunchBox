@@ -25,8 +25,11 @@ angular.module('lunchBoxApp')
       }
 
       function createOrLoginUser(idx, cur) {
-         $scope.currentUser = cur.user[idx].cn;
-         $cookies.put("user", $scope.currentUser);
+         $scope.currentUser = {
+               name: cur.user[idx].cn,
+               username: cur.user[idx].sAMAccountName
+         }
+         $cookies.putObject("user", $scope.currentUser);
          setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
          $http.post("http://localhost:3005/addUser", {
                username: cur.user[idx].sAMAccountName,
