@@ -80,6 +80,7 @@
           <h3> <button type="button" ng-click="showForm=true">Return to Form</button> Join us for lunch!</h3>
           <h1>{{groupDetails.where}}</h1>
           <h5>Host: {{groupDetails.user}}</h5>
+          <p>Send an Email To <a href="mailto:{{groupDetails.email}}">{{groupDetails.user}}</a></p>
           <p>Employees Attending: {{groupDetails.peopleGoing}}</p>
           <p>When: {{groupDetails.time}}</p>
           <p>Method of Travel: {{groupDetails.travelMethod}}

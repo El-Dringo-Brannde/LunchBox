@@ -103,6 +103,7 @@ angular.module('lunchBoxApp')
     }
     $scope.showForm = true;
     $scope.moreInfo = function (group) {
+      console.log(group);
       $scope.showForm = false;
       $scope.groupDetails = groupService.groupDetails(group)
     }
