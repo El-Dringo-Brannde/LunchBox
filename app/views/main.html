@@ -1,7 +1,7 @@
 <div class="content">
    <div id="peopleList">
       <h3>People going to lunch</h3>
-      <div class="event" ng-repeat="groups in activeUsers" ng-click="loadGroup(groups)">
+      <div class="event" ng-repeat="groups in activeUsers">
          <div class="person">
             <img src="https://bathknight.files.wordpress.com/2011/10/age-uk-the-internet-changed-my-life1.jpg" alt="no image">
             <h4>{{groups.username}}</h4>
@@ -17,9 +17,9 @@
                <i class="fa fa-clock-o"></i>
                <p>{{groups.time}}</p>
             </div>
-            <div>
+            <div ng-model="groups.peopleGoingCount" ng-click="plusOne(groups)">
                <i class="fa fa-users"></i>
-               <p>{{groups.peopleGoing}}</p>
+               <p>{{groups.peopleGoingCount}}</p>
             </div>
             <div>
                <i class="fa fa-car"></i>

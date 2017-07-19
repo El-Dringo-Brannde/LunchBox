@@ -20,8 +20,7 @@ angular.module('lunchBoxApp')
     }
     $rootScope.$broadcast("showNav")
     var userName;
-    commService.get().name == undefined ? userName = $cookies.get("user") :
-      userName = commService.get().name
+    commService.get().name == undefined ? userName = $cookies.get("user") : userName = commService.get().name
     $scope.user = userName.split(",").pop()
     $scope.activeUsers = []
 
@@ -34,7 +33,8 @@ angular.module('lunchBoxApp')
         for (var i = 0; i < response.data.length; i++) {
           if (response.data[i].where !== "") {
             $scope.activeUsers.push(response.data[i])
-            $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing.length
+            $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing
+            $scope.activeUsers[i].peopleGoingCount = $scope.activeUsers[i].peopleGoing.length
           }
         }
       });
@@ -58,11 +58,34 @@ angular.module('lunchBoxApp')
         }
       });
     }
+    $scope.canJoin = true;
+    $scope.plusOne = function (group) {
+      for (var i = 0; i < group.peopleGoing.length; i++) {
+        if (group.peopleGoing[i] == $cookies.getObject("user").username) {
+          console.log(group.peopleGoing[i] + " vs " + $cookies.getObject("user").username)
+          console.log("already joined")
+          $scope.canJoin = false
+        }
+      }
+      if ($scope.canJoin == true) {
+        $http({
+          method: "PUT",
+          url: 'http://localhost:3005/personGoing',
+          data: {
+            name: group.username,
+            personGoing: $cookies.getObject("user").username
+          }
+        }).then(function success(response) {
+          group.peopleGoingCount += 1
+          group.peopleGoing.push($cookies.getObject("user").username)
+        })
+      }
+    }
 
     $scope.showInfo = false;
-    $rootScope.$on("dataPopulated", function(){
+    $rootScope.$on("dataPopulated", function () {
       $scope.showInfo = true
-    }) 
+    })
     $scope.loadGroup = function (group) {
       console.log(group.where)
       $scope.makeHttpCall(group.where);
