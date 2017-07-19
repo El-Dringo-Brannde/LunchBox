@@ -2,67 +2,59 @@
 @import "variables/fonts";
 @import "modules/toggleSelector";
 @import "modules/input";
-html,
-body {
-   overflow-x: hidden;
-}
-
+@import "variables/breakpoints";
 #home {
    font-family: $lato;
    .content {
       display: grid;
-      grid-template-columns: 500px auto;
+      width: 90vw;
+      min-height: 85vh;
       grid-gap: 10px;
-      padding: 0 25px;
-      grid-row: span 2;
-   }
-   #peopleList {
-      background: $primary;
-      grid-row: span 2;
-      overflow-y: hidden;
-      &:hover {
-         overflow-y: scroll;
-      }
+      margin: auto;
       h3 {
          padding: 5px;
          background: $primary-light;
       }
-      .event {
-         margin: 15px 10px;
-         display: grid;
-         background: #f2f2f2;
-         grid-template-columns: 2fr 1fr;
-         padding: 10px;
-         box-shadow: 2px 2px 8px black;
-         cursor: pointer;
-         p,
-         i,
-         h4 {
-            color: #363636;
-         }
-         .person {
-            display: flex;
-            align-items: center;
+      #peopleList {
+         grid-row: span 2;
+         background: $primary;
+         max-height: 85vh;
+         overflow-y: scroll;
+         .event {
+            margin: 15px 10px;
+            display: grid;
+            background: #f2f2f2;
+            grid-template-columns: 2fr 1fr;
+            padding: 10px;
+            box-shadow: 2px 2px 8px black;
+            cursor: pointer;
+            p,
+            i,
+            h4 {
+               color: #363636;
+            }
+            .person {
+               display: flex;
+               align-items: center;
+               img {
+                  padding-right: 10px;
+               }
+            }
             img {
-               padding-right: 10px;
+               border-radius: 50%;
+               width: 70px;
             }
-         }
-         img {
-            border-radius: 50%;
-            width: 70px;
-         }
-         div:not(.person) {
-            display: flex;
-            align-items: center;
-         }
-         .location {
-            grid-column: span 2;
-            div {
-               display: block;
+            div:not(.person) {
+               display: flex;
+               align-items: center;
             }
-         }
-         .other {
-            div {
+            .location {
+               grid-column: span 2;
+               div {
+                  display: block;
+               }
+            }
+            .other div {
                width: 33%;
             }
          }
@@ -79,33 +71,31 @@ body {
       }
    }
    #moreInfo {
-      min-height: 40vh;
       background: $primary;
       .form {
+         display: grid;
          margin: 15px;
-         margin: auto;
          font-size: 1.3em;
-         tr {
-            td {
+         @media screen and (max-width: $large) {
+            grid-template-columns: 1fr;
+            text-align: center;
+            p {
                padding: 10px 0;
-               vertical-align: middle;
+            }
+            .switch {
+               margin: auto;
             }
          }
          input {
             margin: 0 10px;
             font-size: 1em;
             color: black;
-            width: 500px;
          }
-      }
-      h3 {
-         widows: 100%;
-         text-align: center;
-         padding: 5px;
-         background: $primary-light;
-      }
-      h4 {
-         font-weight: 400;
+         button,
+         #error,
+         #success {
+            grid-column: span 2;
+         }
       }
       #error {
          color: red;
@@ -117,7 +107,18 @@ body {
    }
    #map {
       overflow: hidden;
-      min-height: 50vmax;
+      min-height: 50vh;
       background: $secondary-dark;
+   }
+}
+
+@media screen and (min-width: $medium) {
+   #home {
+      .content {
+         grid-template-columns: 500px auto;
+         #peopleList {
+            grid-row: span 2;
+         }
+      }
    }
 }
