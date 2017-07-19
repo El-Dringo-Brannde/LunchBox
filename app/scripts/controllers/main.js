@@ -13,7 +13,7 @@
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
    .controller('MainCtrl', function($scope, $cookies, $http, $window,
-      $rootScope, commService, lunchservice, navbar) {
+      $rootScope, commService, lunchservice, navbar, toastr) {
       var baseUrl = "http://localhost:3005/";
 
       navbar()
@@ -62,6 +62,7 @@ angular.module('lunchBoxApp')
            console.log($cookies.getObject("user"))
             if (group.peopleGoing[i] == $cookies.getObject("user").username) {
                $scope.canJoin = false
+               toastr()
                $scope.isActive = function() {
                   return true
                };
