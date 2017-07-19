@@ -14,41 +14,44 @@ angular.module('lunchBoxApp')
       $scope.loginName = "";
       $scope.currentUser = "";
       $scope.userLogin = false;
-      $rootScope.$broadcast("hideNav");
-      // create a message to display in our view 
-      $scope.message = 'Everyone come and see how good I look!';
+      $rootScope.$broadcast("hideNav")
+
+      function setCommService(curUser, userAccName) {
+         commService.set({
+            name: curUser,
+            userName: userAccName,
+            showNav: true
+         });
+      }
+
+      function createOrLoginUser(idx, cur) {
+         $scope.currentUser = cur.user[idx].cn;
+         $cookies.put("user", $scope.currentUser);
+         setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
+         $http.post("http://localhost:3005/addUser", {
+               username: cur.user[idx].sAMAccountName,
+               full: cur.user[idx].cn
+            })
+            .then(function(succ) {
+               $window.location.href = '/#/';
+            }, function(err) {
+               alert(err);
+            });
+      }
       $scope.signIn = function() {
-         if ($scope.loginName.length === 0) {
-            console.log("Invalid Username");
-         } else {
-            console.log("success, submitting request");
-            $scope.request = $http({
-               method: 'GET',
-               url: 'http://ffg.cdk.com:4000/find/user/' + $scope.loginName
-            }).then(function success(response) {
-               if (response.data.user.length === 0) {
+         if ($scope.loginName.length == 0)
+            alert("Invalid Username")
+         else {
+            $http.get('http://ffg.cdk.com:4000/find/user/' + $scope.loginName).then(function success(response) {
+               if ($scope.currentUser = response.data.user.length == 0)
                   alert('invalid username');
-               } else if (response.data.user.length > 1) {
+               else if (response.data.user.length > 1) {
                   for (var i = 0; i < response.data.user.length; i++) {
-                     if (response.data.user[i].sAMAccountName === $scope.loginName) {
-                        $scope.currentUser = response.data.user[i].cn;
-                        $cookies.put("user", $scope.currentUser);
-                        commService.set({
-                           name: $scope.currentUser,
-                           showNav: true
-                        });
-                        $window.location.href = '/#/';
-                     }
+                     if (response.data.user[i].sAMAccountName == $scope.loginName)
+                        createOrLoginUser(i, response.data)
                   }
-               } else {
-                  $scope.currentUser = response.data.user[0].cn;
-                  $cookies.put("user", $scope.currentUser);
-                  commService.set({
-                     name: $scope.currentUser,
-                     showNav: true
-                  });
-                  $window.location.href = '/#/';
-               }
+               } else
+                  createOrLoginUser(0, response.data)
             });
          }
       };

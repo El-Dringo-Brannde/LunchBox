@@ -13,19 +13,21 @@ body {
       display: grid;
       grid-template-columns: 500px auto;
       grid-gap: 10px;
-      padding: 25px;
+      padding: 0 25px;
       grid-row: span 2;
-      background: $cdk-body-background;
    }
    #peopleList {
-      background: $secondary;
+      background: $primary;
       grid-row: span 2;
-      box-shadow: 2px 2px 4px $shadow;
-      overflow-y: scroll;
+      overflow-y: hidden;
+      &:hover {
+         overflow-y: scroll;
+      }
+      
+      
       h3 {
-         color: $secondary-text;
          padding: 5px;
-         background: $secondary-light;
+         background: $primary-light;
       }
       .event {
          margin: 15px 10px;
@@ -80,9 +82,8 @@ body {
    }
    #moreInfo {
       height: 40vh;
-      background: $secondary;
-      color: $secondary-text;
-      .form {
+      background: $primary;
+      form {
          margin: 15px;
          display: inline-block;
          &>div {
@@ -99,9 +100,8 @@ body {
       h3 {
          widows: 100%;
          text-align: center;
-         color: $secondary-text;
          padding: 5px;
-         background: $secondary-light;
+         background: $primary-light;
       }
       h4 {
          font-weight: 400;
@@ -109,7 +109,8 @@ body {
    }
    #map {
       overflow: hidden;
-      min-height: 300px;
+      min-height: 50vmax;
       background: $secondary-dark;
+      
    }
 }
