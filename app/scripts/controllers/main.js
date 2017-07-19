@@ -18,7 +18,7 @@ angular.module('lunchBoxApp')
 
     navbar()
     var userName;
-    commService.get().name == undefined ? userName = $cookies.getObject("user").username : userName = commService.get().username
+    commService.get().name == undefined ? userName = $cookies.getObject("user").userName : userName = commService.get().userName
     $scope.user = userName.split(",").pop()
     $scope.activeUsers = []
     $scope.getActiveUsersHTTP =
@@ -26,7 +26,6 @@ angular.module('lunchBoxApp')
         method: 'GET',
         url: 'http://localhost:3005/getActiveUsers'
       }).then(function success(response) {
-        console.log(response.data)
         for (var i = 0; i < response.data.length; i++) {
           if (response.data[i].where !== "") {
             $scope.activeUsers.push(response.data[i])
@@ -46,11 +45,9 @@ angular.module('lunchBoxApp')
         },
         url: "https://developers.zomato.com/api/v2.1/search?q='" + restaurantName + "'entity_type=city&lat=45.5008823&lon=-122.6777504&radius=10000&sort=rating",
       }).then(function success(response) {
-        console.log(response)
         for (var i = 0; i < response.data.restaurants.length; i++) {
           if (response.data.restaurants[i].restaurant.name == restaurantName) {
             $scope.httpResults = response.data.restaurants[i].restaurant
-            console.log($scope.httpResults)
           }
         }
       });
@@ -59,8 +56,7 @@ angular.module('lunchBoxApp')
     $scope.canJoin = true;
     $scope.plusOne = function (group) {
       for (var i = 0; i < group.peopleGoing.length; i++) {
-        console.log($cookies.getObject("user"))
-        if (group.peopleGoing[i] == $cookies.getObject("user").name) {
+        if (group.peopleGoing[i] == $cookies.getObject("user").full) {
           $scope.canJoin = false
           toastr()
           $scope.isActive = function () {
@@ -74,11 +70,11 @@ angular.module('lunchBoxApp')
           url: 'http://localhost:3005/personGoing',
           data: {
             name: group.username,
-            personGoing: $cookies.getObject("user").name
+            personGoing: $cookies.getObject("user").full
           }
         }).then(function success(response) {
           group.peopleGoingCount += 1
-          group.peopleGoing.push($cookies.getObject("user").name)
+          group.peopleGoing.push($cookies.getObject("user").full)
         })
         $scope.isActive = function () {
           return true;
@@ -89,9 +85,7 @@ angular.module('lunchBoxApp')
         $scope.showInfo = true
       })
       $scope.loadGroup = function (group) {
-        console.log(group.where)
         $scope.makeHttpCall(group.where);
-        console.log($scope.httpResults)
         $scope.group = lunchservice.loadDetails(group, $scope.httpResults)
       }
     }
@@ -126,10 +120,8 @@ angular.module('lunchBoxApp')
           time: time,
           travelMethod: transport
         };
-        console.log(submissionObject)
         $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
           .then(function success(response) {
-              console.log(response)
               //clear all the input fields after the data has been put in the database
               $scope.restaurant.name = "";
               $scope.restaurant.address = "";

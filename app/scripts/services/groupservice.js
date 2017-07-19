@@ -11,9 +11,7 @@ angular.module('lunchBoxApp')
   .service('groupService', function () {
     var self = this;
     self.groupDetails = function (group) {
-      console.log(group)
-      var peopleGoing = group.peopleGoing.toString().split(", ")
-      console.log(peopleGoing)
+      var peopleGoing = group.peopleGoing.toString()
       var bonusInfo = {
         user: group.fullName,
         peopleGoing: peopleGoing,
@@ -23,7 +21,6 @@ angular.module('lunchBoxApp')
         where: group.restaurant.name,
         address: group.restaurant.address
       }
-      console.log("poop")
       return bonusInfo
     }
     return self

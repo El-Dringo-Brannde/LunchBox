@@ -5,7 +5,7 @@
       <div class="event" ng-repeat="groups in activeUsers">
         <div class="person">
           <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="no image">
-          <h4>{{groups.username}}</h4>
+          <h4>{{groups.fullName}}</h4>
         </div>
         <div class="location">
           <i class="fa fa-map-marker"></i>
@@ -68,9 +68,9 @@
           <h3> <button type="button" ng-click="showForm=true">Return to Form</button> Join us for lunch!</h3>
           <h1>{{groupDetails.where}}</h1>
           <h5>Host: {{groupDetails.user}}</h5>
-          <p>Employees Attending: {{groupDetails.peopleGoingCount}}, {{groupDetails.peopleGoing}}</p>
-          <p>{{groupDetails.time}}</p>
-          <p>{{groupDetails.travelMethod}}
+          <p>Employees Attending: {{groupDetails.peopleGoing}}</p>
+          <p>When: {{groupDetails.time}}</p>
+          <p>Method of Travel: {{groupDetails.travelMethod}}
         </div>
       </div>
     </div>

@@ -25,24 +25,18 @@ angular.module('lunchBoxApp')
     }
 
     function createOrLoginUser(idx, cur) {
-
+      setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
       var cleanName = cur.user[idx].cn.split(",")
       cleanName = cleanName[1] + " " + cleanName[0];
-      $http.post("http://localhost:3005/addUser", {
-        username: cur.user[idx].sAMAccountName,
+      $scope.currentUser = cur.user[idx].cn;
+      $cookies.putObject("user", {
         full: cleanName,
-        mail: cur.user[idx].mail
-      })
-
-      $scope.currentUser = {
-        name: cur.user[idx].cn,
-        username: cur.user[idx].sAMAccountName
-      }
-      $cookies.putObject("user", $scope.currentUser);
-      setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
+        userName: cur.user[idx].sAMAccountName
+      });
       $http.post("http://localhost:3005/addUser", {
           username: cur.user[idx].sAMAccountName,
-          full: cur.user[idx].cn
+          full: cleanName,
+          mail: cur.user[idx].mail
         })
         .then(function (succ) {
           $window.location.href = '/#/';
