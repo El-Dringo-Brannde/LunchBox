@@ -1,3 +1,4 @@
+<!-- <<<<<<< HEAD
 <div class="content">
    <div id="peopleList">
       <h3>People going to lunch</h3>
@@ -10,10 +11,43 @@
             <i class="fa fa-map-marker"></i>
             <div>
                <p>{{groups.where}}</p>
+======= -->
+<div id="home">
+   <div class="content">
+      <div id="peopleList">
+         <h3>People going to lunch</h3>
+         <div class="event">
+            <div class="person">
+               <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="no image">
+               <h4>Connor Christensen</h4>
+            </div>
+            <div class="location">
+               <i class="fa fa-map-marker"></i>
+               <div>
+                  <p>Chipotle</p>
+                  <p>1948 SW Broadway, Portland, OR 97201</p>
+               </div>
+            </div>
+            <div class="other">
+               <div>
+                  <i class="fa fa-clock-o"></i>
+                  <p>12:30</p>
+               </div>
+               <div>
+                  <i class="fa fa-users"></i>
+                  <p>10</p>
+               </div>
+               <div>
+                  <i class="fa fa-car"></i>
+               </div>
             </div>
          </div>
-         <div class="other">
+      </div>
+      <div id="moreInfo">
+         <h3>I'm going to lunch</h3>
+         <form action="">
             <div>
+<!-- <<<<<<< HEAD
                <i class="fa fa-clock-o"></i>
                <p>{{groups.time}}</p>
             </div>
@@ -24,9 +58,31 @@
             <div>
                <i class="fa fa-car"></i>
                <p>{{groups.travelMethod}}</p>
+======= -->
+               <h4>I'm going to: </h4>
+               <input type="text">
             </div>
-         </div>
+            <div>
+               <h4>I'm getting there by: </h4>
+               <div class="switch switch-blue">
+                  <input type="radio" class="switch-input" name="view2" value="week2" id="week2" checked>
+                  <label for="week2" class="switch-label switch-label-off"><i class="fa fa-car"></i></label>
+                  <input type="radio" class="switch-input" name="view2" value="month2" id="month2">
+                  <label for="month2" class="switch-label switch-label-on">W</label>
+                  <span class="switch-selection"></span>
+               </div>
+            </div>
+            <div>
+               <h4>I'm leaving at: </h4>
+               <input type="text">
+            </div>
+         </form>
       </div>
+<!--      AIzaSyClTi6U6JZbg66Mr99V28H43mPb3GgXe64-->
+      <div id="map">
+         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClTi6U6JZbg66Mr99V28H43mPb3GgXe64&libraries=places&callback=initMap" async defer></script>
+      </div>
+<!-- <<<<<<< HEAD
    </div>
    <div id="moreInfo">
       <div ng-show="showInfo" style="color: white; text-align: center;" >
@@ -36,7 +92,6 @@
          <p>Rating: {{group.extra.rating}} </p><p> Cuisine: {{group.extra.cuisine}}</p>
       </div>
    </div>
-   <div id="map">
-      <!-- <img src="map.png" alt=""> -->
-   </div>
+=======
+>>>>>>> develop -->
 </div>

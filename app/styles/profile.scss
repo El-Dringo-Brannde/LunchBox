@@ -1,0 +1,65 @@
+@import "variables/colors";
+@import "variables/fonts";
+#profile {
+   font-family: $lato;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-gap: 1vw;
+   padding: 10px;
+   max-width: 1000px;
+   margin: auto;
+   img {
+      border-radius: 50%;
+   }
+   #aboutYou {
+      grid-column: span 2;
+      background: #ededed;
+      display: flex;
+      align-items: center;
+      h1 {
+         color: black;
+      }
+      img {
+         width: 140px;
+         margin: 10px;
+      }
+   }
+   .search {
+      padding: 5px;
+      text-align: center;
+      background: $primary-dark;
+      padding: 10px;
+      input {
+         width: 300px;
+         border: none;
+         background: none;
+         border-bottom: 1px solid $cdk-green;
+         font-size: 1em;
+      }
+   }
+   
+   #friends, #restaurants {
+      background: $primary;
+      h4 {
+         text-align: left;
+      }
+   }
+   
+   #friends {
+      .friend {
+         display: flex;
+         align-items: center;
+         img {
+            width: 40px;
+            padding: 10px;
+         }
+      }
+   }
+   #restaurants {
+      #restaurantContainer {
+         .restaurant {
+            padding: 10px;
+         }
+      }
+   }
+}
