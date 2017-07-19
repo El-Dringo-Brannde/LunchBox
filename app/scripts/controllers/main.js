@@ -12,7 +12,7 @@
  */
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
-   .controller('MainCtrl', function ($scope, $cookies, $window, commService, $rootScope, $http, navbar) {
+   .controller('MainCtrl', function ($scope, $cookies, $window, commService, $rootScope, $http, navbar, $timeout) {
       navbar()
       var baseUrl = "http://localhost:3005/";
 
@@ -74,9 +74,14 @@ angular.module('lunchBoxApp')
                      $scope.restaurant.address = "";
                      $scope.time = "";
                      $scope.tranport = "";
+                     $scope.submissionSuccess = "you sucessfully submitted an event";
+               
+                     //clear the message after 2 seconds
+                     $timeout(function() {
+                        $scope.submissionSuccess = "";
+                     }, 2000 );
                   },
                   function failiure(response) {
-                     console.log("there was an error posting the data");
                      $scope.submissionError = "there was an error posting the data";
                   });
          }
@@ -111,9 +116,5 @@ angular.module('lunchBoxApp')
             $("#error").html("the departure time does not match the required format");
          }
          
-      });
-   
-      
-      
-      
+      });   
    });
