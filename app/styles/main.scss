@@ -23,8 +23,6 @@ body {
       &:hover {
          overflow-y: scroll;
       }
-      
-      
       h3 {
          padding: 5px;
          background: $primary-light;
@@ -83,18 +81,21 @@ body {
    #moreInfo {
       height: 40vh;
       background: $primary;
-      form {
+      .form {
          margin: 15px;
-         display: inline-block;
-         &>div {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
+         margin: auto;
+         font-size: 1.3em;
+         tr {
+            td {
+               padding: 10px 0;
+               vertical-align: middle;
+            }
          }
          input {
-            max-width: 60%;
             margin: 0 10px;
             font-size: 1em;
+            color: black;
+            width: 500px;
          }
       }
       h3 {
@@ -106,11 +107,17 @@ body {
       h4 {
          font-weight: 400;
       }
+      #error {
+         color: red;
+      }
+      #success {
+         color: green;
+      }
+      @import "modules/buttons";
    }
    #map {
       overflow: hidden;
       min-height: 50vmax;
       background: $secondary-dark;
-      
    }
 }

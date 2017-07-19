@@ -1,0 +1,16 @@
+@import "../variables/colors";
+button {
+   margin: 20px auto 0 auto;
+   background: $bootstrap-green;
+   color: white;
+   font-size: 1em;
+   border: none;
+   padding: 8px 15px;
+   border-radius: 5px;
+   box-shadow: 2px 2px 4px 1px $shadow;
+   transition: box-shadow .3s;
+   cursor: pointer;
+   &:hover {
+      box-shadow: none;
+   }
+}

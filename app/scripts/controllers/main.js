@@ -1,5 +1,5 @@
 //global variables go here to suppress warnings
-/*global alert*/
+/*global alert, $*/
 
 'use strict';
 
@@ -12,7 +12,7 @@
  */
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
-   .controller('MainCtrl', function($scope, $cookies, $window, commService, $rootScope, $http, navbar) {
+   .controller('MainCtrl', function ($scope, $cookies, $window, commService, $rootScope, $http, navbar, $timeout) {
       navbar()
       var baseUrl = "http://localhost:3005/";
 
@@ -41,8 +41,16 @@ angular.module('lunchBoxApp')
       $scope.submissionError = "";
 
 
+      $rootScope.$on("mapLocationClick", function (event, restaurant) {
+         $scope.$apply(function () {
+            $scope.restaurant.name = restaurant.name;
+            $scope.restaurant.address = restaurant.address;
+         });
+      });
+
+
       //the createEvent function is called on form submission
-      $scope.createEvent = function() {
+      $scope.createEvent = function () {
          //assign to temp variables for easy readibility
          var name = $scope.restaurant.name,
             address = $scope.restaurant.address,
@@ -74,11 +82,45 @@ angular.module('lunchBoxApp')
                      $scope.restaurant.address = "";
                      $scope.time = "";
                      $scope.tranport = "";
+                     $scope.submissionSuccess = "you sucessfully submitted an event";
+
+                     //clear the message after 2 seconds
+                     $timeout(function () {
+                        $scope.submissionSuccess = "";
+                     }, 2000);
                   },
                   function failiure(response) {
-                     console.log("there was an error posting the data");
                      $scope.submissionError = "there was an error posting the data";
                   });
          }
       };
+
+      function testRegex(regex, value, tag) {
+
+         var errorColor = "red";
+
+         //if the time matches the regular expression
+         if (regex.test(value)) {
+            //leave the text be whatever color it is normally
+            $(tag).css("color", "");
+            return true;
+         } else {
+            $(tag).css("color", errorColor);
+            return false;
+         }
+      }
+
+      $("#timeInput").on("focusout", function () {
+         var userValue = $("#timeInput").val();
+
+         //match either one or two numbers, then a :, then two numbers
+         var timeRule = new RegExp("^[0-9]{1,2}:[0-9]{2}$");
+
+         if (testRegex(timeRule, userValue, "#timeInput") || userValue === "") {
+            $("#error").html("");
+         } else {
+            $("#error").html("the departure time does not match the required format");
+         }
+
+      });
    });
