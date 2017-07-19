@@ -2,20 +2,22 @@
 
    <div id="aboutYou">
       <img src="https://avatars0.githubusercontent.com/u/9158517?v=4" alt="">
-      <h3>Connor Christensen</h3>
+      <h3>{{user}}</h3>
    </div>
-
    <div id="friends">
       <div class="search">
-         <input type="text" placeholder="Search for a friend">
+         <input type="text" id="friendSearch" ng-model="friendSearch" placeholder="Search for a friend on Lunchbox">
+         <button ng-click="addFriend()">Add Friend</button> 
       </div>
 
       <div id="friendsContainer">
-         <div class="friend">
-            <div class="imgContainer">
-               <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
+         <div ng-repeat="friend in friends">
+            <div class="friend">
+               <div class="imgContainer">
+                  <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
+               </div>
+            <h4>{{friend}}</h4>
             </div>
-            <h4>Connor Christensen</h4>
          </div>
       </div>
    </div>
