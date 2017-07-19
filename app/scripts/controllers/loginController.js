@@ -14,7 +14,7 @@ angular.module('lunchBoxApp')
       $scope.loginName = "";
       $scope.currentUser = "";
       $scope.userLogin = false;
-      $rootScope.$broadcast("hideNav")
+      $rootScope.$broadcast("hideNav");
 
       function setCommService(curUser, userAccName) {
          commService.set({
