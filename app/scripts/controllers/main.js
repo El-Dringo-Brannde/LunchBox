@@ -38,7 +38,7 @@ angular.module('lunchBoxApp')
           }
         }
       });
-
+    
     $scope.httpResults = []
     $scope.makeHttpCall = function (restaurantName) {
       $http({
@@ -60,11 +60,15 @@ angular.module('lunchBoxApp')
     }
     $scope.canJoin = true;
     $scope.plusOne = function (group) {
+      console.log(group)
       for (var i = 0; i < group.peopleGoing.length; i++) {
         if (group.peopleGoing[i] == $cookies.getObject("user").username) {
           console.log(group.peopleGoing[i] + " vs " + $cookies.getObject("user").username)
           console.log("already joined")
           $scope.canJoin = false
+          $scope.isActive = function(){
+            return true
+          };
         }
       }
       if ($scope.canJoin == true) {
@@ -79,8 +83,12 @@ angular.module('lunchBoxApp')
           group.peopleGoingCount += 1
           group.peopleGoing.push($cookies.getObject("user").username)
         })
+        $scope.isActive = function(){
+          return true;
+        };
       }
     }
+ 
 
     $scope.showInfo = false;
     $rootScope.$on("dataPopulated", function () {

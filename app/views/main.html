@@ -18,7 +18,7 @@
                <p>{{groups.time}}</p>
             </div>
             <div ng-model="groups.peopleGoingCount" ng-click="plusOne(groups)">
-               <i class="fa fa-users"></i>
+               <i class="fa fa-users"  ng-click="isActive = $index" ng-class="{active: isActive == $index}"></i>
                <p>{{groups.peopleGoingCount}}</p>
             </div>
             <div>

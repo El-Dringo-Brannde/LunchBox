@@ -2,108 +2,111 @@
 @import "variables/fonts";
 html,
 body {
-   font-family: $lato;
-   margin: 0;
-   padding: 0;
-   overflow-x: hidden;
+  font-family: $lato;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 nav {
-   background: $secondary-dark;
-   height: 50px;
-   width: 100vw;
+  background: $secondary-dark;
+  height: 50px;
+  width: 100vw;
 }
 
 .content {
-   display: grid;
-   grid-template-columns: 500px auto;
-   grid-gap: 20px;
-   grid-row: span 2;
-   padding: 30px;
-   background: $cdk-body-background;
-   height: 100vh;
+  display: grid;
+  grid-template-columns: 500px auto;
+  grid-gap: 20px;
+  grid-row: span 2;
+  padding: 30px;
+  background: $cdk-body-background;
+  height: 100vh;
 }
 
 #peopleList {
-   background: $secondary;
-   grid-row: span 2;
-   box-shadow: 2px 2px 4px $shadow;
-   overflow-y: scroll;
-   h3 {
-      color: $secondary-text;
-      font-weight: 100;
-      text-align: center;
-      font-size: 2em;
-      padding: 5px;
-      margin: 0;
-      background: $secondary-light;
-   }
-   .event {
-      margin: 15px 10px;
-      display: grid;
-      background: #f2f2f2;
-      grid-template-columns: 2fr 1fr;
-      padding: 10px;
-      box-shadow: 2px 2px 8px black;
-      cursor: pointer;
-      p,
-      i,
-      h4 {
-         color: #363636;
-      }
-      .person {
-         display: flex;
-         align-items: center;
-         img {
-            padding-right: 10px;
-         }
-         h4 {
-            font-size: 1.2em;
-         }
-      }
+  background: $secondary;
+  grid-row: span 2;
+  box-shadow: 2px 2px 4px $shadow;
+  overflow-y: scroll;
+  h3 {
+    color: $secondary-text;
+    font-weight: 100;
+    text-align: center;
+    font-size: 2em;
+    padding: 5px;
+    margin: 0;
+    background: $secondary-light;
+  }
+  .event {
+    margin: 15px 10px;
+    display: grid;
+    background: #f2f2f2;
+    grid-template-columns: 2fr 1fr;
+    padding: 10px;
+    box-shadow: 2px 2px 8px black;
+    cursor: pointer;
+    p,
+    i,
+    h4 {
+      color: #363636;
+    }
+    .person {
+      display: flex;
+      align-items: center;
       img {
-         border-radius: 50%;
-         width: 70px;
+        padding-right: 10px;
       }
-      div:not(.person) {
-         display: flex;
-         align-items: center;
+      h4 {
+        font-size: 1.2em;
       }
-      .location {
-         grid-column: span 2;
-         div {
-            display: block;
-         }
+    }
+    img {
+      border-radius: 50%;
+      width: 70px;
+    }
+    div:not(.person) {
+      display: flex;
+      align-items: center;
+    }
+    .location {
+      grid-column: span 2;
+      div {
+        display: block;
       }
-      .other {
-         div {
-            width: 33%;
-         }
+    }
+    .other {
+      div {
+        width: 33%;
       }
-      p {
-         margin: 0;
-      }
-      i {
-         padding: 10px;
-      }
-      .fa-users {
-         transition: 0.2s color;
-         &:hover {
-            transition: 0.2s color;
-            color: gold;
-         }
-      }
+    }
+    p {
+      margin: 0;
+    }
+    i {
+      padding: 10px;
+    }
+    .fa-users {
+      //transition: 0.2s color;
+      // &:hover {
+      //    //transition: 0.2s color;
+      //    color: gold;
+      // }
+    }
+   .active {
+      color: gold;
    }
+  }
 }
 
 #moreInfo {
-   height: 40vh;
-   background: $secondary;
+  height: 40vh;
+  background: $secondary;
 }
 
 #map {
-   overflow: hidden;
-   img {
-      height: 100%;
-   }
+  overflow: hidden;
+  img {
+    height: 100%;
+  }
 }
