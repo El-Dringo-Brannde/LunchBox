@@ -79,7 +79,7 @@ body {
       }
    }
    #moreInfo {
-      height: 40vh;
+      min-height: 40vh;
       background: $primary;
       .form {
          margin: 15px;
