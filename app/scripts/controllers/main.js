@@ -67,12 +67,8 @@ angular.module('lunchBoxApp')
                time: time,
                travelMethod: transport
             };
-
-            console.log(submissionObject);
-
             $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
                .then(function success(response) {
-                     console.log(response);
                      //clear all the input fields after the data has been put in the database
                      $scope.restaurant.name = "";
                      $scope.restaurant.address = "";
