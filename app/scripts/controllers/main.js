@@ -59,12 +59,7 @@ angular.module('lunchBoxApp')
 
             var submissionObject = {
                //get the username from whatever thing is keeping the user logged in
-
-               //uncomment this when the cookie is properly set
-               //username: $cookies.get("user").userName,
-
-               //hardcoded value
-               username: "dringb",
+               username: $cookies.getObject("user").userName,
                restaurant: {
                   name: name,
                   address: address
@@ -75,20 +70,19 @@ angular.module('lunchBoxApp')
 
             console.log(submissionObject);
 
-            $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject).then(function success(response) {
-
-                  console.log(response);
-
-                  //clear all the input fields after the data has been put in the database
-                  $scope.restaurant.name = "";
-                  $scope.restaurant.address = "";
-                  $scope.time = "";
-                  $scope.tranport = "";
-               },
-               function failiure(response) {
-                  console.log("there was an error posting the data");
-                  $scope.submissionError = "there was an error posting the data";
-               });
+            $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
+               .then(function success(response) {
+                     console.log(response);
+                     //clear all the input fields after the data has been put in the database
+                     $scope.restaurant.name = "";
+                     $scope.restaurant.address = "";
+                     $scope.time = "";
+                     $scope.tranport = "";
+                  },
+                  function failiure(response) {
+                     console.log("there was an error posting the data");
+                     $scope.submissionError = "there was an error posting the data";
+                  });
          }
       };
    });
