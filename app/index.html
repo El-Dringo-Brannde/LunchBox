@@ -8,6 +8,7 @@
    <meta name="viewport" content="width=device-width">
    <link href="https://fonts.googleapis.com/css?family=Lato:100,400,400i,700" rel="stylesheet">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="/bower_components/toastr/toastr.css">
    <link rel="shortcut icon" type="image/png" href="/tomatooo.ico"/>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -60,7 +61,7 @@
    <script src="/bower_components/angular-route/angular-route.js"></script>
    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
    <script src="/bower_components/angular-touch/angular-touch.js"></script>
-
+   <script src="/bower_components/toastr/toastr.js"></script>
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
    <!-- endbower -->
@@ -73,9 +74,12 @@
    <script src="scripts/controllers/loginController.js"></script>
    <script src="scripts/controllers/baseController.js"></script>
    <script src="scripts/services/commservice.js"></script>
-   <script src="scripts/controllers/profile.js"></script>
+   <script src="scripts/services/lunchservice.js"></script>
+   <script src="scripts/services/navbar.js"></script>
+   <script src="scripts/services/toastr.js"></script>
+   <script src="scripts/services/groupservice.js"></script>
    <script src="scripts/controllers/mapController.js"></script>
-   <!-- jQuery Stuff -->
+   <script src="scripts/controllers/profile.js"></script>
    <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -84,9 +88,6 @@
       src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
       integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
       crossorigin="anonymous"></script>
-   
-   
-   <script src="scripts/services/navbar.js"></script>
    <script src="scripts/controllers/contact.js"></script>
    <!-- endbuild -->
 </body>

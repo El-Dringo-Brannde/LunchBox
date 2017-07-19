@@ -17,5 +17,5 @@ angular.module('lunchBoxApp')
          $scope.userLogin = false;
       });
 
-
+      console.log($scope.userLogin)
    });

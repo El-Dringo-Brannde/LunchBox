@@ -1,5 +1,3 @@
-/* global google, map */
-
 angular.module('lunchBoxApp')
    .controller('mapController', function ($scope, $rootScope, $window) {
       'use strict';
