@@ -57,11 +57,8 @@ angular.module('lunchBoxApp')
       }
       $scope.canJoin = true;
       $scope.plusOne = function(group) {
-         console.log(group)
          for (var i = 0; i < group.peopleGoing.length; i++) {
             if (group.peopleGoing[i] == $cookies.getObject("user").username) {
-               console.log(group.peopleGoing[i] + " vs " + $cookies.getObject("user").username)
-               console.log("already joined")
                $scope.canJoin = false
                $scope.isActive = function() {
                   return true
@@ -96,14 +93,6 @@ angular.module('lunchBoxApp')
          }
       }
 
-
-
-
-
-
-
-
-
       $scope.createEvent = function() {
          console.log('fo')
          //assign to temp variables for easy readibility
@@ -122,7 +111,7 @@ angular.module('lunchBoxApp')
 
             var submissionObject = {
                //get the username from whatever thing is keeping the user logged in
-               username: $cookies.getObject("user").userName,
+               username: 'moort',
                restaurant: {
                   name: name,
                   address: address
@@ -130,6 +119,7 @@ angular.module('lunchBoxApp')
                time: time,
                travelMethod: transport
             };
+              console.log(submissionObject)
             $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
                .then(function success(response) {
                      console.log(response)
