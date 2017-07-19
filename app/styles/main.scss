@@ -106,6 +106,13 @@ body {
       h4 {
          font-weight: 400;
       }
+      #error {
+         color: red;
+      }
+      #success {
+         color: green;
+      }
+      @import "modules/buttons";
    }
    #map {
       overflow: hidden;
