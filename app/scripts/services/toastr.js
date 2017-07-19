@@ -14,7 +14,7 @@ angular.module('lunchBoxApp')
         "closeButton": false,
         "debug": false,
         "newestOnTop": false,
-        "progressBar": false,
+        "progressBar": true,
         "positionClass": "toast-top-right",
         "preventDuplicates": true,
         "onclick": null,
