@@ -57,10 +57,16 @@
                <td><input type="text" ng-model="time" placeholder="12:00" id="timeInput"></td>
             </tr>
             <tr>
-               <td><input type="submit" ng-click="createEvent()" value="submit"></td>
+               <td colspan="2">
+                  <button type="submit" ng-click="createEvent()" value="submit">submit</button>
+               </td>
             </tr>
             <tr>
-               <td><span id="error">{{submissionError}}</span></td>
+               <td colspan="2">
+                  <span id="error">{{submissionError}}</span>
+                  <span id="success">{{submissionSuccess}}</span>
+                  
+               </td>
             </tr>
          </table>
       </div>
