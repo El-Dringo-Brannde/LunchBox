@@ -147,11 +147,34 @@ angular.module('lunchBoxApp')
                   });
          }
       };
-      setInterval(function () {
+
+      function timeToDecimal(t) {
+         var arr = t.split(':');
+         return parseFloat(parseInt(arr[0], 10) + '.' + parseInt((arr[1] / 6) * 10, 10));
+      }
+
+      function timeCleaner(time) {
+         if (parseInt(time.split(":")[0]) < 8) {
+            time = time.split(":")
+            time[0] = (parseInt(time) + 12).toString();
+            time = time[0] + ":" + time[1];
+         }
+         var curTime = new Date().toTimeString().split(" ")[0].split(":")
+         curTime.pop()
+         curTime = curTime[0] + ":" + curTime[1]
+         return (timeToDecimal(curTime) > timeToDecimal(time))
+      }
+
+      setInterval(function() {
          var foo = $scope.activeUsers.length;
          $http.get('http://localhost:3005/getActiveUsers')
             .then(function success(response) {
-               if (response.data.length == foo)
+               var expired = false;
+               response.data.forEach(function(ele) {
+                  if (timeCleaner(ele.time) == true)
+                     expired = true
+               });
+               if (response.data.length == foo && expired == false)
                   null
                else {
                   response.data.sort(function (a, b) {
@@ -165,11 +188,13 @@ angular.module('lunchBoxApp')
                      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                   });
                   var i = 0;
-                  response.data.forEach(function (ele) {
-                     if ($scope.activeUsers[i] == undefined)
-                        return;
+                  $.each(response.data, function(idx, ele) {
+                     if ($scope.activeUsers[i] == undefined || response.data[i] == undefined ||
+                        timeCleaner(ele.time) == true) {
+                        return false //breaks out of loop
+                     }
                      if ($scope.activeUsers[i].username != response.data[i].username)
-                        return;
+                        return false //breaks out of loop
                      i++;
                   });
                   if (response.data.length > $scope.activeUsers.length) {
@@ -179,8 +204,14 @@ angular.module('lunchBoxApp')
                         var textB = b.fullName.toUpperCase();
                         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                      });
-                  } else if (response.data.length < $scope.activeUsers.length) {
+                  } else if ((response.data.length < $scope.activeUsers.length || expired === true) &&
+                     i != $scope.activeUsers.length) {
+                     console.log($scope.activeUsers[i])
+                     $http.put("http://localhost:3005/userReturned", {
+                        name: $scope.activeUsers[i].username
+                     })
                      _.remove($scope.activeUsers, $scope.activeUsers[i])
+
                   }
                }
             });
