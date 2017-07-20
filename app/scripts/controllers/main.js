@@ -16,31 +16,39 @@ angular.module('lunchBoxApp')
       $rootScope, commService, lunchservice, navbar, toastr, groupService) {
       var baseUrl = "http://localhost:3005/";
 
+      //create empty scope elements for what the users will enter in the form fields
       $scope.restaurant = {};
       $scope.restaurant.name = "";
       $scope.restaurant.address = "";
       $scope.time = "";
       $scope.tranport = "";
 
+      //load the navbar
       navbar();
+
       var userName;
+
+      //if the commService doesn't have the username, then get it from the cookie
       if (commService.get().name == undefined) {
          userName = $cookies.getObject("user").userName;
       } else {
          userName = commService.get().userName;
       }
+
       $scope.user = userName.split(",").pop();
       $scope.activeUsers = [];
       $scope.getActiveUsersHTTP = function () {
-
          $http.get(baseUrl + 'getActiveUsers').then(function success(response) {
             for (var i = 0; i < response.data.length; i++) {
                if (response.data[i].where !== "") {
                   $scope.activeUsers.push(response.data[i]);
                   $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing;
-                  if ($scope.activeUsers[i].peopleGoing.length === undefined) {
+
+                  //if the number of people who are going don't exist or its been initialized to 0, then set it to 1
+                  if ($scope.activeUsers[i].peopleGoing.length === undefined || $scope.activeUsers[i].peopleGoing.length === 0) {
                      $scope.activeUsers[i].peopleGoingCount = 1;
                   } else {
+                     //set it to the value found in the database
                      $scope.activeUsers[i].peopleGoingCount = $scope.activeUsers[i].peopleGoing.length;
                   }
                }
@@ -50,10 +58,15 @@ angular.module('lunchBoxApp')
       $scope.getActiveUsersHTTP();
 
       $scope.httpResults = [];
+
+      //when someone clicks on a pin on the map
       $rootScope.$on("mapLocationClick", function (event, restaurant) {
+         //make sure the scope updates with these new contents
          $scope.$apply(function () {
+            //set the restaurant name and address to the contents passed to us from mapController.js
             $scope.restaurant.name = restaurant.name;
             $scope.restaurant.address = restaurant.address;
+            //make sure the associated labels on the input are moved out of the way when text is thrown in
             $("label[for='restaurantNameInput']").addClass("is-active is-completed");
             $("label[for='restaurantAddressInput']").addClass("is-active is-completed");
          });
@@ -89,7 +102,7 @@ angular.module('lunchBoxApp')
          if ($scope.canJoin == true) {
             $http({
                method: "PUT",
-               url: 'http://localhost:3005/personGoing',
+               url: baseUrl + 'personGoing',
                data: {
                   name: group.username,
                   personGoing: $cookies.getObject("user").full
@@ -124,13 +137,11 @@ angular.module('lunchBoxApp')
             time = $scope.time,
             transport = $scope.transport;
 
+         //if any of them are empty show an error
          if (name === "" || address === "" || time === "" || transport === "") {
-            $scope.submissionError = "Error, all fields are required for creating an event";
+            toastr("All fields are required for creating an event", "error");
          } else {
-            //reset the submission error message if all fields are there
-            $scope.submissionError = "";
-
-            //TODO: some validation before the object is created
+            //an obejct to gather all the form data
             var submissionObject = {
                //get the username from whatever thing is keeping the user logged in
                username: $cookies.getObject("user").userName,
@@ -142,6 +153,7 @@ angular.module('lunchBoxApp')
                time: time,
                travelMethod: transport
             };
+            //post to the LunchBox-Services a the data we just gathered
             $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
                .then(function success(response) {
                      //clear all the input fields after the data has been put in the database
