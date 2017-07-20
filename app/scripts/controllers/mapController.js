@@ -42,7 +42,7 @@ angular.module('lunchBoxApp')
 
          // add listeners to the click events to send to another controller
          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent("Place: " + place.name + " website: " + place.website);
+            infowindow.setContent(place.name);
             infowindow.open(map, this);
             restaurant.name = place.name;
             restaurant.address = place.vicinity;
