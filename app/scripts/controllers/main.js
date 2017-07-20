@@ -162,6 +162,7 @@ angular.module('lunchBoxApp')
                      $scope.time = "";
                      $scope.tranport = "";
                      toastr("Form submitted!", "success");
+                     $("label").removeClass("is-active is-completed");
                   },
                   function failiure(response) {
                      console.log("there was an error posting the data");

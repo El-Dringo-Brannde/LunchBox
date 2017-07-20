@@ -84,9 +84,13 @@
          </div>
          <div ng-show="!showForm" class="eventDetails">
             <h3>
-               <button type="button" ng-click="showForm=true">&lt;</button> Join us for lunch
+               <button type="button" ng-click="showForm=true">&lt;</button>Lunch Details
             </h3>
             <table class="moreInfoTable">
+               <tr>
+                  <td>Host:</td>
+                  <td><a href="mailto:{{groupDetails.email}}">{{groupDetails.user}}</a></td>
+               </tr>
                <tr>
                   <td>Restaurant Name:</td>
                   <td>{{groupDetails.where}}</td>
@@ -94,10 +98,6 @@
                <tr>
                   <td>Address:</td>
                   <td>{{groupDetails.address}}</td>
-               </tr>
-               <tr>
-                  <td>Host:</td>
-                  <td><a href="mailto:{{groupDetails.email}}">{{groupDetails.user}}</a></td>
                </tr>
                <tr>
                   <td>Employees Attending:</td>
