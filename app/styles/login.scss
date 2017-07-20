@@ -1,8 +1,13 @@
 @import "variables/colors";
 @import "variables/fonts";
 @import "variables/breakpoints";
-@import "modules/buttons";
 #login {
+   
+   @import "modules/buttons";
+   button {
+      margin: 20px auto 0 auto;
+   }
+   
    font-family: $lato;
    #loginContainer {
       background: url(../images/ppl-eating.jpg) no-repeat center center fixed;
@@ -28,6 +33,9 @@
             text-align: center;
             padding: 5px;
             color: black;
+            border: none;
+            border-bottom: 1px solid $cdk-green;
+            outline: none;
          }
          h2 {
             color: $cdk-green-dark;
