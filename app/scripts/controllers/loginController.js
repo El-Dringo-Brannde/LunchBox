@@ -49,7 +49,7 @@ angular.module('lunchBoxApp')
          });
          setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
          var cleanName = cur.user[idx].cn.split(",")
-         cleanName = cleanName[1] + " " + cleanName[0];
+         cleanName = cleanName[1].trim() + " " + cleanName[0];
          $http.post("http://localhost:3005/addUser", {
                username: cur.user[idx].sAMAccountName,
                full: cleanName,
