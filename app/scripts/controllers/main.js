@@ -147,6 +147,12 @@ angular.module('lunchBoxApp')
          if (name === "" || address === "" || time === "" || transport === "") {
             toastr("All fields are required for creating an event", "error");
          } else {
+
+            var timeRule = new RegExp("^[0-9]{1,2}:[0-9]{2}$");
+            if (!timeRule.test(time)) {
+               $("#error").html("the departure time is not in the proper format (eg. 12:00)");
+            }
+
             //an obejct to gather all the form data
             var submissionObject = {
                //get the username from whatever thing is keeping the user logged in

@@ -105,14 +105,14 @@ body {
          }
          .inputLabel {
             top: -28px;
-            transition: top 0.4s , font 0.4s, color 0.4s;
+            transition: top 0.4s, font 0.4s, color 0.4s;
             position: relative;
             font-size: 0.8em;
             color: #838383;
          }
          .is-active,
          .is-completed {
-            transition: top 0.4s , font 0.4s, color 0.4s;
+            transition: top 0.4s, font 0.4s, color 0.4s;
             top: -10px;
             font-size: 0.6em;
             color: #acacac;
