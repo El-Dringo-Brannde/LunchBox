@@ -50,10 +50,12 @@ angular.module('lunchBoxApp')
          setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
          var cleanName = cur.user[idx].cn.split(",")
          cleanName = cleanName[1].trim() + " " + cleanName[0];
+         console.log(cur.user[idx].l)
          $http.post("http://localhost:3005/addUser", {
                username: cur.user[idx].sAMAccountName,
                full: cleanName,
-               mail: cur.user[idx].mail
+               mail: cur.user[idx].mail,
+               location: cur.user[idx].l
             })
             .then(function(succ) {
                $window.location.href = '/#/';
