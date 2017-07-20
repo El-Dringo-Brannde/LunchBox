@@ -12,7 +12,7 @@
  */
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
-   .controller('MainCtrl', function($scope, $cookies, $http, $window,
+   .controller('MainCtrl', function ($scope, $cookies, $http, $window,
       $rootScope, commService, lunchservice, navbar, toastr, groupService) {
       var baseUrl = "http://localhost:3005/";
 
@@ -27,7 +27,7 @@ angular.module('lunchBoxApp')
       commService.get().name == undefined ? userName = $cookies.getObject("user").userName : userName = commService.get().userName
       $scope.user = userName.split(",").pop()
       $scope.activeUsers = []
-      $scope.getActiveUsersHTTP = function() {
+      $scope.getActiveUsersHTTP = function () {
 
          $http.get('http://localhost:3005/getActiveUsers').then(function success(response) {
             for (var i = 0; i < response.data.length; i++) {
@@ -42,14 +42,14 @@ angular.module('lunchBoxApp')
       $scope.getActiveUsersHTTP()
 
       $scope.httpResults = []
-      $rootScope.$on("mapLocationClick", function(event, restaurant) {
-         $scope.$apply(function() {
+      $rootScope.$on("mapLocationClick", function (event, restaurant) {
+         $scope.$apply(function () {
             $scope.restaurant.name = restaurant.name;
             $scope.restaurant.address = restaurant.address;
          });
       });
 
-      $scope.makeHttpCall = function(restaurantName) {
+      $scope.makeHttpCall = function (restaurantName) {
          $http({
             method: 'GET',
             headers: {
@@ -66,12 +66,12 @@ angular.module('lunchBoxApp')
       }
 
       $scope.canJoin = true;
-      $scope.plusOne = function(group) {
+      $scope.plusOne = function (group) {
          for (var i = 0; i < group.peopleGoing.length; i++) {
             if (group.peopleGoing[i] == $cookies.getObject("user").full) {
                $scope.canJoin = false
                toastr("You already joined this group!", "warning")
-               $scope.isActive = function() {
+               $scope.isActive = function () {
                   return true
                };
             }
@@ -88,26 +88,26 @@ angular.module('lunchBoxApp')
                group.peopleGoingCount += 1
                group.peopleGoing.push($cookies.getObject("user").full)
             })
-            $scope.isActive = function() {
+            $scope.isActive = function () {
                return true;
             };
          }
          $scope.showInfo = false;
-         $rootScope.$on("dataPopulated", function() {
+         $rootScope.$on("dataPopulated", function () {
             $scope.showInfo = true
          })
-         $scope.loadGroup = function(group) {
+         $scope.loadGroup = function (group) {
             $scope.makeHttpCall(group.where);
             $scope.group = lunchservice.loadDetails(group, $scope.httpResults)
          }
       }
       $scope.showForm = true;
-      $scope.moreInfo = function(group) {
+      $scope.moreInfo = function (group) {
          $scope.showForm = false;
          $scope.groupDetails = groupService.groupDetails(group)
       }
 
-      $scope.createEvent = function() {
+      $scope.createEvent = function () {
          //assign to temp variables for easy readibility
          var name = $scope.restaurant.name,
             address = $scope.restaurant.address,
@@ -143,31 +143,29 @@ angular.module('lunchBoxApp')
                      toastr("Event Posted", "success")
                   },
                   function failiure(response) {
-                     toastr("Post Failed", "error")
-                  //    console.log("there was an error posting the data");
-                  //    $scope.submissionError = "there was an error posting the data";
+                     toastr("Post Failed", "error");
                   });
          }
       };
-      setInterval(function() {
+      setInterval(function () {
          var foo = $scope.activeUsers.length;
          $http.get('http://localhost:3005/getActiveUsers')
             .then(function success(response) {
                if (response.data.length == foo)
                   null
                else {
-                  response.data.sort(function(a, b) {
+                  response.data.sort(function (a, b) {
                      var textA = a.fullName.toUpperCase();
                      var textB = b.fullName.toUpperCase();
                      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                   });
-                  $scope.activeUsers.sort(function(a, b) {
+                  $scope.activeUsers.sort(function (a, b) {
                      var textA = a.fullName.toUpperCase();
                      var textB = b.fullName.toUpperCase();
                      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                   });
                   var i = 0;
-                  response.data.forEach(function(ele) {
+                  response.data.forEach(function (ele) {
                      if ($scope.activeUsers[i] == undefined)
                         return;
                      if ($scope.activeUsers[i].username != response.data[i].username)
@@ -176,7 +174,7 @@ angular.module('lunchBoxApp')
                   });
                   if (response.data.length > $scope.activeUsers.length) {
                      $scope.activeUsers.push(response.data[i]);
-                     $scope.activeUsers.sort(function(a, b) {
+                     $scope.activeUsers.sort(function (a, b) {
                         var textA = a.fullName.toUpperCase();
                         var textB = b.fullName.toUpperCase();
                         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
@@ -187,4 +185,33 @@ angular.module('lunchBoxApp')
                }
             });
       }, 5000);
+
+      function testRegex(regex, value, tag) {
+
+         var errorColor = "red";
+
+         //if the time matches the regular expression
+         if (regex.test(value)) {
+            //leave the text be whatever color it is normally
+            $(tag).css("color", "");
+            return true;
+         } else {
+            $(tag).css("color", errorColor);
+            return false;
+         }
+      }
+
+      $("#timeInput").on("focusout", function () {
+         var userValue = $("#timeInput").val();
+
+         //match either one or two numbers, then a :, then two numbers
+         var timeRule = new RegExp("^[0-9]{1,2}:[0-9]{2}$");
+
+         if (testRegex(timeRule, userValue, "#timeInput") || userValue === "") {
+            $("#error").html("");
+         } else {
+            $("#error").html("the departure time does not match the required format");
+         }
+
+      });
    });
