@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "debug": "^2.6.8",
-    "generator-angular": "^0.16.0"
+    "generator-angular": "^0.16.0",
+    "lodash": "^4.17.4"
   }
 }
