@@ -19,15 +19,21 @@
          <button ng-click="addFriend()">Add Friend</button>
       </div>
       <div id="friendsContainer">
-         <div ng-repeat="friend in friends">
-            <div class="friend">
-               <div class="imgContainer">
-                  <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
-               </div>
-               <h4>{{friend.fullName}}</h4>
-               <p><a href="mailto:{{groupDetails.email}}">{{friend.email}}</a></p>
-            </div>
-         </div>
+         <table>
+            <tbody>
+               <tr ng-repeat="friend in friends" class="friend">
+                  <td class="imgContainer">
+                     <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
+                  </td>
+                  <td>
+                     <h4>{{friend.fullName}}</h4>
+                  </td>
+                  <td>
+                     <a href="mailto:{{groupDetails.email}}"><i class="fa fa-envelope"></i></a>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
       </div>
    </div>
 

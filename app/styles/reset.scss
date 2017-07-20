@@ -1,4 +1,7 @@
 @import "variables/fonts";
+* {
+   font-family: $lato;
+}
 
 //a reset file to make all elements the same across browsers
 html, body, div, span, applet, object, iframe,

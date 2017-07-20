@@ -11,6 +11,9 @@
  */
 angular.module('lunchBoxApp')
    .controller('ProfileCtrl', function($scope, $cookies, $http, commService, $rootScope, navbar) {
+      
+      var baseUrl = "http://localhost:3005/";
+   
       navbar();
       var curUser = $cookies.getObject("user").full.split(",");
       var curUserName = $cookies.getObject("user").userName.split(",");
@@ -36,9 +39,9 @@ angular.module('lunchBoxApp')
       }); // for the autocomplete feature
 
       $scope.addFriend = function() {
-         $http.get("http://localhost:3005/getUser?name=" + bigObj[$scope.friendSearch])
+         $http.get(baseUrl+"getUser?name=" + bigObj[$scope.friendSearch])
             .then((resp) => {
-               $http.put("http://localhost:3005/addFriend", {
+               $http.put(baseUrl+"addFriend", {
                   user: $cookies.getObject("user").userName,
                   friend: {
                      fullName: resp.data[0].fullName,
