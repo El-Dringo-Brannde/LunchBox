@@ -1,13 +1,19 @@
 @import "variables/colors";
 @import "variables/fonts";
+@import "variables/breakpoints";
 #profile {
    font-family: $lato;
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   grid-gap: 1vw;
    padding: 10px;
    max-width: 1000px;
    margin: auto;
+   
+   @media screen and (min-width: $medium) {
+      grid-template-columns: 1fr;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1vw;
+   }
+   
    img {
       border-radius: 50%;
    }
@@ -37,15 +43,15 @@
          font-size: 1em;
       }
    }
-   
-   #friends, #restaurants {
+   #friends,
+   #restaurants {
       background: $primary;
       h4 {
          text-align: left;
       }
    }
-   
    #friends {
+      margin: 10px 0;
       .friend {
          display: flex;
          align-items: center;
