@@ -1,5 +1,5 @@
 angular.module('lunchBoxApp')
-   .controller('mapController', function ($scope, $rootScope, $window) {
+   .controller('mapController', function($scope, $rootScope, $window) {
       'use strict';
       var infowindow;
       var myLocation;
@@ -9,17 +9,13 @@ angular.module('lunchBoxApp')
          address: ""
       };
 
-      var theStyle = [
-         {
-            featureType: "poi",
-            elementType: "labels",
-            stylers: [
-               {
-                  visibility: "off"
-               }
-            ]
-         }
-      ];
+      var theStyle = [{
+         featureType: "poi",
+         elementType: "labels",
+         stylers: [{
+            visibility: "off"
+         }]
+      }];
 
 
       myLocation = { // hardcoded Portland location
@@ -41,10 +37,9 @@ angular.module('lunchBoxApp')
             position: place.geometry.location
          });
 
-         google.maps.event.addListener(marker, 'click', function () {
+         google.maps.event.addListener(marker, 'click', function() {
             infowindow.setContent(place.name);
             infowindow.open(map, this);
-            //console.log("name of place: " + place.name + "\naddress: " + place.vicinity);
             restaurant.name = place.name;
             restaurant.address = place.vicinity;
             $rootScope.$emit("mapLocationClick", restaurant);
@@ -55,9 +50,31 @@ angular.module('lunchBoxApp')
       service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
          location: myLocation,
-         radius: 5000,
-         type: ['restaurant']
-      }, function (results, status) {
+         radius: 10000,
+         type: "restaurant"
+      }, function(results, status) {
+         if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+               createMarker(results[i]);
+            }
+         }
+      });
+      service.nearbySearch({
+         location: myLocation,
+         radius: 10000,
+         type: "cafe"
+      }, function(results, status) {
+         if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < results.length; i++) {
+               createMarker(results[i]);
+            }
+         }
+      });
+      service.nearbySearch({
+         location: myLocation,
+         radius: 10000,
+         type: 'bar'
+      }, function(results, status) {
          if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {
                createMarker(results[i]);
