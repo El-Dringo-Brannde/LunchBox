@@ -1,0 +1,31 @@
+@import "variables/colors";
+@import "variables/fonts";
+nav {
+   font-family: $lato;
+   background-color: white;
+   box-shadow: 0 3px 10px #bcbcbc;
+   margin: 0 0 30px 0;
+   h3 {
+      padding: 10px 0 0 0;
+   }
+   #links {
+      display: flex;
+      justify-content: space-around;
+      overflow: hidden;
+      a {
+         float: left;
+         display: block;
+         text-align: center;
+         padding: 14px 16px;
+         text-decoration: none;
+         font-size: 17px;
+         font-weight: 500;
+         transition: 0.3s color;
+         color: $link-blue;
+         &:hover {
+            color: $cdk-green;
+            transition: 0.3s color;
+         }
+      }
+   }
+}

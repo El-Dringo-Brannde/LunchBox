@@ -1,0 +1,126 @@
+@import "variables/colors";
+@import "variables/fonts";
+@import "modules/toggleSelector";
+@import "modules/input";
+html,
+body {
+   overflow-x: hidden;
+}
+
+#home {
+   font-family: $lato;
+   .content {
+      display: grid;
+      grid-template-columns: 500px auto;
+      grid-gap: 10px;
+      padding: 0 25px;
+      grid-row: span 2;
+   }
+   #peopleList {
+      background: $primary;
+      grid-row: span 2;
+      overflow-y: hidden;
+      &:hover {
+         overflow-y: scroll;
+      }
+      h3 {
+         padding: 5px;
+         background: $primary-light;
+      }
+      .event {
+         margin: 15px 10px;
+         display: grid;
+         background: #f2f2f2;
+         grid-template-columns: 2fr 1fr;
+         padding: 10px;
+         box-shadow: 2px 2px 8px black;
+         cursor: pointer;
+         p,
+         i,
+         h4 {
+            color: #363636;
+         }
+         .person {
+            display: flex;
+            align-items: center;
+            img {
+               padding-right: 10px;
+            }
+         }
+         img {
+            border-radius: 50%;
+            width: 70px;
+         }
+         div:not(.person) {
+            display: flex;
+            align-items: center;
+         }
+         .location {
+            grid-column: span 2;
+            div {
+               display: block;
+            }
+         }
+         .other {
+            div {
+               width: 33%;
+            }
+         }
+         i {
+            padding: 10px;
+         }
+         .fa-users {
+            transition: 0.2s color;
+            &:hover {
+               transition: 0.2s color;
+               color: gold;
+            }
+         }
+         .active {
+            color: gold;
+         }
+      }
+   }
+   #moreInfo {
+      min-height: 40vh;
+      background: $primary;
+      .form {
+         margin: 15px;
+         margin: auto;
+         font-size: 1.3em;
+         tr {
+            td {
+               padding: 10px 0;
+               vertical-align: middle;
+            }
+         }
+         input {
+            margin: 0 10px;
+            font-size: 1em;
+            color: black;
+            width: 500px;
+         }
+      }
+      h3 {
+         widows: 100%;
+         text-align: center;
+         padding: 5px;
+         background: $primary-light;
+      }
+      h4 {
+         font-weight: 400;
+      }
+      #error {
+         color: red;
+      }
+      #success {
+         color: green;
+      }
+      @import "modules/buttons";
+   }
+   #map {
+      overflow: hidden;
+      min-height: 50vmax;
+      background: $secondary-dark;
+   }
+}

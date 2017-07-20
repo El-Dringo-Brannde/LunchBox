@@ -1,0 +1,36 @@
+@import "variables/colors";
+@import "variables/fonts";
+
+#contact {
+   font-family: $lato;
+   h1, h2 {
+      padding: 10px;
+   }
+   h1 {
+      color: $cdk-green-dark;
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: 400;
+   }
+   h3 {
+      color: #516053;
+      text-align: center;
+      font-size: 1.1em;
+      padding: 20px;
+   }
+   p {
+      padding: 5px;
+      text-align: center;
+   }
+   a {
+      text-decoration: none;
+      width: 100vw;
+      color: #62a3af;
+   }
+   a:hover {
+      color: $cdk-green-highlight;
+   }
+   a:visited {
+      color: $cdk-green;
+   }
+}
