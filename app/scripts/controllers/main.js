@@ -47,6 +47,7 @@ angular.module('lunchBoxApp')
 
       $scope.httpResults = [];
       $rootScope.$on("mapLocationClick", function(event, restaurant) {
+         console.log(restaurant)
          $scope.$apply(function() {
             $scope.restaurant.name = restaurant.name;
             $scope.restaurant.address = restaurant.address;
@@ -181,8 +182,7 @@ angular.module('lunchBoxApp')
                });
                if (response.data.length == foo && expired == false) {
                   null; //afriad to change it
-               }
-               else {
+               } else {
                   response.data.sort(function(a, b) {
                      var textA = a.fullName.toUpperCase();
                      var textB = b.fullName.toUpperCase();
