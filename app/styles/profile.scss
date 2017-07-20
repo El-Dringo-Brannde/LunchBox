@@ -6,22 +6,27 @@
    padding: 10px;
    max-width: 1000px;
    margin: auto;
-   
    @media screen and (min-width: $medium) {
       grid-template-columns: 1fr;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: 1vw;
    }
-   
    img {
       border-radius: 50%;
    }
    #aboutYou {
+      @import "modules/buttons";
+      @import "modules/input";
+      #profileSelect {
+         padding: 30px;
+      }
       grid-column: span 2;
       background: #ededed;
-      display: flex;
-      align-items: center;
+      #aboutImg {
+         display: flex;
+         align-items: center;
+      }
       h1 {
          color: black;
       }

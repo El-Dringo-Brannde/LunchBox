@@ -52,4 +52,14 @@ angular.module('lunchBoxApp')
             });
       };
       getCurFriends();
+   
+      $scope.getImage = function() {
+         $scope.githubUsername;
+         var githubApi = "https://api.github.com/users/"
+         $http.get(githubApi+$scope.githubUsername).then(function(result) {
+            var data = result.data;
+            $scope.userImage = data.avatar_url;                                            
+         });
+      };
+   
    });
