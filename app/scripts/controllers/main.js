@@ -70,7 +70,7 @@ angular.module('lunchBoxApp')
          for (var i = 0; i < group.peopleGoing.length; i++) {
             if (group.peopleGoing[i] == $cookies.getObject("user").full) {
                $scope.canJoin = false
-               toastr()
+               toastr("You already joined this group!", "warning")
                $scope.isActive = function() {
                   return true
                };
@@ -115,7 +115,8 @@ angular.module('lunchBoxApp')
             transport = $scope.transport;
 
          if (name === "" || address === "" || time === "" || transport === "") {
-            $scope.submissionError = "Error, all fields are required for creating an event";
+            //$scope.submissionError = "Error, all fields are required for creating an event";
+            toastr("All fields are required for creating an event", "error")
          } else {
             //reset the submission error message if all fields are there
             $scope.submissionError = "";
@@ -139,10 +140,12 @@ angular.module('lunchBoxApp')
                      $scope.restaurant.address = "";
                      $scope.time = "";
                      $scope.tranport = "";
+                     toastr("Event Posted", "success")
                   },
                   function failiure(response) {
-                     console.log("there was an error posting the data");
-                     $scope.submissionError = "there was an error posting the data";
+                     toastr("Post Failed", "error")
+                  //    console.log("there was an error posting the data");
+                  //    $scope.submissionError = "there was an error posting the data";
                   });
          }
       };
