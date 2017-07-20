@@ -15,6 +15,7 @@ angular.module('lunchBoxApp')
    .controller('MainCtrl', function($scope, $cookies, $http, $window,
       $rootScope, commService, lunchservice, navbar, toastr, groupService) {
       var baseUrl = "http://localhost:3005/";
+      $scope.showWebsite = false;
 
       $scope.restaurant = {};
       $scope.restaurant.name = "";
@@ -47,10 +48,13 @@ angular.module('lunchBoxApp')
 
       $scope.httpResults = [];
       $rootScope.$on("mapLocationClick", function(event, restaurant) {
-         console.log(restaurant)
          $scope.$apply(function() {
+            $scope.showWebsite = true;
             $scope.restaurant.name = restaurant.name;
             $scope.restaurant.address = restaurant.address;
+            $scope.restaurant.website = restaurant.website;
+            $scope.restaurant.phone = restaurant.phone;
+            $scope.restaurant.rating = restaurant.rating;
          });
       });
 

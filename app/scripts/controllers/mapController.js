@@ -18,29 +18,29 @@ angular.module('lunchBoxApp')
             visibility: "off"
          }]
       }];
-
       myLocation = { // hardcoded Portland location
          lat: 45.504023,
          lng: -122.679433
       };
-
       $window.map = new google.maps.Map(document.getElementById('map'), {
          center: myLocation,
          scrollwheel: false,
          zoom: 14
       });
-
       $window.map.set('styles', theStyle);
+      // Create the search box and link it to the UI element.
+      var input = document.getElementById('pac-input');
+      $window.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      var searchBox = new google.maps.places.SearchBox(input);
 
 
-      // mark restaurants within 5000 radius
       function createMarker(place) {
-         console.log(place)
          var marker = new google.maps.Marker({
             map: map,
             position: place.geometry.location
          });
 
+         // add listeners to the click events to send to another controller
          google.maps.event.addListener(marker, 'click', function() {
             infowindow.setContent("Place: " + place.name + " website: " + place.website);
             infowindow.open(map, this);
@@ -48,15 +48,11 @@ angular.module('lunchBoxApp')
             restaurant.address = place.vicinity;
             restaurant.website = place.website;
             restaurant.phone = place.international_phone_number;
+            restaurant.rating = place.rating;
             $rootScope.$emit("mapLocationClick", restaurant);
          });
       }
 
-
-      // Create the search box and link it to the UI element.
-      var input = document.getElementById('pac-input');
-      $window.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-      var searchBox = new google.maps.places.SearchBox(input);
 
       google.maps.event.addListener(searchBox, 'places_changed', function() {
          var places = searchBox.getPlaces();
@@ -83,7 +79,7 @@ angular.module('lunchBoxApp')
                anchor: new google.maps.Point(17, 34),
                scaledSize: new google.maps.Size(25, 25)
             };
-            createMarker(place)
+            createMarker(place);
             markers.push(marker);
 
             if (place.geometry.viewport)
@@ -104,10 +100,8 @@ angular.module('lunchBoxApp')
          if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {
                service.getDetails(results[i], function(res) {
-                  console.log(res)
                   createMarker(res);
                });
-
             }
          }
       });

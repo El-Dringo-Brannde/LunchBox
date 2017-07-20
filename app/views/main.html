@@ -55,6 +55,9 @@
                   </label>
                   <span class="switch-selection"></span>
                </div>
+               <div ng-show="showWebsite">Website: <a href = "{{restaurant.website}}">{{restaurant.name}}</a></div>
+               <div ng-show="showWebsite">Phone: {{restaurant.phone}}</div>
+               <div ng-show="showWebsite">Rating: {{restaurant.rating}}/5</div>
                <div class="center">
                   <button type="submit" ng-click="createEvent()" value="submit">submit</button>
                   <p id="error">{{submissionError}}</p>
@@ -90,6 +93,14 @@
                <tr>
                   <td>Transport:</td>
                   <td>{{groupDetails.travelMethod}}</td>
+               </tr>
+               <tr>
+                  <td>
+                     Website: 
+                  </td>
+                  <td>
+                     {{website}}
+                  </td>
                </tr>
             </table>
          </div>
