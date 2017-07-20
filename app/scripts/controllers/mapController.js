@@ -16,8 +16,6 @@ angular.module('lunchBoxApp')
             visibility: "off"
          }]
       }];
-
-
       myLocation = { // hardcoded Portland location
          lat: 45.504023,
          lng: -122.679433
@@ -25,6 +23,7 @@ angular.module('lunchBoxApp')
 
       $window.map = new google.maps.Map(document.getElementById('map'), {
          center: myLocation,
+         scrollwheel: false,
          zoom: 14
       });
 
@@ -50,8 +49,8 @@ angular.module('lunchBoxApp')
       service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
          location: myLocation,
-         radius: 10000,
-         type: "restaurant"
+         radius: 5000,
+         type: 'restaurant'
       }, function(results, status) {
          if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {

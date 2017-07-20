@@ -1,35 +1,42 @@
 <div id="profile">
 
-   <div id="aboutYou">
-      <img src="https://avatars0.githubusercontent.com/u/9158517?v=4" alt="">
-      <h3>{{user}}</h3>
-   </div>
-   <div id="friends">
-      <div class="search">
-         <input type="text" id="friendSearch" ng-model="friendSearch" placeholder="Search for a friend on Lunchbox">
-         <button ng-click="addFriend()">Add Friend</button> 
-      </div>
-
-      <div id="friendsContainer">
-         <div ng-repeat="friend in friends">
-            <div class="friend">
-               <div class="imgContainer">
-                  <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
-               </div>
-            <h4>{{friend}}</h4>
+    <div id="aboutYou">
+        <img src="https://avatars0.githubusercontent.com/u/9158517?v=4" alt="">
+        <h3>{{user}}</h3>
+    </div>
+    <div id="friends">
+        <h3>
+            Your friends
+        </h3>
+        <div class="search">
+            <input type="text" id="friendSearch" ng-model="friendSearch" placeholder="Search for a friend on Lunchbox">
+            <button ng-click="addFriend()">Add Friend</button>
+        </div>
+        <div id="friendsContainer">
+            <div ng-repeat="friend in friends">
+                <div class="friend">
+                    <div class="imgContainer">
+                        <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
+                    </div>
+                    <h4>{{friend.fullName}}</h4>
+                    <p><a href="mailto:{{groupDetails.email}}">{{friend.email}}</a></p>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 
-   <div id="restaurants">
-      <div class="search">
-         <input type="text" placeholder="Search for a restaurant">
-      </div>
-      <div id="restaurantContainer">
-         <div class="restaurant">
-            <h4>Restaurant Name</h4>
-         </div>
-      </div>
-   </div>
+    <div id="restaurants">
+        <h3>
+            Favorite restaurants
+        </h3>
+        <div class="search">
+            <input type="text" placeholder="Search for a restaurant">
+            <button ng-click="addFriend()">Add Friend</button>
+        </div>
+        <div id="restaurantContainer">
+            <div class="restaurant">
+                <h4>Restaurant Name</h4>
+            </div>
+        </div>
+    </div>
 </div>
