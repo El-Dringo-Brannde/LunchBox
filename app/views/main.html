@@ -41,15 +41,27 @@
          <div ng-show="showForm">
             <h3>I'm going to lunch</h3>
             <div class="form">
-               <input type="text" ng-model="restaurant.name" id="restaurantNameInput">
-               <label for="restaurantNameInput">Restaurant name</label>
+               <table>
+                  <tr>
+                     <td>
+                        <input type="text" ng-model="restaurant.name" id="restaurantNameInput" class="textBox">
+                        <label for="restaurantNameInput" class="inputLabel">Restaurant name</label>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <input type="text" ng-model="restaurant.address" id="restaurantAddressInput" class="textBox">
+                        <label for="restaurantAddressInput" class="inputLabel">Address</label>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <input type="text" ng-model="time" id="timeInput" class="textBox">
+                        <label for="timeInput" class="inputLabel">Departure time</label>
+                     </td>
+                  </tr>
+               </table>
 
-               <input type="text" ng-model="restaurant.address" id="restaurantAddressInput">
-               <label for="restaurantAddressInput">Address</label>
-
-               <input type="text" ng-model="time" id="timeInput">
-               <label for="timeInput">Departure time</label>
-               
                <div class="switch switch-blue">
 
                   <input type="radio" class="switch-input" value="driving" id="car" checked ng-model="transport">

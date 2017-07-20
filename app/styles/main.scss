@@ -2,10 +2,11 @@
 @import "variables/fonts";
 @import "modules/toggleSelector";
 @import "variables/breakpoints";
-
-html, body {
+html,
+body {
    overflow-x: hidden;
 }
+
 #home {
    @import "modules/buttons";
    font-family: $lato;
@@ -35,7 +36,9 @@ html, body {
                   width: 70px;
                }
                .person,
-               .location, .location>div, .other {
+               .location,
+               .location>div,
+               .other {
                   display: flex;
                   align-items: center;
                   padding: 3px 0;
@@ -85,17 +88,34 @@ html, body {
       .form {
          margin: 15px;
          font-size: 1.3em;
-         label:not(.switch) {
+         table {
+            width: 100%;
+         }
+         label {
             color: #6c6c6c;
          }
          input {
-            width: 95%;
+            width: 100%;
             border: none;
             border-bottom: 1px solid $cdk-green;
             background: none;
             font-size: 0.9em;
             outline: none;
             margin: 10px 0 5px 0;
+         }
+         .inputLabel {
+            top: -28px;
+            transition: top 0.4s , font 0.4s, color 0.4s;
+            position: relative;
+            font-size: 0.8em;
+            color: #838383;
+         }
+         .is-active,
+         .is-completed {
+            transition: top 0.4s , font 0.4s, color 0.4s;
+            top: -10px;
+            font-size: 0.6em;
+            color: #acacac;
          }
       }
       #error {
