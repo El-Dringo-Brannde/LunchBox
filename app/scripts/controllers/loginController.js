@@ -28,7 +28,7 @@ angular.module('lunchBoxApp')
             alert("Invalid Username")
          else {
             $http.get('http://ffg.cdk.com:4000/find/user/' + $scope.loginName).then(function success(response) {
-               if ($scope.currentUser = response.data.user.length == 0)
+               if (response.data.user.length == 0)
                   alert('invalid username');
                else if (response.data.user.length > 1) {
                   for (var i = 0; i < response.data.user.length; i++) {
@@ -42,15 +42,16 @@ angular.module('lunchBoxApp')
       }
 
       function createOrLoginUser(idx, cur) {
+         var cleanName = cur.user[idx].cn.split(",")
+         cleanName = cleanName[1].trim() + " " + cleanName[0];
          $scope.currentUser = cur.user[idx].cn;
          $cookies.putObject("user", {
-            full: $scope.currentUser,
+            full: cleanName,
             userName: cur.user[idx].sAMAccountName
          });
          setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
-         var cleanName = cur.user[idx].cn.split(",")
-         cleanName = cleanName[1].trim() + " " + cleanName[0];
-         console.log(cur.user[idx].l)
+      //    var cleanName = cur.user[idx].cn.split(",")
+      //    cleanName = cleanName[1].trim() + " " + cleanName[0];
          $http.post("http://localhost:3005/addUser", {
                username: cur.user[idx].sAMAccountName,
                full: cleanName,
