@@ -15,6 +15,7 @@ angular.module('lunchBoxApp')
    .controller('MainCtrl', function ($scope, $cookies, $http, $window,
       $rootScope, commService, lunchservice, navbar, toastr, groupService) {
       var baseUrl = "http://localhost:3005/";
+      $scope.showWebsite = false;
 
       //create empty scope elements for what the users will enter in the form fields
       $scope.restaurant = {};
@@ -64,8 +65,13 @@ angular.module('lunchBoxApp')
          //make sure the scope updates with these new contents
          $scope.$apply(function () {
             //set the restaurant name and address to the contents passed to us from mapController.js
+            $scope.showWebsite = true;
             $scope.restaurant.name = restaurant.name;
             $scope.restaurant.address = restaurant.address;
+            $scope.restaurant.website = restaurant.website;
+            $scope.restaurant.phone = restaurant.phone;
+            $scope.restaurant.rating = restaurant.rating;
+
             //make sure the associated labels on the input are moved out of the way when text is thrown in
             $("label[for='restaurantNameInput']").addClass("is-active is-completed");
             $("label[for='restaurantAddressInput']").addClass("is-active is-completed");

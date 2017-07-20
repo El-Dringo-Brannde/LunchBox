@@ -18,6 +18,8 @@ angular.module('lunchBoxApp')
       var curUser = $cookies.getObject("user").full.split(",");
       var curUserName = $cookies.getObject("user").userName.split(",");
       $scope.user = curUser.pop();
+      $http.get("http://localhost:3005/getUser?name=" + curUserName)
+         .then((resp) => $scope.user = resp.data[0]);
 
       function getCurFriends() {
          $http.get("http://localhost:3005/getUser?name=" + curUserName)
