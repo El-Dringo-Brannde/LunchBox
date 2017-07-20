@@ -1,3 +1,5 @@
+/*global toastr*/
+
 'use strict';
 
 /**
@@ -26,8 +28,8 @@ angular.module('lunchBoxApp')
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-      }
-      toastr[type](notification)
-    }
-    return toastrInit
+      };
+      toastr[type](notification);
+    };
+    return toastrInit;
   });

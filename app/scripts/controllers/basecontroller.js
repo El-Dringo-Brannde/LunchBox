@@ -9,7 +9,7 @@
  */
 angular.module('lunchBoxApp')
    .controller('baseController', function($scope, $rootScope) {
-      $scope.userLogin = false
+      $scope.userLogin = false;
       $rootScope.$on("showNav", function() {
          $scope.userLogin = true;
       });
@@ -17,5 +17,5 @@ angular.module('lunchBoxApp')
          $scope.userLogin = false;
       });
 
-      console.log($scope.userLogin)
+      console.log($scope.userLogin);
    });
