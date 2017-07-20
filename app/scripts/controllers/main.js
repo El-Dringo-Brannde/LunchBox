@@ -1,5 +1,5 @@
 //global variables go here to suppress warnings
-/*global alert, $*/
+/*global $, _*/
 
 'use strict';
 
@@ -22,26 +22,30 @@ angular.module('lunchBoxApp')
       $scope.time = "";
       $scope.tranport = "";
 
-      navbar()
+      navbar();
       var userName;
-      commService.get().name == undefined ? userName = $cookies.getObject("user").userName : userName = commService.get().userName
-      $scope.user = userName.split(",").pop()
-      $scope.activeUsers = []
+      if (commService.get().name == undefined) {
+         userName = $cookies.getObject("user").userName;
+      } else {
+         userName = commService.get().userName;
+      }
+      $scope.user = userName.split(",").pop();
+      $scope.activeUsers = [];
       $scope.getActiveUsersHTTP = function() {
 
          $http.get('http://localhost:3005/getActiveUsers').then(function success(response) {
             for (var i = 0; i < response.data.length; i++) {
                if (response.data[i].where !== "") {
-                  $scope.activeUsers.push(response.data[i])
-                  $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing
-                  $scope.activeUsers[i].peopleGoingCount = $scope.activeUsers[i].peopleGoing.length
+                  $scope.activeUsers.push(response.data[i]);
+                  $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing;
+                  $scope.activeUsers[i].peopleGoingCount = $scope.activeUsers[i].peopleGoing.length;
                }
             }
          });
-      }
-      $scope.getActiveUsersHTTP()
+      };
+      $scope.getActiveUsersHTTP();
 
-      $scope.httpResults = []
+      $scope.httpResults = [];
       $rootScope.$on("mapLocationClick", function(event, restaurant) {
          $scope.$apply(function() {
             $scope.restaurant.name = restaurant.name;
@@ -59,20 +63,20 @@ angular.module('lunchBoxApp')
          }).then(function success(response) {
             for (var i = 0; i < response.data.restaurants.length; i++) {
                if (response.data.restaurants[i].restaurant.name == restaurantName) {
-                  $scope.httpResults = response.data.restaurants[i].restaurant
+                  $scope.httpResults = response.data.restaurants[i].restaurant;
                }
             }
          });
-      }
+      };
 
       $scope.canJoin = true;
       $scope.plusOne = function(group) {
          for (var i = 0; i < group.peopleGoing.length; i++) {
             if (group.peopleGoing[i] == $cookies.getObject("user").full) {
-               $scope.canJoin = false
+               $scope.canJoin = false;
                toastr("You are already part of that group", "warning");
                $scope.isActive = function() {
-                  return true
+                  return true;
                };
             }
          }
@@ -85,27 +89,27 @@ angular.module('lunchBoxApp')
                   personGoing: $cookies.getObject("user").full
                }
             }).then(function success(response) {
-               group.peopleGoingCount += 1
-               group.peopleGoing.push($cookies.getObject("user").full)
-            })
+               group.peopleGoingCount += 1;
+               group.peopleGoing.push($cookies.getObject("user").full);
+            });
             $scope.isActive = function() {
                return true;
             };
          }
          $scope.showInfo = false;
          $rootScope.$on("dataPopulated", function() {
-            $scope.showInfo = true
-         })
+            $scope.showInfo = true;
+         });
          $scope.loadGroup = function(group) {
             $scope.makeHttpCall(group.where);
-            $scope.group = lunchservice.loadDetails(group, $scope.httpResults)
-         }
-      }
+            $scope.group = lunchservice.loadDetails(group, $scope.httpResults);
+         };
+      };
       $scope.showForm = true;
       $scope.moreInfo = function(group) {
          $scope.showForm = false;
-         $scope.groupDetails = groupService.groupDetails(group)
-      }
+         $scope.groupDetails = groupService.groupDetails(group);
+      };
 
       $scope.createEvent = function() {
          //assign to temp variables for easy readibility
@@ -139,7 +143,7 @@ angular.module('lunchBoxApp')
                      $scope.restaurant.address = "";
                      $scope.time = "";
                      $scope.tranport = "";
-                     toastr("Form submitted!", "success")
+                     toastr("Form submitted!", "success");
                   },
                   function failiure(response) {
                      console.log("there was an error posting the data");
@@ -155,14 +159,14 @@ angular.module('lunchBoxApp')
 
       function timeCleaner(time) {
          if (parseInt(time.split(":")[0]) < 8) {
-            time = time.split(":")
+            time = time.split(":");
             time[0] = (parseInt(time) + 12).toString();
             time = time[0] + ":" + time[1];
          }
-         var curTime = new Date().toTimeString().split(" ")[0].split(":")
-         curTime.pop()
-         curTime = curTime[0] + ":" + curTime[1]
-         return (timeToDecimal(curTime) > timeToDecimal(time))
+         var curTime = new Date().toTimeString().split(" ")[0].split(":");
+         curTime.pop();
+         curTime = curTime[0] + ":" + curTime[1];
+         return (timeToDecimal(curTime) > timeToDecimal(time));
       }
 
       setInterval(function() {
@@ -171,11 +175,13 @@ angular.module('lunchBoxApp')
             .then(function success(response) {
                var expired = false;
                response.data.forEach(function(ele) {
-                  if (timeCleaner(ele.time) == true)
-                     expired = true
+                  if (timeCleaner(ele.time) == true) {
+                     expired = true;
+                  }
                });
-               if (response.data.length == foo && expired == false)
-                  null
+               if (response.data.length == foo && expired == false) {
+                  null; //afriad to change it
+               }
                else {
                   response.data.sort(function(a, b) {
                      var textA = a.fullName.toUpperCase();
@@ -191,10 +197,11 @@ angular.module('lunchBoxApp')
                   $.each(response.data, function(idx, ele) {
                      if ($scope.activeUsers[i] == undefined || response.data[i] == undefined ||
                         timeCleaner(ele.time) == true) {
-                        return false //breaks out of loop
+                        return false; //breaks out of loop
                      }
-                     if ($scope.activeUsers[i].username != response.data[i].username)
-                        return false //breaks out of loop
+                     if ($scope.activeUsers[i].username != response.data[i].username) {
+                        return false; //breaks out of loop
+                     }
                      i++;
                   });
                   if (response.data.length > $scope.activeUsers.length) {
@@ -206,12 +213,12 @@ angular.module('lunchBoxApp')
                      });
                   } else if ((response.data.length < $scope.activeUsers.length || expired === true) &&
                      i != $scope.activeUsers.length) {
-                     console.log($scope.activeUsers[i])
+                     console.log($scope.activeUsers[i]);
                      $http.put("http://localhost:3005/userReturned", {
                         name: $scope.activeUsers[i].username
-                     })
-                     toastr($scope.activeUsers[i].fullName + " has went to lunch", "success")
-                     _.remove($scope.activeUsers, $scope.activeUsers[i])
+                     });
+                     toastr($scope.activeUsers[i].fullName + " has went to lunch", "success");
+                     _.remove($scope.activeUsers, $scope.activeUsers[i]);
 
                   }
                }

@@ -1,3 +1,5 @@
+/*global $*/
+
 'use strict';
 
 /**
@@ -9,15 +11,15 @@
  */
 angular.module('lunchBoxApp')
    .controller('ProfileCtrl', function($scope, $cookies, $http, commService, $rootScope, navbar) {
-      navbar()
-      var curUser = $cookies.getObject("user").full.split(",")
-      var curUserName = $cookies.getObject("user").userName.split(",")
-      $scope.user = curUser.pop() + " " + curUser[0];
+      navbar();
+      var curUser = $cookies.getObject("user").full.split(",");
+      var curUserName = $cookies.getObject("user").userName.split(",");
+      $scope.user = curUser.pop();
 
       function getCurFriends() {
          $http.get("http://localhost:3005/getUser?name=" + curUserName)
             .then((resp) => {
-               $scope.friends = resp.data[0].friends
+               $scope.friends = resp.data[0].friends;
             });
       }
 
@@ -25,7 +27,7 @@ angular.module('lunchBoxApp')
       $http.get("http://localhost:3005/allUsers").then(function(resp) {
          var lunchBoxUsers = [];
          resp.data.forEach(function(ele) {
-            bigObj[ele.fullName] = ele.username
+            bigObj[ele.fullName] = ele.username;
             lunchBoxUsers.push(ele.fullName);
          });
          $("#friendSearch").autocomplete({
