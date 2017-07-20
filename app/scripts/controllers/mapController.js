@@ -1,5 +1,5 @@
 angular.module('lunchBoxApp')
-   .controller('mapController', function ($scope, $rootScope, $window) {
+   .controller('mapController', function($scope, $rootScope, $window) {
       'use strict';
       var infowindow;
       var myLocation;
@@ -9,19 +9,13 @@ angular.module('lunchBoxApp')
          address: ""
       };
 
-      var theStyle = [
-         {
-            featureType: "poi",
-            elementType: "labels",
-            stylers: [
-               {
-                  visibility: "off"
-               }
-            ]
-         }
-      ];
-
-
+      var theStyle = [{
+         featureType: "poi",
+         elementType: "labels",
+         stylers: [{
+            visibility: "off"
+         }]
+      }];
       myLocation = { // hardcoded Portland location
          lat: 45.504023,
          lng: -122.679433
@@ -29,6 +23,7 @@ angular.module('lunchBoxApp')
 
       $window.map = new google.maps.Map(document.getElementById('map'), {
          center: myLocation,
+         scrollwheel: false,
          zoom: 14
       });
 
@@ -41,7 +36,7 @@ angular.module('lunchBoxApp')
             position: place.geometry.location
          });
 
-         google.maps.event.addListener(marker, 'click', function () {
+         google.maps.event.addListener(marker, 'click', function() {
             infowindow.setContent(place.name);
             infowindow.open(map, this);
             //console.log("name of place: " + place.name + "\naddress: " + place.vicinity);
@@ -57,7 +52,7 @@ angular.module('lunchBoxApp')
          location: myLocation,
          radius: 5000,
          type: ['restaurant']
-      }, function (results, status) {
+      }, function(results, status) {
          if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < results.length; i++) {
                createMarker(results[i]);
