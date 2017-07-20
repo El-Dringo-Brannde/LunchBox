@@ -70,7 +70,7 @@ angular.module('lunchBoxApp')
          for (var i = 0; i < group.peopleGoing.length; i++) {
             if (group.peopleGoing[i] == $cookies.getObject("user").full) {
                $scope.canJoin = false
-               toastr()
+               toastr("You are already part of that group", "warning");
                $scope.isActive = function() {
                   return true
                };
