@@ -1,9 +1,10 @@
 @import "variables/colors";
 @import "variables/fonts";
 @import "modules/toggleSelector";
-@import "modules/input";
+//@import "modules/input";
 @import "variables/breakpoints";
 #home {
+   @import "modules/buttons";
    font-family: $lato;
    .content {
       display: grid;
@@ -76,28 +77,16 @@
    #moreInfo {
       background: $primary;
       .form {
-         display: grid;
          margin: 15px;
          font-size: 1.3em;
-         @media screen and (max-width: $large) {
-            grid-template-columns: 1fr;
-            text-align: center;
-            p {
-               padding: 10px 0;
-            }
-            .switch {
-               margin: auto;
-            }
-         }
          input {
-            margin: 0 10px;
-            font-size: 1em;
-            color: black;
-         }
-         button,
-         #error,
-         #success {
-            grid-column: span 2;
+            width: 95%;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.8em;
+            padding: 8px 10px;
+            outline: none;
+            margin: 5px 0 10px 0;
          }
       }
       #error {
@@ -106,7 +95,10 @@
       #success {
          color: green;
       }
-      @import "modules/buttons";
+      .center {
+         text-align: center;
+         
+      }
    }
    #map {
       overflow: hidden;

@@ -11,7 +11,6 @@
                <i class="fa fa-map-marker"></i>
                <div>
                   <p>{{groups.restaurant.name}}</p>
-                  <!-- <p>1948 SW Broadway, Portland, OR 97201</p> -->
                </div>
             </div>
             <div class="other">
@@ -37,21 +36,30 @@
          <div ng-show="showForm">
             <h3>I'm going to lunch</h3>
             <div class="form">
-               <p>I'm going to:</p>
+               <label for="restaurantNameInput">Restaurant name</label>
                <input type="text" ng-model="restaurant.name" id="restaurantNameInput">
-               <p>The address is:</p>
-               <input type="text" ng-model="restaurant.address">
-               <p>I'm getting there by:</p>
+               <label for="restaurantAddressInput">Address</label>
+               <input type="text" ng-model="restaurant.address" id="restaurantAddressInput">
+               <label for="timeInput">Departure time</label>
+               <input type="text" ng-model="time" id="timeInput">
                <div class="switch switch-blue">
-                  <input type="radio" class="switch-input" name="view2" value="driving" id="car" checked ng-model="transport">
-                  <label for="car" class="switch-label switch-label-off"><i class="fa fa-car"></i></label>
-                  <input type="radio" class="switch-input" name="view2" value="walking" id="walking" ng-model="transport">
-                  <label for="walking" class="switch-label switch-label-on" style="padding-top: 5px"><img src="./../styles/pedestrian-walking.png"/></label>
+                  
+                  <input type="radio" class="switch-input" value="driving" id="car" checked ng-model="transport">
+                  <label for="car" class="switch-label switch-label-off">
+                     <i class="fa fa-car"></i>
+                  </label>
+                  
+                  <input type="radio" class="switch-input" value="walking" id="walking" ng-model="transport">
+                  <label for="walking" class="switch-label switch-label-on" style="padding-top: 5px">
+                     <img src="./../styles/pedestrian-walking.png"/>
+                  </label>
                   <span class="switch-selection"></span>
                </div>
-               <button type="submit" ng-click="createEvent()" value="submit">submit</button>
-               <span id="error">{{submissionError}}</span>
-               <span id="success">{{submissionSuccess}}</span>
+               <div class="center">
+                  <button type="submit" ng-click="createEvent()" value="submit">submit</button>
+                  <p id="error">{{submissionError}}</p>
+                  <p id="success">{{submissionSuccess}}</p>
+               </div>
             </div>
          </div>
          <div ng-show="!showForm">
