@@ -6,14 +6,12 @@
    padding: 10px;
    max-width: 1000px;
    margin: auto;
-   
    @media screen and (min-width: $medium) {
       grid-template-columns: 1fr;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-gap: 1vw;
    }
-   
    img {
       border-radius: 50%;
    }
@@ -49,12 +47,18 @@
       h4 {
          text-align: left;
       }
+      h3 {
+         padding: 10px 0;
+      }
    }
-   #friends {
-      margin: 10px 0;
+   #friendsContainer {
+      table {
+         width: 100%;
+      }
       .friend {
-         display: flex;
-         align-items: center;
+         td {
+            vertical-align: middle;
+         }
          img {
             width: 40px;
             padding: 10px;
