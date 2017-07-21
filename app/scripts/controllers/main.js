@@ -14,7 +14,8 @@ const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
    .controller('MainCtrl', function($scope, $cookies, $http, $window,
       $rootScope, commService, lunchservice, navbar, toastr, groupService, $timeout) {
-
+      $(".navBtn").each((i, ele) => $(ele).css("color", "#578bff"))
+      $("#homeLink").css("color", "#82c600")
       var baseUrl = "http://localhost:3005/";
       $scope.showWebsite = false;
 
@@ -36,15 +37,27 @@ angular.module('lunchBoxApp')
       } else {
          userName = commService.get().userName;
       }
-      console.log($cookies.getObject("user"))
       $scope.user = userName.split(",").pop();
       $scope.activeUsers = [];
-      $scope.getActiveUsersHTTP = function () {
+      $scope.getActiveUsersHTTP = function() {
          $http.get(baseUrl + 'getActiveUsers').then(function success(response) {
             for (var i = 0; i < response.data.length; i++) {
                if (response.data[i].where !== "") {
                   $scope.activeUsers.push(response.data[i]);
                   $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing;
+                  $http.get("http://localhost:3005/getUser?name=" + response.data[i].username)
+                     .then((resp) => {
+                        console.log(resp, $scope.activeUsers, i)
+
+                        try {
+                           resp.data[0].profilePic == "" ? $scope.activeUsers[i].profilePic =
+                              "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" :
+                              $scope.activeUsers[i].profilePic = resp.data[0].profilePic;
+                        } catch (err) {
+                           $scope.activeUsers[i].profilePic =
+                              "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg"
+                        }
+                     });
 
                   //if the number of people who are going don't exist or its been initialized to 0, then set it to 1
                   if ($scope.activeUsers[i].peopleGoing.length === undefined || $scope.activeUsers[i].peopleGoing.length === 0) {
@@ -61,14 +74,24 @@ angular.module('lunchBoxApp')
 
       $scope.httpResults = [];
 
+      $scope.addToFave = function() {
+         $scope.restaurant['userName'] = $cookies.getObject('user').userName
+         console.log($scope.restaurant)
+         $http.put("http://localhost:3005/addFavorite",
+            $scope.restaurant).then(function(resp) {
+            console.log(resp)
+         })
+      }
+
       //when someone clicks on a pin on the map
-      $rootScope.$on("mapLocationClick", function (event, restaurant) {
+      $rootScope.$on("mapLocationClick", function(event, restaurant) {
          //make sure the scope updates with these new contents
-         $scope.$apply(function () {
+         $scope.$apply(function() {
             //set the restaurant name and address to the contents passed to us from mapController.js
             $scope.showWebsite = true;
             $scope.restaurant.name = restaurant.name;
-            $scope.restaurant.address = restaurant.address;
+            $scope.restaurant.autoName = restaurant.name;
+            $scope.restaurant.address = restaurant.address;;
             $scope.restaurant.website = restaurant.website;
             $scope.restaurant.phone = restaurant.phone;
             $scope.restaurant.rating = restaurant.rating;
@@ -86,7 +109,7 @@ angular.module('lunchBoxApp')
          });
       });
 
-      $scope.makeHttpCall = function (restaurantName) {
+      $scope.makeHttpCall = function(restaurantName) {
          $http({
             method: 'GET',
             headers: {
@@ -103,17 +126,17 @@ angular.module('lunchBoxApp')
       };
 
       $scope.canJoin = true;
-      $scope.plusOne = function (group) {
-            console.log(group)
-            if(group.fullName == $cookies.getObject("user").full || group.username == $cookies.getObject("user").userName){
-                  $scope.canJoin = false;
-               toastr("You the founder of this group!", "warning");
-            }
+      $scope.plusOne = function(group) {
+         console.log(group)
+         if (group.fullName == $cookies.getObject("user").full || group.username == $cookies.getObject("user").userName) {
+            $scope.canJoin = false;
+            toastr("You the founder of this group!", "warning");
+         }
          for (var i = 0; i < group.peopleGoing.length; i++) {
             if (group.peopleGoing[i] == $cookies.getObject("user").full || group.peopleGoing[i] == $cookies.getObject("user").userName) {
                $scope.canJoin = false;
                toastr("You are already part of that group", "warning");
-               $scope.isActive = function () {
+               $scope.isActive = function() {
                   return true;
                };
             }
@@ -130,30 +153,65 @@ angular.module('lunchBoxApp')
                group.peopleGoingCount += 1;
                group.peopleGoing.push($cookies.getObject("user").full);
             });
-            $scope.isActive = function () {
+            $scope.isActive = function() {
                return true;
             };
          }
          $scope.showInfo = false;
-         $rootScope.$on("dataPopulated", function () {
+         $rootScope.$on("dataPopulated", function() {
             $scope.showInfo = true;
          });
-         $scope.loadGroup = function (group) {
+         $scope.loadGroup = function(group) {
             $scope.makeHttpCall(group.where);
             $scope.group = lunchservice.loadDetails(group, $scope.httpResults);
          };
       };
       $scope.showForm = true;
-      $scope.moreInfo = function (group) {
+      $scope.moreInfo = function(group) {
          $scope.showForm = false;
          $scope.groupDetails = groupService.groupDetails(group);
       };
+      $scope.bigObject = {
+         "Portland": {
+            lat: 45.504023,
+            lng: -122.679433
+         },
+         "Seattle": {
+            lat: 47.5971064,
+            lng: -122.3307503
+         },
+         "Hoffman Estates": {
+            lat: 42.0632679,
+            lng: -88.1302837
+         },
+         "Pune": {
+            lat: 18.5561171,
+            lng: 73.8897303
+         },
+         "Hyderabad": {
+            lat: 17.4376587,
+            lng: 78.3824284
+         },
+         "Hungerford": {
+            lat: 51.4198961,
+            lng: -1.5166144
+         }
+      };
 
-      $scope.createEvent = function () {
+      $scope.foo = function(place) {
+         console.log(place)
+         $rootScope.$broadcast("mapChange", place)
+      }
+
+      $scope.createEvent = function() {
          //assign to temp variables for easy readibility
          var name = $scope.restaurant.name,
             address = $scope.restaurant.address,
             time = $scope.time,
+            phone = $scope.restaurant.phone,
+            yelp = $scope.restaurant.yelpNMenu,
+            url = $scope.restaurant.website,
+            rating = $scope.restaurant.rating,
             transport = $scope.transport;
 
          //if any of them are empty show an error
@@ -166,11 +224,10 @@ angular.module('lunchBoxApp')
             $scope.canPost = false;
             var timeRule = new RegExp("^[0-9]{1,2}:[0-9]{2}$");
             if (!timeRule.test(time)) {
-                  $scope.canPost = false;
+               $scope.canPost = false;
                $("#error").html("the departure time is not in the proper format (eg. 12:00)");
-            }
-            else if(timeRule.test(time)){
-                  $scope.canPost = true;
+            } else if (timeRule.test(time)) {
+               $scope.canPost = true;
             }
             //an obejct to gather all the form data
             var submissionObject = {
@@ -178,29 +235,33 @@ angular.module('lunchBoxApp')
                username: $cookies.getObject("user").userName,
                restaurant: {
                   name: name,
-                  address: address
+                  address: address,
+                  phone: phone,
+                  yelp: yelp,
+                  url: url
                },
                looking: "true",
                time: time,
                peopleGoingCount: 1,
                travelMethod: transport
             };
+
             //post to the LunchBox-Services a the data we just gathered
-            if($scope.canPost == true){
-            $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
-               .then(function success(response) {
-                     //clear all the input fields after the data has been put in the database
-                     $scope.restaurant.name = "";
-                     $scope.restaurant.address = "";
-                     $scope.time = "";
-                     $scope.tranport = "";
-                     toastr("Form submitted!", "success");
-                     $("label").removeClass("is-active is-completed");
-                  },
-                  function failiure(response) {
-                     console.log("there was an error posting the data");
-                     $scope.submissionError = "there was an error posting the data";
-                  });
+            if ($scope.canPost == true) {
+               $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
+                  .then(function success(response) {
+                        //clear all the input fields after the data has been put in the database
+                        $scope.restaurant.name = "";
+                        $scope.restaurant.address = "";
+                        $scope.time = "";
+                        $scope.tranport = "";
+                        toastr("Form submitted!", "success");
+                        $("label").removeClass("is-active is-completed");
+                     },
+                     function failiure(response) {
+                        console.log("there was an error posting the data");
+                        $scope.submissionError = "there was an error posting the data";
+                     });
             }
          }
       };
@@ -211,7 +272,7 @@ angular.module('lunchBoxApp')
       }
 
       function timeCleaner(time) {
-         if (parseInt(time.split(":")[0]) < 8) {
+         if (parseInt(time.split(":")[0]) < 7) {
             time = time.split(":");
             time[0] = (parseInt(time) + 12).toString();
             time = time[0] + ":" + time[1];
@@ -222,12 +283,12 @@ angular.module('lunchBoxApp')
          return (timeToDecimal(curTime) > timeToDecimal(time));
       }
 
-      setInterval(function () {
+      setInterval(function() {
          var foo = $scope.activeUsers.length;
          $http.get('http://localhost:3005/getActiveUsers')
             .then(function success(response) {
                var expired = false;
-               response.data.forEach(function (ele) {
+               response.data.forEach(function(ele) {
                   if (timeCleaner(ele.time) == true) {
                      expired = true;
                   }
@@ -235,18 +296,18 @@ angular.module('lunchBoxApp')
                if (response.data.length == foo && expired == false) {
                   null; //afriad to change it
                } else {
-                  response.data.sort(function (a, b) {
+                  response.data.sort(function(a, b) {
                      var textA = a.fullName.toUpperCase();
                      var textB = b.fullName.toUpperCase();
                      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                   });
-                  $scope.activeUsers.sort(function (a, b) {
+                  $scope.activeUsers.sort(function(a, b) {
                      var textA = a.fullName.toUpperCase();
                      var textB = b.fullName.toUpperCase();
                      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
                   });
                   var i = 0;
-                  $.each(response.data, function (idx, ele) {
+                  $.each(response.data, function(idx, ele) {
                      if ($scope.activeUsers[i] == undefined || response.data[i] == undefined ||
                         timeCleaner(ele.time) == true) {
                         return false; //breaks out of loop
@@ -258,7 +319,16 @@ angular.module('lunchBoxApp')
                   });
                   if (response.data.length > $scope.activeUsers.length) {
                      $scope.activeUsers.push(response.data[i]);
-                     $scope.activeUsers.sort(function (a, b) {
+
+                     var last = $scope.activeUsers[$scope.activeUsers.length - 1]
+                     $http.get("http://localhost:3005/getUser?name=" + last.username)
+                        .then((resp) => {
+                           resp.data[0].profilePic == "" ? last.profilePic =
+                              "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" :
+                              last.profilePic = resp.data[0].profilePic;
+                        });
+
+                     $scope.activeUsers.sort(function(a, b) {
                         var textA = a.fullName.toUpperCase();
                         var textB = b.fullName.toUpperCase();
                         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
@@ -292,7 +362,7 @@ angular.module('lunchBoxApp')
          }
       }
 
-      $("#timeInput").on("focusout", function () {
+      $("#timeInput").on("focusout", function() {
          var userValue = $("#timeInput").val();
 
          //match either one or two numbers, then a :, then two numbers
@@ -306,7 +376,7 @@ angular.module('lunchBoxApp')
 
       });
 
-      $(".textBox").focus(function () {
+      $(".textBox").focus(function() {
          /*
          - Grab the id of the text box, identify the label for that associated id, and add in the attribute
          is-active and is-completed. 
@@ -316,7 +386,7 @@ angular.module('lunchBoxApp')
          $("label[for='" + $(this).attr("id") + "']").addClass("is-active is-completed");
       });
 
-      $(".textBox").focusout(function () {
+      $(".textBox").focusout(function() {
          //if the value of the box is empty
          if ($(this).val() === "") {
             //grab the id of the selected box, target the associated label and remove the is-completed class

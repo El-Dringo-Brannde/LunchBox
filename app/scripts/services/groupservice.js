@@ -8,21 +8,26 @@
  * Service in the lunchBoxApp.
  */
 angular.module('lunchBoxApp')
-   .service('groupService', function () {
+   .service('groupService', function() {
       var self = this;
-      self.groupDetails = function (group) {
+      self.groupDetails = function(group) {
          console.log(group)
-         console.log(group.peopleGoing.length)
+         console.log(group.restaurant)
          var peopleGoing = group.peopleGoing.toString();
          var bonusInfo = {
             user: group.fullName,
             email: group.email,
             peopleGoing: peopleGoing,
-            peopleGoingCount:  group.peopleGoing.length,
+            peopleGoingCount: group.peopleGoing.length,
             travelMethod: group.travelMethod,
             time: group.time,
             where: group.restaurant.name,
-            address: group.restaurant.address
+            address: group.restaurant.address,
+            website: group.restaurant.url,
+            yelp: group.restaurant.yelp,
+            rating: group.restaurant.rating,
+            phone: group.restaurant.phone
+
          };
          return bonusInfo;
       };

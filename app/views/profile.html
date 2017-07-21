@@ -4,8 +4,8 @@
          <img ng-src="{{userImage}}" alt="">
          <h3>{{user.fullName}}</h3>
       </div>
-      <form id="profileSelect">
-         <input type="text" placeholder="enter github username" ng-model="githubUsername">
+      <form id="profileSelect" ng-show="!foundPhoto">
+         <input type="text" placeholder="enter github username" ng-model="githubUsername" style='color: black; '>
          <button ng-click="getImage()">enter</button>
       </form>
    </div>
@@ -46,7 +46,7 @@
             <tbody>
                <tr ng-repeat="f in favorites" class="friend">
                   <td class="pad">
-                     <h4>{{f.name}}</h4>
+                     <h4><a href="{{f.website}}"> {{f.name}}</a></h4>
                   </td>
                </tr>
             </tbody>

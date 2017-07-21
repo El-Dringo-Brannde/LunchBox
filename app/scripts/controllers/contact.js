@@ -8,10 +8,10 @@
  * Controller of the lunchBoxApp
  */
 angular.module('lunchBoxApp')
-  .controller('ContactCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+   .controller('ContactCtrl', function() {
+      this.awesomeThings = [
+         'HTML5 Boilerplate',
+         'AngularJS',
+         'Karma'
+      ];
+   });
