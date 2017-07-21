@@ -16,7 +16,11 @@ angular.module('lunchBoxApp')
       var curUserName = $cookies.getObject("user").userName.split(",");
       $scope.user = curUser.pop();
       $http.get("http://localhost:3005/getUser?name=" + curUserName)
-         .then((resp) => $scope.user = resp.data[0]);
+         .then((resp) => {
+            $scope.user = resp.data[0];
+            resp.data[0].profilePic == "" ? $scope.user.profilePic =
+               "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" : null;
+         });
 
       function getCurFriends() {
          $http.get("http://localhost:3005/getUser?name=" + curUserName)

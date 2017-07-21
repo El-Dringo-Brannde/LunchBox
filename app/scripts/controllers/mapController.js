@@ -30,9 +30,8 @@ angular.module('lunchBoxApp')
       $window.map.set('styles', theStyle);
       // Create the search box and link it to the UI element.
       var input = document.getElementById('pac-input');
-      $window.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      $window.map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
       var searchBox = new google.maps.places.SearchBox(input);
-
 
       function createMarker(place) {
          var marker = new google.maps.Marker({
