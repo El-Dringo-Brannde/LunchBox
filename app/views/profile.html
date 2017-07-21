@@ -4,7 +4,7 @@
          <img ng-src="{{userImage}}" alt="">
          <h3>{{user.fullName}}</h3>
       </div>
-      <form id="profileSelect">
+      <form id="profileSelect" ng-show="!foundPhoto">
          <input type="text" placeholder="enter github username" ng-model="githubUsername">
          <button ng-click="getImage()">enter</button>
       </form>

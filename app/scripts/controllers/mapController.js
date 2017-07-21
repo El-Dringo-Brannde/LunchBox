@@ -13,10 +13,7 @@ angular.module('lunchBoxApp')
       };
       var theStyle = [{
          featureType: "poi",
-         elementType: "labels",
-         stylers: [{
-            visibility: "off"
-         }]
+         elementType: "labels"
       }];
       myLocation = { // hardcoded Portland location
          lat: 45.504023,
@@ -88,10 +85,10 @@ angular.module('lunchBoxApp')
          var searchBox = new google.maps.places.SearchBox(input);
          infowindow = new google.maps.InfoWindow();
          service = new google.maps.places.PlacesService(map);
-         service.nearbySearch({
+         service.radarSearch({
             location: myLocation,
             radius: 5000,
-            type: 'restaurant'
+            type: 'food'
          }, function(results, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                for (var i = 0; i < results.length; i++) {
@@ -101,6 +98,7 @@ angular.module('lunchBoxApp')
                }
             }
          });
+
 
 
          google.maps.event.addListener(searchBox, 'places_changed', function() {
