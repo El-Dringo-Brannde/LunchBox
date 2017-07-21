@@ -76,9 +76,18 @@
                   </label>
                   <span class="switch-selection"></span>
                </div>
-               <div ng-show="showWebsite">Website: <a href = "{{restaurant.website}}">{{restaurant.name}}</a></div>
-               <div ng-show="showWebsite">Phone: {{restaurant.phone}}</div>
-               <div ng-show="showWebsite">Rating: {{restaurant.rating}}/5</div>
+               <table ng-show="showWebsite" id="pinInfo">
+                  <tbody>
+                     <tr>
+                        <td>
+                           <i class="fa fa-link"></i>
+                           <a href="{{restaurant.website}}">{{restaurant.name}}</a>
+                        </td>
+                        <td><i class="fa fa-phone"></i>{{restaurant.phone}}</td>
+                        <td><i class="fa fa-star"></i>{{restaurant.rating}}/5</td>
+                     </tr>
+                  </tbody>
+               </table>
                <div class="center">
                   <button type="submit" ng-click="createEvent()" value="submit" id="goingFormSubmit">submit</button>
                   <p id="error">{{submissionError}}</p>
