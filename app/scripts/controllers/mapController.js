@@ -50,6 +50,7 @@ angular.module('lunchBoxApp')
       function createMarker(place2) {
          var service = new google.maps.places.PlacesService(map);
          service.getDetails(place2, function(place) {
+            console.log(place)
             var marker = new google.maps.Marker({
                map: map,
                position: place.geometry.location
@@ -134,6 +135,7 @@ angular.module('lunchBoxApp')
                   bounds.union(place.geometry.viewport);
                else
                   bounds.extend(place.geometry.location);
+               map.setZoom(14);
             }
             map.fitBounds(bounds);
          });

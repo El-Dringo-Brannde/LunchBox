@@ -6,7 +6,7 @@
          <div class="event" ng-repeat="groups in activeUsers">
             <div id="left">
                <div class="person">
-                  <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="no image">
+                  <img src="{{groups.profilePic}}" alt="no image">
                   <h4>{{groups.fullName}}</h4>
                </div>
                <div class="location">
@@ -86,7 +86,6 @@
                         <td><i class="fa fa-phone"></i>{{restaurant.phone}}</td>
                         <td><i class="fa fa-star"></i>{{restaurant.rating}}/5</td>
                      </tr>
-                     <tr></tr>
                      <tr>
                         <td></td>
                         <td> <i class="fa fa-yelp"></i>
