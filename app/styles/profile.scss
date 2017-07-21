@@ -2,103 +2,103 @@
 @import "variables/fonts";
 @import "variables/breakpoints";
 #profile {
-  font-family: $lato;
-  padding: 10px;
-  max-width: 1000px;
-  margin: auto;
-  @media screen and (min-width: $medium) {
-    grid-template-columns: 1fr;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1vw;
-  }
-  img {
-    border-radius: 50%;
-  }
-  #aboutYou {
-    @import "modules/buttons";
-    @import "modules/input";
-    #profileSelect {
-      padding: 30px;
-    }
-    grid-column: span 2;
-    background: #ededed;
-    #aboutImg {
-      display: flex;
-      align-items: center;
-    }
-    h1 {
-      color: black;
-    }
-    img {
-      width: 140px;
-      margin: 10px;
-    }
-    input {
-      font-size: 1em;
-      color: black;
-    }
-  }
-  .search {
-    padding: 5px;
-    text-align: center;
-    background: $primary-dark;
-    padding: 10px;
-    input {
-      width: 300px;
-      border: none;
-      background: none;
-      border-bottom: 1px solid $cdk-green;
-      font-size: 1em;
-    }
-  }
-  #friends,
-  #restaurants {
-    background: $primary;
-    h3 {
-      padding: 10px 0px;
-    }
-    h4 {
-      text-align: left;
-    }
-    h3 {
-      padding: 10px 0;
-    }
-  }
-  #friendsContainer {
-    table {
-      width: 100%;
-    }
-    .friend {
-      td {
-        vertical-align: middle;
+   font-family: $lato;
+   padding: 10px;
+   max-width: 1000px;
+   margin: auto;
+   @import "modules/buttons";
+   @import "modules/input";
+   @media screen and (min-width: $medium) {
+      grid-template-columns: 1fr;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 1vw;
+   }
+   img {
+      border-radius: 50%;
+   }
+   #aboutYou {
+      #profileSelect {
+         padding: 30px;
       }
-      td:first-child {
-        width: 50px;
+      grid-column: span 2;
+      background: #ededed;
+      #aboutImg {
+         display: flex;
+         align-items: center;
+      }
+      h1 {
+         color: black;
       }
       img {
-        width: 40px;
-        padding: 10px;
+         width: 140px;
+         margin: 10px;
       }
-      a {
-        color: #0cad2b;
-        transition: 0.4s color;
-        &:hover {
-          transition: 0.4s color;
-          color: $cdk-green;
-        }
+      input {
+         font-size: 1em;
+         color: black;
       }
-    }
-  }
-  #restaurants {
-    margin: 10px 0;
-    #restaurantContainer {
-      .restaurant {
-        padding: 10px;
+   }
+   .search {
+      padding: 5px;
+      text-align: center;
+      background: $primary-dark;
+      padding: 10px;
+      input {
+         width: 300px;
+         border: none;
+         background: none;
+         border-bottom: 1px solid $cdk-green;
+         font-size: 1em;
       }
-    }
-  }
-  .pad {
-    padding: 21px;
-  }
+   }
+   #friends,
+   #restaurants {
+      background: $primary;
+      h3 {
+         padding: 10px 0px;
+      }
+      h4 {
+         text-align: left;
+      }
+      h3 {
+         padding: 10px 0;
+      }
+   }
+   #friendsContainer {
+      table {
+         width: 100%;
+      }
+      .friend {
+         td {
+            vertical-align: middle;
+         }
+         td:first-child {
+            width: 50px;
+         }
+         img {
+            width: 40px;
+            padding: 10px;
+         }
+         a {
+            color: #0cad2b;
+            transition: 0.4s color;
+            &:hover {
+               transition: 0.4s color;
+               color: $cdk-green;
+            }
+         }
+      }
+   }
+   #restaurants {
+      margin: 10px 0;
+      #restaurantContainer {
+         .restaurant {
+            padding: 10px;
+         }
+      }
+   }
+   .pad {
+      padding: 21px;
+   }
 }
