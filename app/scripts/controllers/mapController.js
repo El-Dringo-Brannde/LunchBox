@@ -161,7 +161,7 @@ angular.module('lunchBoxApp')
          });
          map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
          var searchBox = new google.maps.places.SearchBox(input);
-         var t = new google.maps.places.SearchBox(document.getElementById('restaurantNameInput'));
+         // var t = new google.maps.places.SearchBox(document.getElementById('restaurantNameInput'));
 
          infowindow = new google.maps.InfoWindow();
          var bounds = new google.maps.LatLngBounds();
@@ -174,7 +174,7 @@ angular.module('lunchBoxApp')
          });
          markers.push(cityCircle)
          searchBox.setBounds(bounds.union(cityCircle.getBounds()));
-         t.setBounds(bounds.union(cityCircle.getBounds()));
+         // t.setBounds(bounds.union(cityCircle.getBounds()));
          deleteMarkers()
          service = new google.maps.places.PlacesService(map);
          addListeners(t)

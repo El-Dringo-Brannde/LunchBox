@@ -192,7 +192,12 @@ angular.module('lunchBoxApp')
          var name = $scope.restaurant.name,
             address = $scope.restaurant.address,
             time = $scope.time,
+            phone = $scope.restaurant.phone,
+            yelp = $scope.restaurant.yelpNMenu,
+            url = $scope.restaurant.website,
+            rating = $scope.restaurant.rating,
             transport = $scope.transport;
+         console.log(yelp, url, rating)
 
          //if any of them are empty show an error
          if (name === "" || address === "" || time === "") {
@@ -215,7 +220,10 @@ angular.module('lunchBoxApp')
                username: $cookies.getObject("user").userName,
                restaurant: {
                   name: name,
-                  address: address
+                  address: address,
+                  phone: phone,
+                  yelp: yelp,
+                  url: url
                },
                looking: "true",
                time: time,
@@ -249,7 +257,7 @@ angular.module('lunchBoxApp')
       }
 
       function timeCleaner(time) {
-         if (parseInt(time.split(":")[0]) < 8) {
+         if (parseInt(time.split(":")[0]) < 7) {
             time = time.split(":");
             time[0] = (parseInt(time) + 12).toString();
             time = time[0] + ":" + time[1];
