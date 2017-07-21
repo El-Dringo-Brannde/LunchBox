@@ -54,7 +54,7 @@
                         <tr>
                             <td>
                                 <input type="text" ng-model="restaurant.name" id="restaurantNameInput" class="textBox">
-                                <label for="restaurantNameInput" class="inputLabel">Restaurant name</label>
+                                <!-- <label for="restaurantNameInput" class="inputLabel">Restaurant name</label> -->
                             </td>
                         </tr>
                         <tr>
@@ -89,7 +89,7 @@
                             <tr>
                                 <td>
                                     <i class="fa fa-link"></i>
-                                    <a href="{{restaurant.website}}" target="_blank">{{restaurant.name}}</a>
+                                    <a href="{{restaurant.website}}" target="_blank">{{restaurant.autoName}}</a>
                                 </td>
                                 <td><i class="fa fa-phone"></i>{{restaurant.phone}}</td>
                                 <td><i class="fa fa-star"></i>{{restaurant.rating}}/5</td>
@@ -97,7 +97,7 @@
                             <tr>
                                 <td></td>
                                 <td> <i class="fa fa-yelp"></i>
-                                    <a href="{{restaurant.yelpNMenu}}" target="_blank">{{restaurant.name}} Menu on Yelp!</td>
+                                    <a href="{{restaurant.yelpNMenu}}" target="_blank">{{restaurant.autoNname}} Menu on Yelp!</td>
                      </tr>
                   </tbody>
                </table>

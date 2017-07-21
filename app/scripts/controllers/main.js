@@ -74,7 +74,8 @@ angular.module('lunchBoxApp')
             //set the restaurant name and address to the contents passed to us from mapController.js
             $scope.showWebsite = true;
             $scope.restaurant.name = restaurant.name;
-            $scope.restaurant.address = restaurant.address;
+            $scope.restaurant.autoName = restaurant.name;
+            $scope.restaurant.address = restaurant.address;;
             $scope.restaurant.website = restaurant.website;
             $scope.restaurant.phone = restaurant.phone;
             $scope.restaurant.rating = restaurant.rating;
