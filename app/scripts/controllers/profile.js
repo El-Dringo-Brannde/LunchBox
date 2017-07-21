@@ -11,7 +11,8 @@
  */
 angular.module('lunchBoxApp')
    .controller('ProfileCtrl', function($scope, $cookies, $http, commService, $rootScope, navbar) {
-
+      $(".navBtn").each((i, ele) => $(ele).css("color", "#578bff"))
+      $("#profileLink").css("color", "#82c600");
       var baseUrl = "http://localhost:3005/";
       $scope.foundPhoto = false;
 

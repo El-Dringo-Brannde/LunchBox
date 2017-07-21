@@ -14,7 +14,8 @@ const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
    .controller('MainCtrl', function($scope, $cookies, $http, $window,
       $rootScope, commService, lunchservice, navbar, toastr, groupService, $timeout) {
-
+      $(".navBtn").each((i, ele) => $(ele).css("color", "#578bff"))
+      $("#homeLink").css("color", "#82c600")
       var baseUrl = "http://localhost:3005/";
       $scope.showWebsite = false;
 
@@ -46,7 +47,6 @@ angular.module('lunchBoxApp')
                   $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing;
                   $http.get("http://localhost:3005/getUser?name=" + response.data[i].username)
                      .then((resp) => {
-                        console.log(resp);
                         resp.data[0].profilePic == "" ? $scope.activeUsers[i].profilePic =
                            "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" :
                            $scope.activeUsers[i].profilePic = resp.data[0].profilePic;
@@ -154,6 +154,37 @@ angular.module('lunchBoxApp')
          $scope.showForm = false;
          $scope.groupDetails = groupService.groupDetails(group);
       };
+      $scope.bigObject = {
+         "Portland": {
+            lat: 45.504023,
+            lng: -122.679433
+         },
+         "Seattle": {
+            lat: 47.5971064,
+            lng: -122.3307503
+         },
+         "Hoffman Estates": {
+            lat: 42.0632679,
+            lng: -88.1302837
+         },
+         "Pune": {
+            lat: 18.5561171,
+            lng: 73.8897303
+         },
+         "Hyderabad": {
+            lat: 17.4376587,
+            lng: 78.3824284
+         },
+         "Hungerford": {
+            lat: 51.4198961,
+            lng: -1.5166144
+         }
+      };
+
+      $scope.foo = function(place) {
+         console.log(place)
+         $rootScope.$broadcast("mapChange", place)
+      }
 
       $scope.createEvent = function() {
          //assign to temp variables for easy readibility

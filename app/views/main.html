@@ -1,95 +1,103 @@
-<input id="pac-input" style="z-index: 100;" class="controls" placeholder="Search for a place to go">
 <div id="home">
-   <div class="content">
-      <div id="peopleList">
-         <h3>People going to lunch</h3>
-         <div class="event" ng-repeat="groups in activeUsers">
-            <div id="left">
-               <div class="person">
-                  <img src="{{groups.profilePic}}" alt="no image">
-                  <h4>{{groups.fullName}}</h4>
-               </div>
-               <div class="location">
-                  <div>
-                     <i class="fa fa-map-marker"></i>
-                     <p>{{groups.restaurant.name}}</p>
-                  </div>
+    <div class="content">
+        <div id="peopleList">
+            <h3>People going to lunch in..
+                <select class="form-control" ng-model="Offices">
+                      <option value="" disabled selected>Offices</option>
+                      <option ng-repeat="(key,values) in bigObject" value = "{{key}}"> {{key}}</option>
+                </select>
+                     <button ng-click="foo(Offices)">SWITCH!!!</button>
+                  
+            </h3>
 
-               </div>
-               <div class="other">
-                  <div>
-                     <i class="fa fa-clock-o"></i>
-                     <p>{{groups.time}}</p>
-                  </div>
-                  <div ng-model="groups.peopleGoingCount" ng-click="plusOne(groups)">
-                     <i class="fa fa-users" ng-click="isActive = $index" ng-class="{active: isActive == $index}"></i>
-                     <p>{{groups.peopleGoingCount}}</p>
-                  </div>
-                  <div>
-                     <i class="fa fa-car">{{groups.travelMethod}}</i>
-                  </div>
-               </div>
-            </div>
-            <div id="middle">
-               <button type="button" ng-click="plusOne(groups)">Join Group</button>
-            </div>
-            <div id="right" ng-click="moreInfo(groups)">
-               &rsaquo;
-            </div>
-         </div>
-      </div>
-      <div id="moreInfo">
-         <div ng-show="showForm">
-            <h3>I'm going to lunch{{foo}}</h3>
-            <div class="form">
-               <table>
-                  <tr>
-                     <td>
-                        <input type="text" ng-model="restaurant.name" id="restaurantNameInput" class="textBox">
-                        <label for="restaurantNameInput" class="inputLabel">Restaurant name</label>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td>
-                        <input type="text" ng-model="restaurant.address" id="restaurantAddressInput" class="textBox">
-                        <label for="restaurantAddressInput" class="inputLabel">Address</label>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td>
-                        <input type="text" ng-model="time" id="timeInput" class="textBox">
-                        <label for="timeInput" class="inputLabel">Departure time</label>
-                     </td>
-                  </tr>
-               </table>
+            
+            <div class="event" ng-repeat="groups in activeUsers">
+                <div id="left">
+                    <div class="person">
+                        <img src="{{groups.profilePic}}" alt="no image">
+                        <h4>{{groups.fullName}}</h4>
+                    </div>
+                    <div class="location">
+                        <div>
+                            <i class="fa fa-map-marker"></i>
+                            <p>{{groups.restaurant.name}}</p>
+                        </div>
 
-               <div class="switch switch-blue">
+                    </div>
+                    <div class="other">
+                        <div>
+                            <i class="fa fa-clock-o"></i>
+                            <p>{{groups.time}}</p>
+                        </div>
+                        <div ng-model="groups.peopleGoingCount" ng-click="plusOne(groups)">
+                            <i class="fa fa-users" ng-click="isActive = $index" ng-class="{active: isActive == $index}"></i>
+                            <p>{{groups.peopleGoingCount}}</p>
+                        </div>
+                        <div>
+                            <i class="fa fa-car">{{groups.travelMethod}}</i>
+                        </div>
+                    </div>
+                </div>
+                <div id="middle">
+                    <button type="button" ng-click="plusOne(groups)">Join Group</button>
+                </div>
+                <div id="right" ng-click="moreInfo(groups)">
+                    &rsaquo;
+                </div>
+            </div>
+        </div>
+        <div id="moreInfo">
+            <div ng-show="showForm">
+                <h3>I'm going to lunch</h3>
+                <div class="form">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" ng-model="restaurant.name" id="restaurantNameInput" class="textBox">
+                                <label for="restaurantNameInput" class="inputLabel">Restaurant name</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" ng-model="restaurant.address" id="restaurantAddressInput" class="textBox">
+                                <label for="restaurantAddressInput" class="inputLabel">Address</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" ng-model="time" id="timeInput" class="textBox">
+                                <label for="timeInput" class="inputLabel">Departure time</label>
+                            </td>
+                        </tr>
+                    </table>
 
-                  <input type="radio" class="switch-input" value="driving" id="car" ng-model="transport">
-                  <label for="car" class="switch-label switch-label-off">
+                    <div class="switch switch-blue">
+
+                        <input type="radio" class="switch-input" value="driving" id="car" ng-model="transport">
+                        <label for="car" class="switch-label switch-label-off">
                      <i class="fa fa-car"></i>
                   </label>
 
-                  <input type="radio" class="switch-input" value="walking" id="walking" checked ng-model="transport">
-                  <label for="walking" class="switch-label switch-label-on" style="padding-top: 5px">
+                        <input type="radio" class="switch-input" value="walking" id="walking" checked ng-model="transport">
+                        <label for="walking" class="switch-label switch-label-on" style="padding-top: 5px">
                      <img src="./../styles/pedestrian-walking.png"/>
                   </label>
-                  <span class="switch-selection"></span>
-               </div>
-               <table ng-show="showWebsite" id="pinInfo">
-                  <tbody>
-                     <tr>
-                        <td>
-                           <i class="fa fa-link"></i>
-                           <a href="{{restaurant.website}}" target="_blank">{{restaurant.name}}</a>
-                        </td>
-                        <td><i class="fa fa-phone"></i>{{restaurant.phone}}</td>
-                        <td><i class="fa fa-star"></i>{{restaurant.rating}}/5</td>
-                     </tr>
-                     <tr>
-                        <td></td>
-                        <td> <i class="fa fa-yelp"></i>
-                           <a href="{{restaurant.yelpNMenu}}" target="_blank">{{restaurant.name}} Menu on Yelp!</td>
+                        <span class="switch-selection"></span>
+                    </div>
+                    <table ng-show="showWebsite" id="pinInfo">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-link"></i>
+                                    <a href="{{restaurant.website}}" target="_blank">{{restaurant.name}}</a>
+                                </td>
+                                <td><i class="fa fa-phone"></i>{{restaurant.phone}}</td>
+                                <td><i class="fa fa-star"></i>{{restaurant.rating}}/5</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td> <i class="fa fa-yelp"></i>
+                                    <a href="{{restaurant.yelpNMenu}}" target="_blank">{{restaurant.name}} Menu on Yelp!</td>
                      </tr>
                   </tbody>
                </table>
@@ -108,30 +116,30 @@
                <tr>
                   <td>Host:</td>
                   <td><a href="mailto:{{groupDetails.email}}">{{groupDetails.user}}</a></td>
-               </tr>
-               <tr>
-                  <td>Restaurant Name:</td>
-                  <td>{{groupDetails.where}}</td>
-               </tr>
-               <tr>
-                  <td>Address:</td>
-                  <td>{{groupDetails.address}}</td>
-               </tr>
-               <tr>
-                  <td>Employees Attending:</td>
-                  <td>{{groupDetails.peopleGoing}}</td>
-               </tr>
-               <tr>
-                  <td>When:</td>
-                  <td>{{groupDetails.time}}</td>
-               </tr>
-               <tr>
-                  <td>Transport:</td>
-                  <td>{{groupDetails.travelMethod}}</td>
-               </tr>
-            </table>
-         </div>
-      </div>
-      <div id="map" ng-controller="mapController"></div>
-   </div>
-</div>
+                            </tr>
+                            <tr>
+                                <td>Restaurant Name:</td>
+                                <td>{{groupDetails.where}}</td>
+                            </tr>
+                            <tr>
+                                <td>Address:</td>
+                                <td>{{groupDetails.address}}</td>
+                            </tr>
+                            <tr>
+                                <td>Employees Attending:</td>
+                                <td>{{groupDetails.peopleGoing}}</td>
+                            </tr>
+                            <tr>
+                                <td>When:</td>
+                                <td>{{groupDetails.time}}</td>
+                            </tr>
+                            <tr>
+                                <td>Transport:</td>
+                                <td>{{groupDetails.travelMethod}}</td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="map" ng-controller="mapController"></div>
+        </div>
+    </div>

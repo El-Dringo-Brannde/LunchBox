@@ -16,6 +16,32 @@ angular.module('lunchBoxApp')
          lat: 45.504023,
          lng: -122.679433
       };
+      $scope.bigObject = {
+         "Portland": {
+            lat: 45.504023,
+            lng: -122.679433
+         },
+         "Seattle": {
+            lat: 47.5971064,
+            lng: -122.3307503
+         },
+         "Hoffman Estates": {
+            lat: 42.0632679,
+            lng: -88.1302837
+         },
+         "Pune": {
+            lat: 18.5561171,
+            lng: 73.8897303
+         },
+         "Hyderabad": {
+            lat: 17.4376587,
+            lng: 78.3824284
+         },
+         "Hungerford": {
+            lat: 51.4198961,
+            lng: -1.5166144
+         }
+      };
       // Adds a marker to the map and push to the array.
       function addMarker(location) {
          var marker = new google.maps.Marker({
@@ -24,6 +50,12 @@ angular.module('lunchBoxApp')
          });
          markers.push(marker);
       }
+
+      $rootScope.$on("mapChange", function(e, data) {
+         console.log($scope.bigObject[data])
+         initMap($scope.bigObject[data])
+      });
+
 
 
       // Sets the map on all markers in the array.
@@ -50,7 +82,6 @@ angular.module('lunchBoxApp')
       function createMarker(place2) {
          var service = new google.maps.places.PlacesService(map);
          service.getDetails(place2, function(place) {
-            console.log(place)
             var marker = new google.maps.Marker({
                map: map,
                position: place.geometry.location
@@ -71,9 +102,7 @@ angular.module('lunchBoxApp')
          });
       };
 
-
-
-      function initMap() {
+      function initMap(myLocation) {
          map = new google.maps.Map(document.getElementById('map'), {
             center: myLocation,
             scrollwheel: false,
@@ -81,7 +110,14 @@ angular.module('lunchBoxApp')
          });
          // map.set('styles', theStyle);
          // Create the search box and link it to the UI element.
-         var input = document.getElementById('pac-input');
+         $("#pac-input").remove();
+         var input = document.createElement('input');
+
+         $(input).attr({
+            id: "pac-input",
+            class: "controls",
+            placeholder: "Search for a place to go"
+         });
          map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
          var searchBox = new google.maps.places.SearchBox(input);
 
@@ -140,5 +176,5 @@ angular.module('lunchBoxApp')
             map.fitBounds(bounds);
          });
       }
-      initMap()
+      initMap(myLocation)
    });
