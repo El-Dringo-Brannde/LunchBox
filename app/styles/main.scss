@@ -116,7 +116,14 @@ body {
             transition: top 0.4s, font 0.4s, color 0.4s;
             top: -10px;
             font-size: 0.6em;
+         }
+         //is-completed must come before is-active so that is-active takes
+         //priority in display
+         .is-completed {
             color: #acacac;
+         }
+         .is-active {
+            color: $cdk-green;
          }
       }
       #error {
@@ -188,8 +195,8 @@ body {
    border-radius: 10px;
 }
 
+//modify the view of the google map search bar
 #pac-input {
-   top: 10px !important;
    border-radius: 0;
    line-height: 2.2;
 }
