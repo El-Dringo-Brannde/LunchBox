@@ -10,10 +10,10 @@
  * Controller of the lunchBoxApp
  */
 angular.module('lunchBoxApp')
-   .controller('ProfileCtrl', function($scope, $cookies, $http, commService, $rootScope, navbar) {
-      
+   .controller('ProfileCtrl', function ($scope, $cookies, $http, commService, $rootScope, navbar) {
+
       var baseUrl = "http://localhost:3005/";
-   
+
       navbar();
       var curUser = $cookies.getObject("user").full.split(",");
       var curUserName = $cookies.getObject("user").userName.split(",");
@@ -29,9 +29,9 @@ angular.module('lunchBoxApp')
       }
 
       var bigObj = {};
-      $http.get("http://localhost:3005/allUsers").then(function(resp) {
+      $http.get("http://localhost:3005/allUsers").then(function (resp) {
          var lunchBoxUsers = [];
-         resp.data.forEach(function(ele) {
+         resp.data.forEach(function (ele) {
             bigObj[ele.fullName] = ele.username;
             lunchBoxUsers.push(ele.fullName);
          });
@@ -40,31 +40,37 @@ angular.module('lunchBoxApp')
          });
       }); // for the autocomplete feature
 
-      $scope.addFriend = function() {
-         $http.get(baseUrl+"getUser?name=" + bigObj[$scope.friendSearch])
+      $scope.addFriend = function () {
+         $http.get(baseUrl + "getUser?name=" + bigObj[$scope.friendSearch])
             .then((resp) => {
-               $http.put(baseUrl+"addFriend", {
+               $http.put(baseUrl + "addFriend", {
                   user: $cookies.getObject("user").userName,
                   friend: {
                      fullName: resp.data[0].fullName,
                      username: resp.data[0].username,
                      email: resp.data[0].email
                   }
-               }).then(function(resp) {
+               }).then(function (resp) {
                   getCurFriends();
                   $scope.friendSearch = "";
                });
             });
       };
       getCurFriends();
-   
-      $scope.getImage = function() {
+
+      if ($scope.userImage === undefined) {
+         $scope.userImage = "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg";
+      }
+
+      $scope.getImage = function () {
          $scope.githubUsername;
-         var githubApi = "https://api.github.com/users/"
-         $http.get(githubApi+$scope.githubUsername).then(function(result) {
+         var githubApi = "https://api.github.com/users/";
+         $http.get(githubApi + $scope.githubUsername).then(function (result) {
             var data = result.data;
-            $scope.userImage = data.avatar_url;                                            
+            if (result.data !== undefined) {
+               $scope.userImage = data.avatar_url;
+            }
          });
       };
-   
+
    });
