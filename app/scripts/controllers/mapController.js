@@ -1,7 +1,7 @@
-/*global google, map*/
+/*global google, $*/
 
 angular.module('lunchBoxApp')
-   .controller('mapController', function($scope, $rootScope) {
+   .controller('mapController', function ($scope, $rootScope) {
       'use strict';
       var infowindow;
       var myLocation;
@@ -51,9 +51,8 @@ angular.module('lunchBoxApp')
          markers.push(marker);
       }
 
-      $rootScope.$on("mapChange", function(e, data) {
-         console.log($scope.bigObject[data])
-         initMap($scope.bigObject[data])
+      $rootScope.$on("mapChange", function (e, data) {
+         initMap($scope.bigObject[data]);
       });
 
 
@@ -61,8 +60,9 @@ angular.module('lunchBoxApp')
       // Sets the map on all markers in the array.
       function setMapOnAll(map, cur) {
          for (var i = 0; i < markers.length; i++) {
-            if (markers[i] != cur && markers[i] != undefined)
+            if (markers[i] != cur && markers[i] != undefined) {
                markers[i].setMap(map);
+            }
          }
       }
 
@@ -76,19 +76,19 @@ angular.module('lunchBoxApp')
       function deleteMarkers(cur) {
          clearMarkers(cur);
          markers = [];
-         markers.push(cur)
+         markers.push(cur);
       }
 
       function createMarker(place2) {
          var service = new google.maps.places.PlacesService(map);
-         service.getDetails(place2, function(place) {
+         service.getDetails(place2, function (place) {
             var marker = new google.maps.Marker({
                map: map,
                position: place.geometry.location
             });
             markers.push(marker);
             // add listeners to the click events to send to another controller
-            google.maps.event.addListener(marker, 'click', function() {
+            google.maps.event.addListener(marker, 'click', function () {
                infowindow.setContent(place.name);
                infowindow.open(map, this);
                restaurant.name = place.name;
@@ -96,33 +96,37 @@ angular.module('lunchBoxApp')
                restaurant.website = place.website;
                restaurant.phone = place.international_phone_number;
                restaurant.rating = place.rating;
-               restaurant.yelp = place.international_phone_number
+               restaurant.yelp = place.international_phone_number;
                $rootScope.$emit("mapLocationClick", restaurant);
             });
          });
-      };
+      }
 
       function addListeners(which) {
-         google.maps.event.addListener(which, 'places_changed', function() {
+         google.maps.event.addListener(which, 'places_changed', function () {
             var places = which.getPlaces();
             deleteMarkers(null);
-            markers.forEach(function(marker) {
-               if (marker != undefined)
+            markers.forEach(function (marker) {
+               if (marker != undefined) {
                   marker.setMap(null);
+               }
             });
 
             markers = [];
 
-            if (places.length == 0)
+            if (places.length == 0) {
                return;
+            }
 
-            for (var i = 0, marker; marker = markers[i]; i++)
+            var i, marker, place;
+            for (i = 0; marker = markers[i]; i++) {
                marker.setMap(null);
+            }
 
 
             // For each place, get the icon, place name, and location.
             var bounds = new google.maps.LatLngBounds();
-            for (var i = 0, place; place = places[i]; i++) {
+            for (i = 0; place = places[i]; i++) {
                var image = {
                   url: place.icon,
                   size: new google.maps.Size(71, 71),
@@ -133,10 +137,11 @@ angular.module('lunchBoxApp')
                createMarker(place);
                markers.push(marker);
 
-               if (place.geometry.viewport)
+               if (place.geometry.viewport) {
                   bounds.union(place.geometry.viewport);
-               else
+               } else {
                   bounds.extend(place.geometry.location);
+               }
                map.setZoom(13);
             }
             map.fitBounds(bounds);
@@ -172,12 +177,12 @@ angular.module('lunchBoxApp')
             center: myLocation,
             radius: 3000
          });
-         markers.push(cityCircle)
+         markers.push(cityCircle);
          searchBox.setBounds(bounds.union(cityCircle.getBounds()));
          // t.setBounds(bounds.union(cityCircle.getBounds()));
-         deleteMarkers()
+         deleteMarkers();
          service = new google.maps.places.PlacesService(map);
-         addListeners(searchBox)
+         addListeners(searchBox);
       }
-      initMap(myLocation)
+      initMap(myLocation);
    });
