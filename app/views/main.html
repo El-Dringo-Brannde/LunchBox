@@ -65,20 +65,29 @@
 
                <div class="switch switch-blue">
 
-                  <input type="radio" class="switch-input" value="driving" id="car" checked ng-model="transport">
+                  <input type="radio" class="switch-input" value="driving" id="car" ng-model="transport">
                   <label for="car" class="switch-label switch-label-off">
                      <i class="fa fa-car"></i>
                   </label>
 
-                  <input type="radio" class="switch-input" value="walking" id="walking" ng-model="transport">
+                  <input type="radio" class="switch-input" value="walking" id="walking" checked ng-model="transport">
                   <label for="walking" class="switch-label switch-label-on" style="padding-top: 5px">
                      <img src="./../styles/pedestrian-walking.png"/>
                   </label>
                   <span class="switch-selection"></span>
                </div>
-               <div ng-show="showWebsite">Website: <a href = "{{restaurant.website}}">{{restaurant.name}}</a></div>
-               <div ng-show="showWebsite">Phone: {{restaurant.phone}}</div>
-               <div ng-show="showWebsite">Rating: {{restaurant.rating}}/5</div>
+               <table ng-show="showWebsite" id="pinInfo">
+                  <tbody>
+                     <tr>
+                        <td>
+                           <i class="fa fa-link"></i>
+                           <a href="{{restaurant.website}}" target="_blank">{{restaurant.name}}</a>
+                        </td>
+                        <td><i class="fa fa-phone"></i>{{restaurant.phone}}</td>
+                        <td><i class="fa fa-star"></i>{{restaurant.rating}}/5</td>
+                     </tr>
+                  </tbody>
+               </table>
                <div class="center">
                   <button type="submit" ng-click="createEvent()" value="submit" id="goingFormSubmit">submit</button>
                   <p id="error">{{submissionError}}</p>

@@ -79,7 +79,7 @@ angular.module('lunchBoxApp')
           $scope.favorites = response.data[0].favorites;
         })
     }
-    var bigObj = {};
+    bigObj = {};
     $http.get("http://localhost:3005/allUsers").then(function (resp) {
       var lunchBoxUsers = [];
       resp.data.forEach(function (ele) {
@@ -108,19 +108,16 @@ angular.module('lunchBoxApp')
     };
 
     $scope.addFavorite = function () {
-          console.log($scope.foodfav)
-          console.log($cookies.getObject("user").userName)
       $http.put("http://localhost:3005/addFavorite", {
         name: $cookies.getObject("user").userName,
         place: {
             name: $scope.foodfav
         }
       }).then(function (resp) {
-        console.log(resp)
         getFoodFaves();
         $scope.foodfav = "";
       });
-    }
+    };
 
     getFoodFaves();
     getCurFriends();
