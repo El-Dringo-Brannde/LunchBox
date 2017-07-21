@@ -11,12 +11,14 @@ angular.module('lunchBoxApp')
    .service('groupService', function () {
       var self = this;
       self.groupDetails = function (group) {
+         console.log(group)
+         console.log(group.peopleGoing.length)
          var peopleGoing = group.peopleGoing.toString();
          var bonusInfo = {
             user: group.fullName,
             email: group.email,
             peopleGoing: peopleGoing,
-            peopleGoingCount: group.peopleGoingCount,
+            peopleGoingCount:  group.peopleGoing.length,
             travelMethod: group.travelMethod,
             time: group.time,
             where: group.restaurant.name,

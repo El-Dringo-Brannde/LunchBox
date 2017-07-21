@@ -2,6 +2,11 @@
 @import "variables/fonts";
 @import "modules/toggleSelector";
 @import "variables/breakpoints";
+html,
+body {
+   overflow-x: hidden;
+}
+
 #home {
    @import "modules/buttons";
    font-family: $lato;
@@ -16,59 +21,66 @@
          background: $primary-light;
       }
       #peopleList {
-         grid-row: span 2;
          background: $primary;
-         max-height: 85vh;
+         max-height: 90vh;
          overflow-y: scroll;
          .event {
             margin: 15px 10px;
             display: grid;
+            grid-gap: 10px;
             background: #f2f2f2;
-            grid-template-columns: 2fr 1fr;
-            padding: 10px;
-            cursor: pointer;
-            p,
-            i,
-            h4 {
-               color: #363636;
-            }
-            .person {
-               display: flex;
-               align-items: center;
+            grid-template-columns: auto 120px 40px;
+            #left {
+               padding: 10px;
                img {
-                  padding-right: 10px;
+                  border-radius: 50%;
+                  width: 70px;
+               }
+               .person,
+               .location,
+               .location>div,
+               .other {
+                  display: flex;
+                  align-items: center;
+                  padding: 3px 0;
+               }
+               .location {
+                  justify-content: space-between;
+               }
+               .other {
+                  justify-content: space-between;
+                  max-width: 150px;
+               }
+               .other>div {
+                  display: flex;
+                  align-items: center;
+               }
+               i {
+                  padding: 0 10px;
+               }
+               .active {
+                  color: gold;
                }
             }
-            img {
-               border-radius: 50%;
-               width: 70px;
-            }
-            div:not(.person) {
+            #middle {
                display: flex;
                align-items: center;
             }
-            .location {
-               grid-column: span 2;
-               div {
-                  display: block;
+            #right {
+               background: $cdk-green;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               font-size: 5em;
+               font-weight: 100;
+               transition: 0.4s background ease;
+               cursor: pointer;
+               color: white;
+               &:hover {
+                  transition: 0.4s background ease;
+                  background: $cdk-green-highlight;
                }
             }
-            .other div {
-               width: 33%;
-            }
-         }
-         i {
-            padding: 10px;
-         }
-         .fa-users {
-            transition: 0.2s color;
-            &:hover {
-               transition: 0.2s color;
-               color: gold;
-            }
-         }
-         .active {
-            color: gold;
          }
       }
    }
@@ -77,14 +89,34 @@
       .form {
          margin: 15px;
          font-size: 1.3em;
+         table {
+            width: 100%;
+         }
+         label {
+            color: #6c6c6c;
+         }
          input {
-            width: 95%;
+            width: 100%;
             border: none;
-            border-radius: 3px;
-            font-size: 0.8em;
-            padding: 8px 10px;
+            border-bottom: 1px solid $cdk-green;
+            background: none;
+            font-size: 0.9em;
             outline: none;
-            margin: 5px 0 10px 0;
+            margin: 10px 0 5px 0;
+         }
+         .inputLabel {
+            top: -28px;
+            transition: top 0.4s, font 0.4s, color 0.4s;
+            position: relative;
+            font-size: 0.8em;
+            color: #838383;
+         }
+         .is-active,
+         .is-completed {
+            transition: top 0.4s, font 0.4s, color 0.4s;
+            top: -10px;
+            font-size: 0.6em;
+            color: #acacac;
          }
       }
       #error {
@@ -95,6 +127,17 @@
       }
       .center {
          text-align: center;
+      }
+      .switch {
+         margin: 20px 0;
+      }
+      #pinInfo {
+         width: 100%;
+         td {
+            width: 33%;
+         }
+         text-align: center;
+         margin: 0 0 30px 0;
       }
       .eventDetails {
          button {
@@ -107,7 +150,7 @@
             transition: 0.3s background;
             &:hover {
                transition: 0.3s background;
-               background: $cdk-green-dark;
+               background: $cdk-green-highlight;
             }
          }
          .moreInfoTable {
@@ -143,4 +186,10 @@
    width: 50%;
    margin-top: 10px;
    border-radius: 10px;
+}
+
+#pac-input {
+   top: 10px !important;
+   border-radius: 0;
+   line-height: 2.2;
 }
