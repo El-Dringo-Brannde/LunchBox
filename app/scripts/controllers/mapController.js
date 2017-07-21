@@ -137,7 +137,7 @@ angular.module('lunchBoxApp')
                   bounds.union(place.geometry.viewport);
                else
                   bounds.extend(place.geometry.location);
-               map.setZoom(14);
+               map.setZoom(13);
             }
             map.fitBounds(bounds);
          });

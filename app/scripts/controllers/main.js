@@ -47,10 +47,15 @@ angular.module('lunchBoxApp')
                   $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing;
                   $http.get("http://localhost:3005/getUser?name=" + response.data[i].username)
                      .then((resp) => {
-                        if (resp.data[0] != undefined && $scope.activeUsers[i] != undefined) {
+                        console.log(resp, $scope.activeUsers, i)
+
+                        try {
                            resp.data[0].profilePic == "" ? $scope.activeUsers[i].profilePic =
                               "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" :
                               $scope.activeUsers[i].profilePic = resp.data[0].profilePic;
+                        } catch (err) {
+                           $scope.activeUsers[i].profilePic =
+                              "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg"
                         }
                      });
 
