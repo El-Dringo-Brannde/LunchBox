@@ -13,7 +13,7 @@
 const zomatoKey = "e52fff3091a307dca21f7c48b4796345";
 angular.module('lunchBoxApp')
    .controller('MainCtrl', function($scope, $cookies, $http, $window,
-      $rootScope, commService, lunchservice, navbar, toastr, groupService) {
+      $rootScope, commService, lunchservice, navbar, toastr, groupService, $timeout) {
       var baseUrl = "http://localhost:3005/";
       $scope.showWebsite = false;
 
@@ -55,6 +55,13 @@ angular.module('lunchBoxApp')
             $scope.restaurant.website = restaurant.website;
             $scope.restaurant.phone = restaurant.phone;
             $scope.restaurant.rating = restaurant.rating;
+            $http.get("http://localhost:3005/yelp?phone=" + restaurant.phone).then(function(resp) {
+               $timeout(function() {
+                  $scope.$apply(function() {
+                     $scope.restaurant.yelpNMenu = resp.data.url;
+                  });
+               }, 0, false);
+            });
          });
       });
 

@@ -34,7 +34,7 @@
       </div>
       <div id="moreInfo">
          <div ng-show="showForm">
-            <h3>I'm going to lunch</h3>
+            <h3>I'm going to lunch{{foo}}</h3>
             <div class="form">
                <label for="restaurantNameInput">Restaurant name</label>
                <input type="text" ng-model="restaurant.name" id="restaurantNameInput">
@@ -58,6 +58,9 @@
                <div ng-show="showWebsite">Website: <a href = "{{restaurant.website}}">{{restaurant.name}}</a></div>
                <div ng-show="showWebsite">Phone: {{restaurant.phone}}</div>
                <div ng-show="showWebsite">Rating: {{restaurant.rating}}/5</div>
+               <div ng-show="showWebsite">Yelp And Menu: 
+                  <a href="{{restaurant.yelpNMenu}}"> Yelp and Menu</a></div>
+                  <br/>
                <div class="center">
                   <button type="submit" ng-click="createEvent()" value="submit">submit</button>
                   <p id="error">{{submissionError}}</p>

@@ -42,6 +42,7 @@ angular.module('lunchBoxApp')
 
          // add listeners to the click events to send to another controller
          google.maps.event.addListener(marker, 'click', function() {
+            console.log(place)
             infowindow.setContent(place.name);
             infowindow.open(map, this);
             restaurant.name = place.name;
@@ -49,6 +50,7 @@ angular.module('lunchBoxApp')
             restaurant.website = place.website;
             restaurant.phone = place.international_phone_number;
             restaurant.rating = place.rating;
+            restaurant.yelp = place.international_phone_number
             $rootScope.$emit("mapLocationClick", restaurant);
          });
       }
