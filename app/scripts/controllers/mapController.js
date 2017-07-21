@@ -59,8 +59,10 @@ angular.module('lunchBoxApp')
          var places = searchBox.getPlaces();
          console.log(places)
          markers.forEach(function(marker) {
-            marker.setMap(null);
+            if (marker != undefined)
+               marker.setMap(null);
          });
+
          markers = [];
 
          if (places.length == 0)
