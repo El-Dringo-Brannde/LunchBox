@@ -144,9 +144,12 @@ angular.module('lunchBoxApp')
             transport = $scope.transport;
 
          //if any of them are empty show an error
-         if (name === "" || address === "" || time === "" || transport === "") {
+         if (name === "" || address === "" || time === "") {
             toastr("All fields are required for creating an event", "error");
          } else {
+            if (transport === undefined) {
+               transport = "walking";
+            }
             $scope.canPost = false;
             var timeRule = new RegExp("^[0-9]{1,2}:[0-9]{2}$");
             if (!timeRule.test(time)) {
