@@ -35,18 +35,22 @@
          </table>
       </div>
    </div>
-
-   <div id="restaurants">
-      <h3>
-         Favorite restaurants
-      </h3>
-      <div class="search">
-         <input type="text" placeholder="Search for a restaurant">
-         <button ng-click="addFriend()">Add Restaurant</button>
-      </div>
-      <div id="restaurantContainer">
-         <div class="restaurant">
-         </div>
-      </div>
-   </div>
+  <div id="friends">
+    <h3>Favorite restaurants</h3>
+    <div class="search">
+      <input type="text" ng-model="foodfav" placeholder="Search for a restaurant">
+      <button ng-click="addFavorite()">Add Favorite Food</button>
+    </div>
+    <div id="restaurantContainer">
+        <table>
+            <tbody>
+               <tr ng-repeat="f in favorites" class="friend">
+                  <td class="pad">
+                     <h4>{{f.name}}</h4>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+    </div>
+  </div>
 </div>
