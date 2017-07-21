@@ -35,7 +35,7 @@ angular.module('lunchBoxApp')
       } else {
          userName = commService.get().userName;
       }
-
+      console.log($cookies.getObject("user"))
       $scope.user = userName.split(",").pop();
       $scope.activeUsers = [];
       $scope.getActiveUsersHTTP = function () {
@@ -96,6 +96,11 @@ angular.module('lunchBoxApp')
 
       $scope.canJoin = true;
       $scope.plusOne = function (group) {
+            console.log(group)
+            if(group.fullName == $cookies.getObject("user").full || group.username == $cookies.getObject("user").userName){
+                  $scope.canJoin = false;
+               toastr("You the founder of this group!", "warning");
+            }
          for (var i = 0; i < group.peopleGoing.length; i++) {
             if (group.peopleGoing[i] == $cookies.getObject("user").full || group.peopleGoing[i] == $cookies.getObject("user").userName) {
                $scope.canJoin = false;
@@ -166,6 +171,7 @@ angular.module('lunchBoxApp')
                },
                looking: "true",
                time: time,
+               peopleGoingCount: 1,
                travelMethod: transport
             };
             //post to the LunchBox-Services a the data we just gathered
