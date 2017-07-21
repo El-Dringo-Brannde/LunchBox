@@ -1,114 +1,123 @@
 @import "variables/colors";
 @import "variables/fonts";
 @import "modules/toggleSelector";
-@import "modules/input";
+@import "variables/breakpoints";
 html,
 body {
    overflow-x: hidden;
 }
 
 #home {
+   @import "modules/buttons";
    font-family: $lato;
    .content {
       display: grid;
-      grid-template-columns: 500px auto;
+      width: 90vw;
+      min-height: 85vh;
       grid-gap: 10px;
-      padding: 0 25px;
-      grid-row: span 2;
-   }
-   #peopleList {
-      background: $primary;
-      grid-row: span 2;
-      overflow-y: hidden;
-      &:hover {
-         overflow-y: scroll;
-      }
+      margin: auto;
       h3 {
          padding: 5px;
          background: $primary-light;
       }
-      .event {
-         margin: 15px 10px;
-         display: grid;
-         background: #f2f2f2;
-         grid-template-columns: 2fr 1fr;
-         padding: 10px;
-         box-shadow: 2px 2px 8px black;
-         cursor: pointer;
-         p,
-         i,
-         h4 {
-            color: #363636;
-         }
-         .person {
-            display: flex;
-            align-items: center;
-            img {
-               padding-right: 10px;
+      #peopleList {
+         background: $primary;
+         max-height: 90vh;
+         overflow-y: scroll;
+         .event {
+            margin: 15px 10px;
+            display: grid;
+            grid-gap: 10px;
+            background: #f2f2f2;
+            grid-template-columns: auto 120px 40px;
+            #left {
+               padding: 10px;
+               img {
+                  border-radius: 50%;
+                  width: 70px;
+               }
+               .person,
+               .location,
+               .location>div,
+               .other {
+                  display: flex;
+                  align-items: center;
+                  padding: 3px 0;
+               }
+               .location {
+                  justify-content: space-between;
+               }
+               .other {
+                  justify-content: space-between;
+                  max-width: 150px;
+               }
+               .other>div {
+                  display: flex;
+                  align-items: center;
+               }
+               i {
+                  padding: 0 10px;
+               }
+               .active {
+                  color: gold;
+               }
             }
-         }
-         img {
-            border-radius: 50%;
-            width: 70px;
-         }
-         div:not(.person) {
-            display: flex;
-            align-items: center;
-         }
-         .location {
-            grid-column: span 2;
-            div {
-               display: block;
+            #middle {
+               display: flex;
+               align-items: center;
             }
-         }
-         .other {
-            div {
-               width: 33%;
+            #right {
+               background: $cdk-green;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               font-size: 5em;
+               font-weight: 100;
+               transition: 0.4s background ease;
+               cursor: pointer;
+               color: white;
+               &:hover {
+                  transition: 0.4s background ease;
+                  background: $cdk-green-highlight;
+               }
             }
-         }
-         i {
-            padding: 10px;
-         }
-         .fa-users {
-            transition: 0.2s color;
-            &:hover {
-               transition: 0.2s color;
-               color: gold;
-            }
-         }
-         .active {
-            color: gold;
          }
       }
    }
    #moreInfo {
-      min-height: 40vh;
       background: $primary;
       .form {
          margin: 15px;
-         margin: auto;
          font-size: 1.3em;
-         tr {
-            td {
-               padding: 10px 0;
-               vertical-align: middle;
-            }
+         table {
+            width: 100%;
+         }
+         label {
+            color: #6c6c6c;
          }
          input {
-            margin: 0 10px;
-            font-size: 1em;
-            color: black;
-            width: 500px;
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid $cdk-green;
+            background: none;
+            font-size: 0.9em;
+            outline: none;
+            margin: 10px 0 5px 0;
          }
-      }
-      h3 {
-         widows: 100%;
-         text-align: center;
-         padding: 5px;
-         background: $primary-light;
-      }
-      h4 {
-         font-weight: 400;
+         .inputLabel {
+            top: -28px;
+            transition: top 0.4s, font 0.4s, color 0.4s;
+            position: relative;
+            font-size: 0.8em;
+            color: #838383;
+         }
+         .is-active,
+         .is-completed {
+            transition: top 0.4s, font 0.4s, color 0.4s;
+            top: -10px;
+            font-size: 0.6em;
+            color: #acacac;
+         }
       }
       #error {
          color: red;
@@ -116,11 +125,71 @@ body {
       #success {
          color: green;
       }
-      @import "modules/buttons";
+      .center {
+         text-align: center;
+      }
+      .switch {
+         margin: 20px 0;
+      }
+      #pinInfo {
+         width: 100%;
+         td {
+            width: 33%;
+         }
+         text-align: center;
+         margin: 0 0 30px 0;
+      }
+      .eventDetails {
+         button {
+            float: left;
+            border-radius: 0;
+            box-shadow: 0px 0px 0px;
+            margin: 0;
+            line-height: 1.1;
+            padding: 0 10px;
+            transition: 0.3s background;
+            &:hover {
+               transition: 0.3s background;
+               background: $cdk-green-highlight;
+            }
+         }
+         .moreInfoTable {
+            margin: 30px auto;
+            font-size: 1.2em;
+            tr {
+               td {
+                  padding: 5px 10px;
+               }
+            }
+         }
+      }
    }
    #map {
       overflow: hidden;
-      min-height: 50vmax;
+      min-height: 50vh;
       background: $secondary-dark;
    }
+}
+
+@media screen and (min-width: $medium) {
+   #home {
+      .content {
+         grid-template-columns: 500px auto;
+         #peopleList {
+            grid-row: span 2;
+         }
+      }
+   }
+}
+
+.controls {
+   width: 50%;
+   margin-top: 10px;
+   border-radius: 10px;
+}
+
+#pac-input {
+   top: 10px !important;
+   border-radius: 0;
+   line-height: 2.2;
 }

@@ -1,3 +1,5 @@
+/*global toastr*/
+
 'use strict';
 
 /**
@@ -9,7 +11,7 @@
  */
 angular.module('lunchBoxApp')
   .service('toastr', function () {
-    var toastrInit = function () {
+    var toastrInit = function (notification, type) {
       toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -20,14 +22,14 @@ angular.module('lunchBoxApp')
         "onclick": null,
         "showDuration": "100",
         "hideDuration": "1000",
-        "timeOut": "2000",
-        "extendedTimeOut": "1000",
+        "timeOut": "2500",
+        "extendedTimeOut": "1500",
         "showEasing": "swing",
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-      }
-      toastr["success"]("You are already in this group!")
-    }
-    return toastrInit
+      };
+      toastr[type](notification);
+    };
+    return toastrInit;
   });

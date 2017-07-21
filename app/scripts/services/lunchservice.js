@@ -25,9 +25,9 @@ angular.module('lunchBoxApp')
           rating: httpResults.user_rating.aggregate_rating,
           cuisine: httpResults.cuisines,
         }
-      }
-      $rootScope.$broadcast("dataPopulated")
-      return bonusInfo
-    }
-    return self
+      };
+      $rootScope.$broadcast("dataPopulated");
+      return bonusInfo;
+    };
+    return self;
   });

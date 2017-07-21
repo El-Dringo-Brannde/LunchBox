@@ -8,20 +8,21 @@
  * Service in the lunchBoxApp.
  */
 angular.module('lunchBoxApp')
-   .service('commService', function() {
+   .service('commService', function () {
       var self = this;
-      var myData = {}
+      var myData = {};
       self.pipe = {
-         set: function(data) {
-            for (var i in data)
+         set: function (data) {
+            for (var i in data) {
                myData[i] = data[i];
+            }
          },
-         get: function() {
-            return myData
+         get: function () {
+            return myData;
          },
-         reset: function() {
-            myData = {}
+         reset: function () {
+            myData = {};
          }
-      }
-      return self.pipe
+      };
+      return self.pipe;
    });
