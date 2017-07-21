@@ -1,20 +1,17 @@
 /*global google, map*/
 
 angular.module('lunchBoxApp')
-   .controller('mapController', function($scope, $rootScope, $window) {
+   .controller('mapController', function($scope, $rootScope) {
       'use strict';
       var infowindow;
       var myLocation;
+      var map;
       var service;
       var markers = [];
       var restaurant = {
          name: "",
          address: ""
       };
-      var theStyle = [{
-         featureType: "poi",
-         elementType: "labels"
-      }];
       myLocation = { // hardcoded Portland location
          lat: 45.504023,
          lng: -122.679433
@@ -50,54 +47,56 @@ angular.module('lunchBoxApp')
          markers.push(cur)
       }
 
-      function createMarker(place) {
-         var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location
+      function createMarker(place2) {
+         var service = new google.maps.places.PlacesService(map);
+         service.getDetails(place2, function(place) {
+            var marker = new google.maps.Marker({
+               map: map,
+               position: place.geometry.location
+            });
+            markers.push(marker);
+            // add listeners to the click events to send to another controller
+            google.maps.event.addListener(marker, 'click', function() {
+               infowindow.setContent(place.name);
+               infowindow.open(map, this);
+               restaurant.name = place.name;
+               restaurant.address = place.vicinity;
+               restaurant.website = place.website;
+               restaurant.phone = place.international_phone_number;
+               restaurant.rating = place.rating;
+               restaurant.yelp = place.international_phone_number
+               $rootScope.$emit("mapLocationClick", restaurant);
+            });
          });
-         markers.push(marker)
+      };
 
-         // add listeners to the click events to send to another controller
-         google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(place.name);
-            infowindow.open(map, this);
-            restaurant.name = place.name;
-            restaurant.address = place.vicinity;
-            restaurant.website = place.website;
-            restaurant.phone = place.international_phone_number;
-            restaurant.rating = place.rating;
-            restaurant.yelp = place.international_phone_number
-            $rootScope.$emit("mapLocationClick", restaurant);
-         });
-      }
 
 
       function initMap() {
-         $window.map = new google.maps.Map(document.getElementById('map'), {
+         map = new google.maps.Map(document.getElementById('map'), {
             center: myLocation,
             scrollwheel: false,
-            zoom: 14
+            zoom: 17
          });
-         $window.map.set('styles', theStyle);
+         // map.set('styles', theStyle);
          // Create the search box and link it to the UI element.
          var input = document.getElementById('pac-input');
-         $window.map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+         map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
          var searchBox = new google.maps.places.SearchBox(input);
+
          infowindow = new google.maps.InfoWindow();
-         service = new google.maps.places.PlacesService(map);
-         service.radarSearch({
-            location: myLocation,
-            radius: 5000,
-            type: 'food'
-         }, function(results, status) {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-               for (var i = 0; i < results.length; i++) {
-                  service.getDetails(results[i], function(res) {
-                     createMarker(res);
-                  });
-               }
-            }
+         var bounds = new google.maps.LatLngBounds();
+         var cityCircle = new google.maps.Circle({
+            strokeOpacity: 0.0,
+            fillOpacity: 0.0,
+            map: map,
+            center: myLocation,
+            radius: 3000
          });
+         markers.push(cityCircle)
+         searchBox.setBounds(bounds.union(cityCircle.getBounds()));
+         deleteMarkers()
+         service = new google.maps.places.PlacesService(map);
 
 
 
@@ -136,7 +135,7 @@ angular.module('lunchBoxApp')
                else
                   bounds.extend(place.geometry.location);
             }
-            $window.map.fitBounds(bounds);
+            map.fitBounds(bounds);
          });
       }
       initMap()
