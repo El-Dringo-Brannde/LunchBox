@@ -147,12 +147,15 @@ angular.module('lunchBoxApp')
          if (name === "" || address === "" || time === "" || transport === "") {
             toastr("All fields are required for creating an event", "error");
          } else {
-
+            $scope.canPost = false;
             var timeRule = new RegExp("^[0-9]{1,2}:[0-9]{2}$");
             if (!timeRule.test(time)) {
+                  $scope.canPost = false;
                $("#error").html("the departure time is not in the proper format (eg. 12:00)");
             }
-
+            else if(timeRule.test(time)){
+                  $scope.canPost = true;
+            }
             //an obejct to gather all the form data
             var submissionObject = {
                //get the username from whatever thing is keeping the user logged in
@@ -166,6 +169,7 @@ angular.module('lunchBoxApp')
                travelMethod: transport
             };
             //post to the LunchBox-Services a the data we just gathered
+            if($scope.canPost == true){
             $scope.request = $http.put(baseUrl + "goingSomewhere", submissionObject)
                .then(function success(response) {
                      //clear all the input fields after the data has been put in the database
@@ -180,6 +184,7 @@ angular.module('lunchBoxApp')
                      console.log("there was an error posting the data");
                      $scope.submissionError = "there was an error posting the data";
                   });
+            }
          }
       };
 
