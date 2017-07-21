@@ -95,12 +95,14 @@
                                 <td><i class="fa fa-star"></i>{{restaurant.rating}}/5</td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <td><button ng-click="addToFave()">Add to Fave</button></td>
                                 <td> <i class="fa fa-yelp"></i>
                                     <a href="{{restaurant.yelpNMenu}}" target="_blank">{{restaurant.autoNname}} Menu on Yelp!</td>
+
                      </tr>
                   </tbody>
                </table>
+               
                <div class="center">
                   <button type="submit" ng-click="createEvent()" value="submit" id="goingFormSubmit">submit</button>
                   <p id="error">{{submissionError}}</p>

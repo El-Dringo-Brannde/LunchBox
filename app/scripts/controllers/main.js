@@ -74,6 +74,15 @@ angular.module('lunchBoxApp')
 
       $scope.httpResults = [];
 
+      $scope.addToFave = function() {
+         $scope.restaurant['userName'] = $cookies.getObject('user').userName
+         console.log($scope.restaurant)
+         $http.put("http://localhost:3005/addFavorite",
+            $scope.restaurant).then(function(resp) {
+            console.log(resp)
+         })
+      }
+
       //when someone clicks on a pin on the map
       $rootScope.$on("mapLocationClick", function(event, restaurant) {
          //make sure the scope updates with these new contents
