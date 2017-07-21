@@ -47,9 +47,11 @@ angular.module('lunchBoxApp')
                   $scope.activeUsers[i].peopleGoing = $scope.activeUsers[i].peopleGoing;
                   $http.get("http://localhost:3005/getUser?name=" + response.data[i].username)
                      .then((resp) => {
-                        resp.data[0].profilePic == "" ? $scope.activeUsers[i].profilePic =
-                           "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" :
-                           $scope.activeUsers[i].profilePic = resp.data[0].profilePic;
+                        if (resp.data[0] != undefined && $scope.activeUsers[i] != undefined) {
+                           resp.data[0].profilePic == "" ? $scope.activeUsers[i].profilePic =
+                              "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" :
+                              $scope.activeUsers[i].profilePic = resp.data[0].profilePic;
+                        }
                      });
 
                   //if the number of people who are going don't exist or its been initialized to 0, then set it to 1
@@ -197,7 +199,6 @@ angular.module('lunchBoxApp')
             url = $scope.restaurant.website,
             rating = $scope.restaurant.rating,
             transport = $scope.transport;
-         console.log(yelp, url, rating)
 
          //if any of them are empty show an error
          if (name === "" || address === "" || time === "") {

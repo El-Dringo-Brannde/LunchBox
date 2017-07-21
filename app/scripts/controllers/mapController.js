@@ -177,7 +177,6 @@ angular.module('lunchBoxApp')
          // t.setBounds(bounds.union(cityCircle.getBounds()));
          deleteMarkers()
          service = new google.maps.places.PlacesService(map);
-         addListeners(t)
          addListeners(searchBox)
       }
       initMap(myLocation)
