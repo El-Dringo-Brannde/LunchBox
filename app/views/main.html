@@ -4,7 +4,7 @@
          <h3>People going to lunch in..</h3>
          <div id='officeSwitcher'>
             <select class="form-control" ng-model="Offices" ng-change="foo(Offices)">
-               <option value="" disabled selected>Office</option>
+               <option value="" disabled>Office</option>
                <option ng-repeat="(key,values) in bigObject" value = "{{key}}"> {{key}}</option>
             </select>
          </div>
