@@ -151,8 +151,8 @@ angular.module('lunchBoxApp')
       function initMap(myLocation) {
          map = new google.maps.Map(document.getElementById('map'), {
             center: myLocation,
-            scrollwheel: false,
-            zoom: 17
+            scrollwheel: true,
+            zoom: 15
          });
          // map.set('styles', theStyle);
          // Create the search box and link it to the UI element.
