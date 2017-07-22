@@ -17,68 +17,87 @@ body {
       grid-gap: 10px;
       margin: auto;
       h3 {
-         padding: 5px;
+         padding: 5px 0;
+         width: 100%;
          background: $primary-light;
       }
       #peopleList {
          background: $primary;
-         max-height: 90vh;
-         overflow-y: scroll;
-         .event {
-            margin: 15px 10px;
-            display: grid;
-            grid-gap: 10px;
-            background: #f2f2f2;
-            grid-template-columns: auto 120px 40px;
-            #left {
-               padding: 10px;
-               img {
-                  border-radius: 50%;
-                  width: 70px;
-               }
-               .person,
-               .location,
-               .location>div,
-               .other {
-                  display: flex;
-                  align-items: center;
-                  padding: 3px 0;
-               }
-               .location {
-                  justify-content: space-between;
-               }
-               .other {
-                  justify-content: space-between;
-                  max-width: 150px;
-               }
-               .other>div {
-                  display: flex;
-                  align-items: center;
-               }
-               i {
-                  padding: 0 10px;
-               }
-               .active {
-                  color: gold;
-               }
-            }
-            #middle {
-               display: flex;
-               align-items: center;
-            }
-            #right {
+         #officeSwitcher {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            padding: 5px 0;
+            background: $primary-light;
+            select {
+               outline: none;
+               font-size: 1.1em;
+               border: none;
                background: $cdk-green;
-               display: flex;
-               justify-content: center;
-               align-items: center;
-               font-size: 5em;
-               font-weight: 100;
-               transition: 0.4s background ease;
-               cursor: pointer;
                color: white;
-               &:hover {
+               padding: 10px;
+               min-width: 50%;
+            }
+         }
+         #scrollContainer {
+            max-height: 80vh;
+            overflow-y: scroll;
+            .event {
+               margin: 15px 10px;
+               display: grid;
+               grid-gap: 10px;
+               background: #f2f2f2;
+               grid-template-columns: auto 120px 40px;
+               #left {
+                  padding: 10px;
+                  img {
+                     border-radius: 50%;
+                     width: 70px;
+                  }
+                  .person,
+                  .location,
+                  .location>div,
+                  .other {
+                     display: flex;
+                     align-items: center;
+                     padding: 3px 0;
+                  }
+                  .location {
+                     justify-content: space-between;
+                  }
+                  .other {
+                     justify-content: space-between;
+                     max-width: 150px;
+                  }
+                  .other>div {
+                     display: flex;
+                     align-items: center;
+                  }
+                  i {
+                     padding: 0 10px;
+                  }
+                  .active {
+                     color: gold;
+                  }
+               }
+               #middle {
+                  display: flex;
+                  align-items: center;
+               }
+               #right {
+                  background: $cdk-green;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  font-size: 5em;
+                  font-weight: 100;
                   transition: 0.4s background ease;
-                  background: $cdk-green-highlight;
+                  cursor: pointer;
+                  color: white;
+                  &:hover {
+                     transition: 0.4s background ease;
+                     background: $cdk-green-highlight;
+                  }
                }
             }
          }
