@@ -1,56 +1,56 @@
 <div id="profile">
-   <div id="aboutYou">
-      <div id="aboutImg">
-         <img ng-src="{{userImage}}" alt="">
-         <h3>{{user.fullName}}</h3>
-      </div>
-      <form id="profileSelect" ng-show="!foundPhoto">
-         <input type="text" placeholder="enter github username" ng-model="githubUsername" style='color: black; '>
-         <button ng-click="getImage()">enter</button>
-      </form>
-   </div>
-   <div id="friends">
-      <h3>
-         Your friends
-      </h3>
-      <div class="search">
-         <input type="text" id="friendSearch" ng-model="friendSearch" placeholder="Search for a friend on Lunchbox">
-         <button ng-click="addFriend()">Add Friend</button>
-      </div>
-      <div id="friendsContainer">
-         <table>
-            <tbody>
-               <tr ng-repeat="friend in friends" class="friend">
-                  <td class="imgContainer">
-                     <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
-                  </td>
-                  <td>
-                     <h4>{{friend.fullName}}</h4>
-                  </td>
-                  <td>
-                     <a href="mailto:{{groupDetails.email}}"><i class="fa fa-envelope"></i></a>
-                  </td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
-   </div>
+  <div id="aboutYou">
+    <div id="aboutImg">
+      <img ng-src="{{userImage}}" alt="">
+      <h3>{{user.fullName}}</h3>
+    </div>
+    <form id="profileSelect" ng-show="!foundPhoto">
+      <input type="text" placeholder="enter github username" ng-model="githubUsername" style='color: black; '>
+      <button ng-click="getImage()">enter</button>
+    </form>
+  </div>
+  <div id="friends">
+    <h3>
+      Your friends
+    </h3>
+    <div class="search">
+      <input type="text" id="friendSearch" ng-model="friendSearch" placeholder="Search for a friend on Lunchbox">
+      <button ng-click="addFriend()">Add Friend</button>
+    </div>
+    <div id="friendsContainer">
+      <table>
+        <tbody>
+          <tr ng-repeat="friend in friends" class="friend">
+            <td class="imgContainer">
+              <img src="https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" alt="">
+            </td>
+            <td>
+              <h4>{{friend.fullName}}</h4>
+            </td>
+            <td>
+              <a href="mailto:{{groupDetails.email}}"><i class="fa fa-envelope"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <div id="friends">
     <h3>Favorite restaurants</h3>
     <div class="search">
-      <input type="text" ng-model="foodfav" placeholder="Search for a restaurant">
+      <input type="text" ng-model="newFavorite" placeholder="Search for a restaurant">
       <button ng-click="addFavorite()">Add Favorite Food</button>
     </div>
     <div id="restaurantContainer">
-        <table>
-            <tbody>
-               <tr ng-repeat="f in favorites" class="friend">
-                  <td class="pad">
-                     <h4><a href="{{f.website}}"> {{f.name}}</a></h4>
-                  </td>
-               </tr>
-            </tbody>
-         </table>
+      <table>
+        <tbody>
+          <tr ng-repeat="f in favorites" class="friend">
+            <td class="pad">
+              <h4><a href="{{f.website}}"> {{f.name}}</a></h4>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

@@ -37,20 +37,18 @@
 
     <!-- Add your site or application content here -->
     <nav ng-controller="baseController" ng-show="userLogin == true">
-      <h3>LunchBox</h3>
       <div id="links">
+        <h3>LunchBox</h3>
          <a href="#/" class="navBtn" id="homeLink">Home</a>
          <a ng-href="#/profile" class="navBtn" id="profileLink">Profile</a>
-         <a ng-href="#/contact" class="navBtn" id="contactLink">Contact</a>
          <a ng-href="#/login">Log Out</a>
       </div>
     </nav>
 
    <div class="container">
-      <div ng-view="">
-
-      </div>
+      <div ng-view=""></div>
    </div>
+
    <script src="/bower_components/lodash/lodash.js"></script>
    <script src="/bower_components/jquery/dist/jquery.js"></script>
    <script src="/bower_components/angular/angular.js"></script>
@@ -88,7 +86,6 @@
       src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
       integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
       crossorigin="anonymous"></script>
-   <script src="scripts/controllers/contact.js"></script>
    <!-- endbuild -->
 </body>
 
