@@ -10,8 +10,8 @@
  * Controller of the lunchBoxApp
  */
 angular.module('lunchBoxApp')
-   .controller('ProfileCtrl', function($scope, $cookies, $http, commService, $rootScope, navbar) {
-      $(".navBtn").each((i, ele) => $(ele).css("color", "#578bff"))
+   .controller('ProfileCtrl', function ($scope, $cookies, $http, commService, $rootScope, navbar) {
+      $(".navBtn").each((i, ele) => $(ele).css("color", "#578bff"));
       $("#profileLink").css("color", "#82c600");
       var baseUrl = "http://localhost:3005/";
       $scope.foundPhoto = false;
@@ -23,27 +23,28 @@ angular.module('lunchBoxApp')
       $http.get("http://localhost:3005/getUser?name=" + curUserName)
          .then((resp) => {
             $scope.user = resp.data[0];
-            resp.data[0].profilePic == "" ? $scope.user.profilePic =
-               "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg" : null;
+            if (resp.data[0].profilePic === "") {
+               $scope.user.profilePic = "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg";
+            }
          });
 
       function getCurFriends() {
          $http.get("http://localhost:3005/getUser?name=" + curUserName)
             .then((resp) => {
                $scope.friends = resp.data[0].friends;
-               if (resp.data[0].profilePic == "") {
+               if (resp.data[0].profilePic === "") {
                   $scope.userImage = "https://image.freepik.com/free-icon/user-male-silhouette_318-55563.jpg";
                } else {
-                  $scope.userImage = resp.data[0].profilePic
+                  $scope.userImage = resp.data[0].profilePic;
                   $scope.foundPhoto = true;
                }
             });
       }
 
       var bigObj = {};
-      $http.get("http://localhost:3005/allUsers").then(function(resp) {
+      $http.get("http://localhost:3005/allUsers").then(function (resp) {
          var lunchBoxUsers = [];
-         resp.data.forEach(function(ele) {
+         resp.data.forEach(function (ele) {
             bigObj[ele.fullName] = ele.username;
             lunchBoxUsers.push(ele.fullName);
          });
@@ -52,7 +53,7 @@ angular.module('lunchBoxApp')
          });
       }); // for the autocomplete feature
 
-      $scope.addFriend = function() {
+      $scope.addFriend = function () {
          $http.get(baseUrl + "getUser?name=" + bigObj[$scope.friendSearch])
             .then((resp) => {
                $http.put(baseUrl + "addFriend", {
@@ -62,7 +63,7 @@ angular.module('lunchBoxApp')
                      username: resp.data[0].username,
                      email: resp.data[0].email
                   }
-               }).then(function(resp) {
+               }).then(function (resp) {
                   getCurFriends();
                   $scope.friendSearch = "";
                });
@@ -71,10 +72,9 @@ angular.module('lunchBoxApp')
       getCurFriends();
 
 
-      $scope.getImage = function() {
-         $scope.githubUsername;
+      $scope.getImage = function () {
          var githubApi = "https://api.github.com/users/";
-         $http.get(githubApi + $scope.githubUsername).then(function(result) {
+         $http.get(githubApi + $scope.githubUsername).then(function (result) {
             var data = result.data;
             if (result.data !== undefined) {
                $scope.userImage = data.avatar_url;
@@ -83,7 +83,7 @@ angular.module('lunchBoxApp')
             $http.put("http://localhost:3005/photo", {
                userName: curUserName[0],
                picture: data.avatar_url
-            }).then((resp) => console.log(resp))
+            }).then((resp) => console.log(resp));
          });
       };
 
@@ -91,12 +91,12 @@ angular.module('lunchBoxApp')
          $http.get("http://localhost:3005/getUser?name=" + curUserName)
             .then((response) => {
                $scope.favorites = response.data[0].favorites;
-            })
+            });
       }
       bigObj = {};
-      $http.get("http://localhost:3005/allUsers").then(function(resp) {
+      $http.get("http://localhost:3005/allUsers").then(function (resp) {
          var lunchBoxUsers = [];
-         resp.data.forEach(function(ele) {
+         resp.data.forEach(function (ele) {
             bigObj[ele.fullName] = ele.username;
             lunchBoxUsers.push(ele.fullName);
          });
@@ -104,7 +104,7 @@ angular.module('lunchBoxApp')
             source: lunchBoxUsers
          });
       }); // for the autocomplete feature
-      $scope.addFriend = function() {
+      $scope.addFriend = function () {
          $http.get("http://localhost:3005/getUser?name=" + bigObj[$scope.friendSearch])
             .then((resp) => {
                $http.put("http://localhost:3005/addFriend", {
@@ -114,20 +114,20 @@ angular.module('lunchBoxApp')
                      username: resp.data[0].username,
                      email: resp.data[0].email
                   }
-               }).then(function(resp) {
+               }).then(function (resp) {
                   getCurFriends();
                   $scope.friendSearch = "";
                });
             });
       };
 
-      $scope.addFavorite = function() {
+      $scope.addFavorite = function () {
          $http.put("http://localhost:3005/addFavorite", {
             name: $cookies.getObject("user").userName,
             place: {
                name: $scope.foodfav
             }
-         }).then(function(resp) {
+         }).then(function (resp) {
             getFoodFaves();
             $scope.foodfav = "";
          });

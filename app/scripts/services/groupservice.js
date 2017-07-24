@@ -11,8 +11,6 @@ angular.module('lunchBoxApp')
    .service('groupService', function() {
       var self = this;
       self.groupDetails = function(group) {
-         console.log(group)
-         console.log(group.restaurant)
          var peopleGoing = group.peopleGoing.toString();
          var bonusInfo = {
             user: group.fullName,
