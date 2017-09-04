@@ -1,0 +1,109 @@
+@import "../../variables/colors";
+@import "../../variables/fonts";
+@import "../../variables/breakpoints";
+
+#peopleList {
+   //explination for @supports found in main.scss
+   @supports not (display: grid) {
+      width: 40vw;
+      float: right;
+   }
+
+   @include greater-than($tablet) {
+      grid-area: events;
+   }
+   #officeSwitcher {
+      div {
+         display: flex;
+         justify-content: space-around;
+         align-items: center;
+         width: 100%;
+         padding: 5px 0;
+         background: $primary;
+         input {
+            font-size: 1em;
+            background: $secondary;
+            border: none;
+            color: white;
+            padding: 3px;
+            border-radius: 4px;
+         }
+      }
+   }
+   #scrollContainer {
+      @include greater-than($tablet) {
+         max-height: calc(100vh - 140px);
+         overflow-y: scroll;
+      }
+      @include less-than($small) {padding: 0 10px;}
+      .event {
+         @include greater-than($mobile) {
+            margin: 10px auto;
+            border: 1px solid darken($primary-light, 15%);
+            width: 95%;
+         }
+         @include less-than($mobile) {
+            border-bottom: 1px solid darken($primary-light, 35%);
+         }
+         display: grid;
+         grid-gap: 10px;
+         grid-template-columns: auto 50px;
+         background-color: $primary-light;
+         max-width: 500px;
+         .eventInfo {
+            padding: 10px;
+            .imgContainer {
+               border-radius: 50%;
+               width: 70px;
+               height: 70px;
+               margin-right: 10px;
+               margin-bottom: 5px;
+               border: 1px solid $shadow;
+               overflow: hidden;
+               display: flex;
+               justify-content: center;
+               .profilePicture {
+                  height: 100%;
+               }
+            }
+            .locationNamePhoto {
+               @include flex($horizontal-center: false);
+            }
+            .other {
+               display: grid;
+               grid-template-columns: 90px 90px 40px;
+               button {
+                  margin: auto;
+               }
+               img {
+                  height: 20px;
+                  width: 20px;
+                  margin: 0 10px;
+               }
+            }
+            .other>div {
+               @include flex($horizontal-center: false);
+            }
+            .locationNamePhoto {
+               h3, h4 {
+                  text-align: left;
+               }
+               h3 {
+                  font-size: 1.2em;
+                  background: none;
+               }
+               h4 {
+                  @include font-style($size: 1em, $color: lighten($primary-text, 30%));
+               }
+            }
+            i {padding: 0 10px;}
+         }
+         .moreInfoButton {
+            @include flex();
+            @include font-style($size: 5em, $color: white, $weight: 100);
+            @include background-hover($secondary, $secondary-dark, 0.4s);
+            cursor: pointer;
+         }
+      }
+   }
+}

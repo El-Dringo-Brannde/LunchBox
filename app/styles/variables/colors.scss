@@ -29,19 +29,42 @@ $cdk-black:             black;
 $cdk-white:             white;
 
 //google material design theme
-//$primary: #43a047;
+//$primary:       #43a047;
 //$primary-light: #76d275;
-//$primary-dark: #00701a;
+//$primary-dark:  #00701a;
 
-$primary:       #e2e2e2;
-$primary-light: #efefef;
-$primary-dark:  #bebebe;
 
-$secondary: #37474f;
-$secondary-light: #62727b;
-$secondary-dark: #102027;
+$primary:             #e2e2e2;
+$primary-light:       #efefef;
+$primary-dark:        #bebebe;
+$primary-text:        black;
+$primary-text-light:  #535353;
+
+//$secondary:           #82c600;
+$secondary:           #38ce44;
+$secondary-light:     lighten($secondary, 15%);
+$secondary-dark:      darken($secondary, 15%);
+$secondary-text:      white;
+$secondary-text-light:white;
+$secondary-text-dark: black;
 
 $link-blue: #578bff;
 
-$primary-text: black;
-$secondary-text: white;
+
+//Below is the ability to change the color theme of the whole site based on a base color
+//based off that color, the site should recalculate to get colors in the color wheel that go well
+//with the base value
+
+//$base-hue: 120;
+//$base-saturation: 30%;
+//$base-lightness: 80%;
+//
+//$primary:       hsl($base-hue, $base-saturation, $base-lightness);
+//$primary-light: lighten($primary, 5%);
+//$primary-dark:  darken($primary, 15%);
+//
+//$primary-text:  hsl($base-hue, $base-saturation, 100%);
+//
+//$secondary:       hsl($base-hue - 20%, $base-saturation, $base-lightness);
+//$secondary-light: lighten($secondary, 5%);
+//$secondary-dark:  lighten($secondary, 15%);

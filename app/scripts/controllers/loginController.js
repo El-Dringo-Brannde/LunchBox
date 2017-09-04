@@ -4,13 +4,14 @@
 
 /**
  * @ngdoc function
- * @name lunchBoxApp.controller:AboutCtrl
+ * @name lunchBoxApp.controller:loginController
  * @description
- * # AboutCtrl
- * Controller of the lunchBoxApp
+ * # loginController
+ * Controller for the login page of lunchBox
  */
 angular.module('lunchBoxApp')
-   .controller('loginController', function ($scope, $http, $cookies, $window, commService, $rootScope) {
+   .controller('loginController', function($scope, $http, $cookies, $window,
+      commService, $rootScope, httpService, $location) {
       $scope.loginName = "";
       $scope.currentUser = "";
       $scope.userLogin = false;
@@ -19,52 +20,66 @@ angular.module('lunchBoxApp')
       function setCommService(curUser, userAccName) {
          commService.set({
             name: curUser,
-            userName: userAccName,
+            username: userAccName,
             showNav: true
          });
       }
 
-      function createOrLoginUser(idx, cur) {
-         var cleanName = cur.user[idx].cn.split(",");
+      //When lighthouse gets more photos for users, this is the base URL to use
+      //  "http://lighthouse.cdk.com/images/"
+
+      function createOrLoginUser(user) {
+
+         var cleanName = user.cn.split(",");
          cleanName = cleanName[1].trim() + " " + cleanName[0];
-         $scope.currentUser = cur.user[idx].cn;
+
+         $scope.currentUser = user.cn;
+
          $cookies.putObject("user", {
             full: cleanName,
-            userName: cur.user[idx].sAMAccountName
+            username: user.sAMAccountName,
+            mail: user.mail,
+            officeLoc: user.l
          });
-         setCommService($scope.currentUser, cur.user[idx].sAMAccountName);
-         $http.post("http://localhost:3005/addUser", {
-               username: cur.user[idx].sAMAccountName,
-               full: cleanName,
-               mail: cur.user[idx].mail,
-               location: cur.user[idx].l
-            })
-            .then(function (succ) {
-               $window.location.href = '/#/';
-            }, function (err) {
-               alert(err);
-            });
+
+         setCommService($scope.currentUser, user.sAMAccountName);
+
+         httpService.postUser({
+            username: user.sAMAccountName,
+            full: cleanName,
+            mail: user.mail,
+            location: user.l,
+            profilePic: ""
+         }).then(function() {
+            $location.path("/");
+         }, function(err) {
+            alert("there was a problem posting your info to the database");
+         });
       }
 
-      $scope.signIn = function () {
-         if ($scope.loginName.length == 0) {
-            alert("Invalid Username");
-         } else {
-            $http.get('http://ffg.cdk.com:4000/find/user/' + $scope.loginName).then(function success(response) {
-               if (response.data.user.length == 0) {
-                  alert('invalid username');
-               } else if (response.data.user.length > 1) {
-                  for (var i = 0; i < response.data.user.length; i++) {
-                     if (response.data.user[i].sAMAccountName == $scope.loginName) {
-                        createOrLoginUser(i, response.data);
-                     }
+      $scope.signIn = function() {
+         if ($scope.loginName) {
+            //check to see if the user exists
+            $http.get('http://ffg.cdk.com:4000/find/user/' + $scope.loginName)
+               .then(function success(response) {
+                  //if more than one user is returned
+                  if (response.data.user.length > 1) {
+                     //for each user returned
+                     response.data.user.forEach(function(user) {
+                        //if their names match
+                        if (user.sAMAccountName === $scope.loginName) {
+                           createOrLoginUser(user);
+                        }
+                     });
+                     //if the response has a single user in it
+                  } else if (response.data.user.length === 1) {
+                     createOrLoginUser(response.data.user[0]);
+                  } else {
+                     alert('Sorry, that username does not exist in the database');
                   }
-               } else {
-                  createOrLoginUser(0, response.data);
-               }
-            });
+               });
+         } else {
+            alert("Invalid username");
          }
       };
-
-
    });

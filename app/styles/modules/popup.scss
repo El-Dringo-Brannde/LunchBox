@@ -1,0 +1,56 @@
+@import "../variables/colors";
+@mixin popup() {
+   #formContainer {
+      #exitButton {
+         position: absolute;
+         top: 0;
+         right: 0;
+      }
+      position: absolute;
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.5);
+      top: -100%;
+      left: 0;
+      transition: top 0.5s ease-in-out;
+      justify-content: center;
+      align-items: center;
+      #formSubmission {
+         position: relative;
+         background: $primary;
+         border-radius: 10px;
+         width: 100vw;
+         max-width: 500px;
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         padding: 20px;
+         input,
+         textarea,
+         div {
+            width: 100%;
+            margin: 5px 20px;
+            font-size: 1em;
+         }
+         div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+         }
+         textarea {
+            min-height: 80px;
+         }
+         p {
+            width: 100%;
+            text-align: center;
+            padding: 15px 0;
+         }
+      }
+      &.show {
+         top: 0;
+         transition: top 0.5s ease-in-out;
+      }
+      @content;
+   }
+}
