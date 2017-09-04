@@ -2,15 +2,13 @@
 @import "variables/fonts";
 @import "variables/breakpoints";
 #login {
-   
    @import "modules/buttons";
    button {
       margin: 20px auto 0 auto;
    }
-   
    font-family: $lato;
    #loginContainer {
-      background: url(../images/ppl-eating.jpg) no-repeat center center fixed;
+      background: url("http://i.imgur.com/Y9nKFtc.jpg") no-repeat center center fixed;
       background-size: cover;
       height: 75vh;
       display: flex;
@@ -45,7 +43,9 @@
       }
    }
    #aboutContainer {
-      h2,h3,h4 {
+      h2,
+      h3,
+      h4 {
          color: #585858;
       }
       h2 {
@@ -62,26 +62,51 @@
          p {
             line-height: 1.3;
          }
-      }
-      .about {
-         &>div {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            @media screen and (max-width: $small) {
-               grid-template-columns: 1fr;
+      } //CSS rules for IE
+      //axplination of @supports is in main.scss
+      @supports not (display: grid) {
+         @include greater-than($tablet) {
+            .about .paragraph {
+               width: 50vw;
+            }
+            .about,
+            .features {
+               .subcategories {
+                  display: flex;
+               }
             }
          }
+         @include between($tablet,
+         $laptop) {
+            .features .subcategories {
+               flex-wrap: wrap;
+               justify-content: center;
+               .paragraph {
+                  width: 45vw;
+               }
+            }
+         }
+         @include greater-than($laptop) {
+            .features .paragraph {
+               width: 25vw;
+            }
+         }
+      } //CSS rules for all modern browsers
+      .about .subcategories {
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         @include less-than($tablet) {
+            grid-template-columns: 1fr;
+         }
       }
-      .features {
-         &>div {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            @media screen and (max-width: $large) {
-               grid-template-columns: repeat(2, 1fr);
-            }
-            @media screen and (max-width: $small) {
-               grid-template-columns: 1fr;
-            }
+      .features .subcategories {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         @include greater-than($tablet) {
+            grid-template-columns: repeat(2, 1fr);
+         }
+         @include less-than($tablet) {
+            grid-template-columns: 1fr;
          }
       }
       .hackathon {

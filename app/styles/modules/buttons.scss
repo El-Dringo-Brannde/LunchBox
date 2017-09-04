@@ -1,15 +1,11 @@
 @import "../variables/colors";
+@import "../variables/fonts";
 button {
-   background: $cdk-green;
-   color: white;
-   font-size: 1em;
+   @include font-style($color: $secondary-text, $size: 1em);
+   @include background-hover($secondary, $secondary-light, 0.5s);
    border: none;
    padding: 8px 15px;
    border-radius: 5px;
-   transition: background .3s;
    cursor: pointer;
    outline: none;
-   &:hover {
-      background: $cdk-green-highlight;
-   }
 }

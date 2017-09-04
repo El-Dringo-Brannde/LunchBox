@@ -10,7 +10,6 @@
  */
 angular
    .module('lunchBoxApp', [
-      'ngAnimate',
       'ngCookies',
       'ngResource',
       'ngRoute',
@@ -24,11 +23,6 @@ angular
             controller: 'MainCtrl',
             controllerAs: 'main'
          })
-         .when('/contact', {
-            templateUrl: 'views/contact.html',
-            controller: 'ContactCtrl',
-            controllerAs: 'contact'
-         })
          .when("/login", {
             templateUrl: 'views/login.html',
             controller: 'loginController',
@@ -40,7 +34,7 @@ angular
             controllerAs: 'profile'
          })
          .otherwise({
-            redirectTo: '/'
+            redirectTo: '/api/dm-cto-lunch-box-ui/v1/#/login'
          });
       $locationProvider.hashPrefix('');
    });

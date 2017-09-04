@@ -1,104 +1,161 @@
 @import "variables/colors";
 @import "variables/fonts";
 @import "variables/breakpoints";
+@import "modules/popup";
 #profile {
-  font-family: $lato;
-  padding: 10px;
-  max-width: 1000px;
-  margin: auto;
-  @media screen and (min-width: $medium) {
-    grid-template-columns: 1fr;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1vw;
-  }
-  img {
-    border-radius: 50%;
-  }
-  #aboutYou {
-    @import "modules/buttons";
-    @import "modules/input";
-    #profileSelect {
-      padding: 30px;
-    }
-    grid-column: span 2;
-    background: #ededed;
-    #aboutImg {
-      display: flex;
-      align-items: center;
-    }
-    h1 {
-      color: black;
-    }
-    img {
-      width: 140px;
-      margin: 10px;
-    }
-    input {
-      font-size: 1em;
-      color: black;
-    }
-  }
-  .search {
-    padding: 5px;
-    text-align: center;
-    background: $primary-dark;
-    padding: 10px;
-    input {
+   @import "modules/buttons";
+   @import "modules/input";
+   @include font-style();
+   input {
       width: 300px;
-      border: none;
-      background: none;
-      border-bottom: 1px solid $cdk-green;
-      font-size: 1em;
-    }
-  }
-  #friends,
-  #restaurants {
-    background: $primary;
-    h3 {
-      padding: 10px 0px;
-    }
-    h4 {
-      text-align: left;
-    }
-    h3 {
-      padding: 10px 0;
-    }
-  }
-  #friendsContainer {
-    table {
+   }
+   min-height: calc(100vh - 52px);
+   @include between($tablet, $desktop) {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 300px auto;
+      grid-template-areas: "nav left" "nav right";
+   }
+   @include greater-than($desktop) {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 300px 1fr 1fr;
+      grid-template-areas: "nav left right";
+   }
+   .module {
+      background: $primary;
+      @include less-than($tablet) {
+         margin: 10px 0;
+      }
+   }
+   #profileNavigation {
+      grid-area: nav;
+      padding: 10px;
+      h3 {
+         text-align: left;
+         padding: 15px 0;
+      }
+      p {
+         line-height: 1.6;
+         font-size: 1.05em;
+         cursor: pointer;
+         @include color-hover($link-blue, black, 0.4s);
+      }
+   }
+   #aboutYou {
+      //row start / column start / row end / column end
+      grid-area: auto / left / auto / right;
+      background: $primary;
+      text-align: center;
+      @include greater-than($desktop) {
+         margin: 10px auto;
+         width: 600px;
+      }
+      #profileSelect {
+         padding: 30px;
+      }
+      #aboutImg {
+         .imgContainer {
+            margin: 10px auto;
+            width: 140px;
+            height: 140px;
+            overflow: hidden;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            img {
+               height: 100%;
+            }
+         }
+      }
+      .defaultLocation {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         padding: 10px;
+      }
+      .event {
+         padding: 15px 10px;
+         p,
+         h4 {
+            line-height: 1.5;
+            text-align: center;
+         }
+      }
+   }
+   #friends {
+      grid-area: left;
+      #friendsContainer {
+         table {
+            width: 100%;
+         }
+         .friend {
+            td {
+               vertical-align: middle;
+            }
+            td:first-child {
+               width: 50px;
+            }
+            img {
+               width: 40px;
+               padding: 10px;
+               border-radius: 50%;
+            }
+            a {
+               @include color-hover($secondary, $secondary-light, 0.4s);
+            }
+         }
+      }
+   }
+   #notifications {
+      grid-area: left;
+   }
+   #requests {
+      grid-area: right;
+   }
+   #notifications,
+   #requests {
+      h3 {
+         padding: 10px 0;
+      }
+   }
+   #restaurants {
+      grid-area: right;
+      #restaurantContainer table {
+         width: 100%;
+      }
+   }
+   #friends,
+   #restaurants {
+      h3 {
+         padding: 10px 0px;
+      }
+      h4 {
+         text-align: left;
+      }
+      h3 {
+         padding: 10px 0;
+      }
+   }
+   .search {
+      padding: 5px;
+      text-align: center;
+      background: $primary-dark;
+      padding: 10px;
+   }
+   .pad td {
+      padding: 5px;
+   } //include the code to make the popup happen with some custom code
+   @include popup() {
       width: 100%;
-    }
-    .friend {
-      td {
-        vertical-align: middle;
+      input {
+         color: black;
       }
-      td:first-child {
-        width: 50px;
+      select {
+         height: 20px;
       }
-      img {
-        width: 40px;
-        padding: 10px;
-      }
-      a {
-        color: #0cad2b;
-        transition: 0.4s color;
-        &:hover {
-          transition: 0.4s color;
-          color: $cdk-green;
-        }
-      }
-    }
-  }
-  #restaurants {
-    margin: 10px 0;
-    #restaurantContainer {
-      .restaurant {
-        padding: 10px;
-      }
-    }
-  }
-  .pad {
-    padding: 21px;
-  }
+   }
+   .oddRows {
+      background-color: white;
+   }
 }

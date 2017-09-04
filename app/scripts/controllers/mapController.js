@@ -1,145 +1,212 @@
-/*global google, map*/
+/*global $*/
+'use strict';
+/*global google*/
 
 angular.module('lunchBoxApp')
-   .controller('mapController', function($scope, $rootScope, $window) {
-      'use strict';
+   .controller('mapController', function($scope, $rootScope, mapService, $cookies) {
       var infowindow;
-      var myLocation;
+      var map;
       var service;
       var markers = [];
-      var restaurant = {
-         name: "",
-         address: ""
-      };
-      var theStyle = [{
-         featureType: "poi",
-         elementType: "labels",
-         stylers: [{
-            visibility: "off"
-         }]
-      }];
-      myLocation = { // hardcoded Portland location
-         lat: 45.504023,
-         lng: -122.679433
-      };
-      // Adds a marker to the map and push to the array.
-      function addMarker(location) {
-         var marker = new google.maps.Marker({
-            position: location,
-            map: map
+      $scope.showMap = true;
+      var restaurant = {};
+      $scope.locationObject = mapService.officeLocation;
+
+
+      $rootScope.$on("mapChange", function(e, data) {
+         initMap(data);
+      });
+
+      /*
+      The data object takes a:
+         host: name of the host (string)
+         location: address (string)
+         reposition: if you want the map to move to that new location (boolean)
+      */
+      $rootScope.$on("dropPin", function(e, data) {
+         //throw the address into an object so we can query the locaiton ID from google
+         var request = {
+            location: map.getCenter(),
+            radius: '5000',
+            query: data.restaurant.address
+         };
+
+         //create a service that will look up our location ID
+         var service = new google.maps.places.PlacesService(map);
+
+         //search our request and run it through the function when its done
+         service.textSearch(request, function(locationDetails, status) {
+            //if the search was sucessfull
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+               //make a new marker
+               var marker = new google.maps.Marker({
+                  //put it on our map
+                  map: map,
+                  //extract our placeID and location
+                  place: {
+                     placeId: locationDetails[0].place_id,
+                     location: locationDetails[0].geometry.location
+                  }
+               });
+            }
+
+            if (data.reposition) {
+               map.setCenter(locationDetails[0].geometry.location);
+            }
+
+            //put the marker onto our marker array
+            markers.push(marker);
+
+            //when they click on the marker, show them a text box with who made the event
+            google.maps.event.addListener(marker, 'click', function() {
+               infowindow.setContent("Host: " + data.host.full +
+                  " <br/> Time: " + data.restaurant.time + " <br/> Place: " + data.restaurant.name);
+               infowindow.open(map, this);
+            });
          });
-         markers.push(marker);
-      }
+      });
 
+      /*
+      The location object needs either an adress or GPS coordinant
+         address: will get converted into a GPS coordinant
+         or
+         lattitude and longitude (you know what those are)
+      */
+      $rootScope.$on("moveMapCenter", function(e, location) {
+         if (location.lattitude && location.longitude) {
+            map.setCenter({
+               lat: location.lattitude,
+               lng: location.longitude
+            });
+         } else if (location.address) {
+            //throw the address into an object so we can query the locaiton ID from google
+            var request = {
+               location: map.getCenter(),
+               radius: '5000',
+               query: location.address
+            };
 
-      // Sets the map on all markers in the array.
-      function setMapOnAll(map, cur) {
-         for (var i = 0; i < markers.length; i++) {
-            if (markers[i] != cur && markers[i] != undefined)
-               markers[i].setMap(map);
+            //create a service that will look up our location ID
+            var service = new google.maps.places.PlacesService(map);
+
+            //search our request and run it through the function when its done
+            service.textSearch(request, function(locationDetails, status) {
+               //if the search was sucessfull
+               if (status == google.maps.places.PlacesServiceStatus.OK) {
+                  map.setCenter(locationDetails[0].geometry.location);
+               }
+            });
+         } else {
+            console.log("Improper arguments were supplied to the moveMapCenter function");
          }
-      }
-
-
-      // Removes the markers from the map, but keeps them in the array.
-      function clearMarkers(cur) {
-         setMapOnAll(null, cur);
-      }
+      });
 
       // Deletes all markers in the array by removing references to them.
       function deleteMarkers(cur) {
-         clearMarkers(cur);
+         // clearMarkers(cur);
+         for (var i = 0; i < markers.length; i++) {
+            if (markers[i] != cur && markers[i] != undefined) {
+               markers[i].setMap(null);
+            }
+         }
          markers = [];
-         markers.push(cur)
+         markers.push(cur);
       }
 
-      function createMarker(place) {
-         var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location
-         });
-         markers.push(marker)
-
-         // add listeners to the click events to send to another controller
-         google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(place.name);
-            infowindow.open(map, this);
-            restaurant.name = place.name;
-            restaurant.address = place.vicinity;
-            restaurant.website = place.website;
-            restaurant.phone = place.international_phone_number;
-            restaurant.rating = place.rating;
-            restaurant.yelp = place.international_phone_number
-            $rootScope.$emit("mapLocationClick", restaurant);
-         });
-      }
-
-
-      function initMap() {
-         $window.map = new google.maps.Map(document.getElementById('map'), {
-            center: myLocation,
-            scrollwheel: false,
-            zoom: 14
-         });
-         $window.map.set('styles', theStyle);
-         // Create the search box and link it to the UI element.
-         var input = document.getElementById('pac-input');
-         $window.map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-         var searchBox = new google.maps.places.SearchBox(input);
-         infowindow = new google.maps.InfoWindow();
-         service = new google.maps.places.PlacesService(map);
-         service.nearbySearch({
-            location: myLocation,
-            radius: 5000,
-            type: 'restaurant'
-         }, function(results, status) {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-               for (var i = 0; i < results.length; i++) {
-                  service.getDetails(results[i], function(res) {
-                     createMarker(res);
-                  });
-               }
-            }
-         });
-
-
-         google.maps.event.addListener(searchBox, 'places_changed', function() {
-            var places = searchBox.getPlaces();
-            deleteMarkers(null);
-            markers.forEach(function(marker) {
-               if (marker != undefined)
-                  marker.setMap(null);
+      //update markers based on new location
+      //accepts a marker object
+      function createMarker(locationDetails) {
+         //if the location details are not null
+         if (locationDetails) {
+            //make a new marker
+            var marker = new google.maps.Marker({
+               map: map,
+               position: locationDetails.geometry.location
             });
+            //push it to the marker list
+            markers.push(marker);
+            // add listeners to the click events to send to another controller
+            google.maps.event.addListener(marker, 'click', function() {
+               infowindow.setContent(locationDetails.name);
+               infowindow.open(map, this);
+               restaurant.name = locationDetails.name;
+               restaurant.address = locationDetails.vicinity;
+               restaurant.website = locationDetails.website;
+               restaurant.phone = locationDetails.international_phone_number;
+               restaurant.rating = locationDetails.rating;
+               restaurant.yelp = locationDetails.international_phone_number;
+               $rootScope.$emit("mapLocationClick", restaurant);
+            });
+         } else {
+            console.log("the location details to createMarker() in mapController were falsey");
+         }
+      }
 
-            markers = [];
+      //when someone searches for a new location, it places a marker with listeners on it
+      function addListeners(which) {
+         //add a listner to each pin
+         google.maps.event.addListener(which, 'places_changed', function() {
+            //get the places that came from the search box
+            var places = which.getPlaces();
+            deleteMarkers(null);
+            if (places) {
+               var bounds = new google.maps.LatLngBounds();
+               var marker;
+               places.forEach(function(place) {
+                  createMarker(place);
 
-            if (places.length == 0)
-               return;
-
-            for (var i = 0, marker; marker = markers[i]; i++)
-               marker.setMap(null);
-
-
-            // For each place, get the icon, place name, and location.
-            var bounds = new google.maps.LatLngBounds();
-            for (var i = 0, place; place = places[i]; i++) {
-               var image = {
-                  url: place.icon,
-                  size: new google.maps.Size(71, 71),
-                  origin: new google.maps.Point(0, 0),
-                  anchor: new google.maps.Point(17, 34),
-                  scaledSize: new google.maps.Size(25, 25)
-               };
-               createMarker(place);
-               markers.push(marker);
-
-               if (place.geometry.viewport)
-                  bounds.union(place.geometry.viewport);
-               else
-                  bounds.extend(place.geometry.location);
+                  if (place.geometry.viewport) {
+                     bounds.union(place.geometry.viewport);
+                  } else {
+                     bounds.extend(place.geometry.location);
+                  }
+                  map.setZoom(13);
+               });
+               map.fitBounds(bounds);
             }
-            $window.map.fitBounds(bounds);
          });
       }
-      initMap()
+
+      //initialize maps
+      function initMap(location) {
+         map = new google.maps.Map(document.getElementById('map'), {
+            center: location,
+            scrollwheel: true,
+            zoom: 16,
+            mapTypeControl: false
+         });
+
+         // Create the search box and link it to the UI element.
+         $("#pac-input").remove();
+         var input = document.createElement('input');
+
+         $(input).attr({
+            id: "pac-input",
+            class: "controls",
+            placeholder: "Search for a place to go"
+         });
+         map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+         var searchBox = new google.maps.places.SearchBox(input);
+
+         infowindow = new google.maps.InfoWindow();
+         var bounds = new google.maps.LatLngBounds();
+         var cityCircle = new google.maps.Circle({
+            strokeOpacity: 0.0,
+            fillOpacity: 0.0,
+            map: map,
+            center: location,
+            radius: 3000
+         }); // create radius around current center to refine results
+         markers.push(cityCircle);
+         searchBox.setBounds(bounds.union(cityCircle.getBounds()));
+         deleteMarkers();
+         service = new google.maps.places.PlacesService(map);
+         addListeners(searchBox);
+      }
+
+      var initLoc = mapService.officeLocation[$cookies.getObject("user").officeLoc];
+      if (initLoc === undefined) {
+         initLoc = mapService.officeLocation.Portland;
+      }
+      initMap(initLoc);
    });

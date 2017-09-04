@@ -1,195 +1,92 @@
+//variables
 @import "variables/colors";
 @import "variables/fonts";
-@import "modules/toggleSelector";
 @import "variables/breakpoints";
+@import "modules/popup";
 html,
 body {
    overflow-x: hidden;
 }
 
 #home {
+   //set the font style of the home page to Lato by default
    @import "modules/buttons";
-   font-family: $lato;
+   @include font-style();
    .content {
-      display: grid;
-      width: 90vw;
-      min-height: 85vh;
-      grid-gap: 10px;
-      margin: auto;
-      h3 {
-         padding: 5px;
+      min-height: calc(100vh - 52px); //center the content horizontally
+      //when the screen is greater than the width of a tablet
+      margin: auto; //if the browser does not support grid (it is IE), use some old school
+      //code to style the page (IE doesn't even support the @supports tag, so
+      //this is actually meant to keep new browsers from running old code)
+      @supports not (display: grid) {
+         #map {
+            min-height: 50vh;
+            float: left;
+            width: 400px;
+         }
+      }
+      @include greater-than($tablet) {
+         display: grid;
+      }
+      @include between($tablet, $desktop) {
+         grid-gap: 10px;
+         grid-template-columns: 400px auto;
+         grid-template-rows: auto 1fr;
+         grid-template-areas: "events map map" "events info info";
+      }
+      @include greater-than($desktop) {
+         grid-template-columns: 400px auto 400px;
+         grid-template-areas: "events map info" "events map info";
+      }
+      .module {
          background: $primary-light;
       }
-      #peopleList {
-         background: $primary;
-         max-height: 90vh;
-         overflow-y: scroll;
-         .event {
-            margin: 15px 10px;
-            display: grid;
-            grid-gap: 10px;
-            background: #f2f2f2;
-            grid-template-columns: auto 120px 40px;
-            #left {
-               padding: 10px;
-               img {
-                  border-radius: 50%;
-                  width: 70px;
-               }
-               .person,
-               .location,
-               .location>div,
-               .other {
-                  display: flex;
-                  align-items: center;
-                  padding: 3px 0;
-               }
-               .location {
-                  justify-content: space-between;
-               }
-               .other {
-                  justify-content: space-between;
-                  max-width: 150px;
-               }
-               .other>div {
-                  display: flex;
-                  align-items: center;
-               }
-               i {
-                  padding: 0 10px;
-               }
-               .active {
-                  color: gold;
-               }
-            }
-            #middle {
-               display: flex;
-               align-items: center;
-            }
-            #right {
-               background: $cdk-green;
-               display: flex;
-               justify-content: center;
-               align-items: center;
-               font-size: 5em;
-               font-weight: 100;
-               transition: 0.4s background ease;
-               cursor: pointer;
-               color: white;
-               &:hover {
-                  transition: 0.4s background ease;
-                  background: $cdk-green-highlight;
-               }
-            }
-         }
-      }
-   }
-   #moreInfo {
-      background: $primary;
-      .form {
-         margin: 15px;
-         font-size: 1.3em;
-         table {
-            width: 100%;
-         }
-         label {
-            color: #6c6c6c;
-         }
-         input {
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid $cdk-green;
-            background: none;
-            font-size: 0.9em;
-            outline: none;
-            margin: 10px 0 5px 0;
-         }
-         .inputLabel {
-            top: -28px;
-            transition: top 0.4s, font 0.4s, color 0.4s;
-            position: relative;
-            font-size: 0.8em;
-            color: #838383;
-         }
-         .is-active,
-         .is-completed {
-            transition: top 0.4s, font 0.4s, color 0.4s;
-            top: -10px;
-            font-size: 0.6em;
-            color: #acacac;
-         }
-      }
-      #error {
-         color: red;
-      }
-      #success {
-         color: green;
-      }
-      .center {
-         text-align: center;
-      }
-      .switch {
-         margin: 20px 0;
-      }
-      #pinInfo {
+      h3 {
+         padding: 5px 0;
          width: 100%;
-         td {
-            width: 33%;
-         }
-         text-align: center;
-         margin: 0 0 30px 0;
+         background: $primary;
       }
-      .eventDetails {
-         button {
-            float: left;
+      select {
+         @include font-style($size: 1.1em, $color: white);
+         outline: none;
+         border: none;
+         background: $secondary;
+         padding: 10px;
+      } //bring in the code for the list of events
+      @import "components/main/eventList"; //bring in the code for the more info section
+      @import "components/main/moreInfo";
+      #map {
+         @include between($tablet, $desktop) {
+            min-height: 400px;
+            height: 50vh;
+         }
+         @include greater-than($tablet) {
+            grid-area: map;
+         }
+         @include greater-than($desktop) {
+            margin: 15px;
+         }
+         @include less-than($tablet) {
+            min-height: 60vh;
+         } //modify the view of the google map search bar
+         #pac-input {
+            width: 50%;
+            margin-top: 30px;
+            border-radius: 10px;
             border-radius: 0;
-            box-shadow: 0px 0px 0px;
-            margin: 0;
-            line-height: 1.1;
-            padding: 0 10px;
-            transition: 0.3s background;
-            &:hover {
-               transition: 0.3s background;
-               background: $cdk-green-highlight;
-            }
-         }
-         .moreInfoTable {
-            margin: 30px auto;
-            font-size: 1.2em;
-            tr {
-               td {
-                  padding: 5px 10px;
-               }
-            }
+            line-height: 2.2;
+            font-size: 1.3em;
          }
       }
-   }
-   #map {
-      overflow: hidden;
-      min-height: 50vh;
-      background: $secondary-dark;
-   }
-}
-
-@media screen and (min-width: $medium) {
-   #home {
-      .content {
-         grid-template-columns: 500px auto;
-         #peopleList {
-            grid-row: span 2;
-         }
+      .progressMeter {
+         font-size: 0.8em;
+         color: $shadow;
+      }
+      .flexCenter {
+         display: flex;
+         justify-content: center;
+         align-content: center;
       }
    }
-}
-
-.controls {
-   width: 50%;
-   margin-top: 10px;
-   border-radius: 10px;
-}
-
-#pac-input {
-   top: 10px !important;
-   border-radius: 0;
-   line-height: 2.2;
+   @include popup();
 }
